@@ -14,17 +14,11 @@ namespace Apollo.Web
     {
         public static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                            .AddCommandLine(args)
-                            .Build();
-            CreateWebHostBuilder(args, config).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args, IConfigurationRoot configuration) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseConfiguration(configuration)
-                .UseUrls(args[1]);
-                
+                .UseStartup<Startup>();
     }
 }
