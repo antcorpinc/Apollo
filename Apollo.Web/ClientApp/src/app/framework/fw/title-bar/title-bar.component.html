@@ -1,4 +1,16 @@
-<div class="title-bar user-title-bar">
+<!--For Small Screens-->
+<div *ngIf="screenService.isBelowLarge()" class="title-bar-small">
+    <!-- <span class="glyphicon glyphicon-menu-hamburger"></span> -->
+    <mat-icon>menu</mat-icon>
+    <div class="small-image-holder">
+        <img class="small-image" src="assets/Apollo-Logo.png">
+    </div>
+    <!-- <span class="glyphicon glyphicon-option-vertical"></span> -->
+    <mat-icon>reorder</mat-icon>
+</div>
+
+<!--For Large Screens-->
+<div *ngIf="screenService.isLarge()" class="title-bar user-title-bar">
   <img src="assets/Apollo-Logo.png" alt="Apollo Logo">
   <div class="menu-area" >
     <!-- Top Bar-->
