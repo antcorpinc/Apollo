@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FrameworkConfigDataService } from './common/shared/services/framework-config-data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor(private frameworkConfigDataService: FrameworkConfigDataService) {
+    this.initialize();
+  }
+
+  initialize() {
+    // Initialize the framework settings
+    this.frameworkConfigDataService.configure();
+    // Initialize the User Profile
+  }
 }
