@@ -41,6 +41,12 @@ export let initialMenuItems: Array<IMenuItem> = [
     submenu: null
   },
   {
+    text: 'Testing',
+    icon: 'fa fa-pencil',
+    route: 'test',
+    submenu: null
+  },
+  /* {
     text: 'Contract Management',
     icon: 'fa fa-pencil',
     route: null,
@@ -107,5 +113,5 @@ export let initialMenuItems: Array<IMenuItem> = [
     icon: 'fa fa-file-text-o',
     route: null,
     submenu: null
-  }
+  } */
 ];
