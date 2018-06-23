@@ -6,13 +6,15 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { StatusBarComponent } from './status-bar/status-bar.component';
 import { MaterialModule } from '../../common/material/material.module';
+import { MenuComponent } from './menus/menu/menu.component';
+import { MenuItemComponent } from './menus/menu-item/menu-item.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule
   ],
-  declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent, TopBarComponent, StatusBarComponent],
+  declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent, TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent],
   exports: [
     FrameworkBodyComponent
   ]
