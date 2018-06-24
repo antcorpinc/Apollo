@@ -3,9 +3,23 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-grow: 1;
+
+
+
+  /* margin-left: 16px;
+  width: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 15px;
+  color: #666;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%; */
 }
 
-:host(.vertical-menu) {
+/* :host(.vertical-menu) {
   display: inline-block;
   width: 200px;
   padding-left: 4px;
@@ -22,12 +36,13 @@ ul {
 
 li {
   display: inline;
-}
+} */
 
 button {
-  margin-top: 20px;
-}
-button.horizontal {
-  margin-left: 20px;
-  margin-bottom: 2px;
+/*  color: #666;
+  font-size: 15px;
+  line-height: 15px;
+
+  width: auto
+  color: #333; */
 }

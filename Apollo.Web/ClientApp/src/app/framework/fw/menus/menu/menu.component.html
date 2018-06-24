@@ -1,8 +1,25 @@
-<nav>
+<!-- <nav>
   <ul>
     <li *ngFor="let item of menuService.items">
       <fw-menu-item [item]="item">
       </fw-menu-item>
      </li>
   </ul>
-</nav>
+</nav> -->
+
+
+<div >
+
+    <span *ngFor="let item of menuService.items">
+      <!-- Handle branch node buttons here -->
+      <!-- Leaf node buttons here -->
+      <span *ngIf="!item.submenu || item.submenu.length === 0">
+         <button mat-button color="primary">
+        <!--    <button mat-button color="#666"> -->
+          {{item.text}}
+        </button>
+      </span>
+    </span>
+
+</div>
+

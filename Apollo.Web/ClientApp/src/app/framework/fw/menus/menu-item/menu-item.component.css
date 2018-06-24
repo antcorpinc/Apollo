@@ -13,11 +13,13 @@
   width: 100%;
 }
 
-:host:not(.parent-is-popup) {
+ /* The below is needed to activate the above inline-block display*/
+ :host:not(.parent-is-popup) {
   margin-left: 16px;
   width: auto;
 }
 
+/*
 :host(.vertical-menu) {
   display: block;
   margin-left: 0;
@@ -29,7 +31,7 @@
 :host(.vertical-menu.in-popup) {
   padding-left: 16px;
 }
-
+ */
 span {
   pointer-events: none;
 }
