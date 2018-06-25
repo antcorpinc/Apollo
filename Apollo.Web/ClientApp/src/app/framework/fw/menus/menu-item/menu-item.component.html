@@ -1,23 +1,18 @@
-<!-- <div class="menu-item" >
-  <span class="glyphicon {{ item.icon }}"></span>
-  <span>{{ item.text.toUpperCase() }}</span>
-</div>
- -->
-
-<!--  <mat-menu #childMenu="matMenu" [overlapTrigger]="false">
-
-
-    <span >
-      <button mat-menu-item >
-        <span class="glyphicon {{ item.icon }}"></span>
-        <span>{{item.text.toUpperCase()}}</span>
-      </button>
-    </span>
-
-</mat-menu> -->
-
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button  mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+    <span *ngFor="let child of items">
+        <!-- Handle branch node menu items -->
+        <span *ngIf="child.submenu && child.submenu.length > 0">
+          <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+            <span>{{child.text}}</span>
+          </button>
+          <fw-menu-item #menu [items]="child.submenu"></fw-menu-item>
+        </span>
+        <!-- Handle leaf node menu items -->
+        <span *ngIf="!child.submenu || child.submenu.length === 0">
+          <button mat-menu-item >
+             <span>{{child.text}}</span>
+          </button>
+        </span>
+      </span>
 </mat-menu>
+

@@ -1,4 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FrameworkBodyComponent } from './framework-body/framework-body.component';
 import { ContentComponent } from './content/content.component';
@@ -8,13 +9,17 @@ import { StatusBarComponent } from './status-bar/status-bar.component';
 import { MaterialModule } from '../../common/material/material.module';
 import { MenuComponent } from './menus/menu/menu.component';
 import { MenuItemComponent } from './menus/menu-item/menu-item.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule,
+    ReactiveFormsModule
   ],
-  declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent, TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent],
+  declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent,
+    TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent],
   exports: [
     FrameworkBodyComponent
   ]

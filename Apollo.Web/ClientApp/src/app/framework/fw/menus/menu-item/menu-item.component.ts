@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IMenuItem } from '../../services/menu.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { IMenuItem } from '../../services/menu.service';
   styleUrls: ['./menu-item.component.css']
 })
 export class MenuItemComponent implements OnInit {
-  @Input() item: IMenuItem;
+  @Input() items: IMenuItem[];
+  @ViewChild('childMenu') public childMenu;
 
   constructor() { }
 

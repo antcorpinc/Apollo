@@ -19,30 +19,13 @@
   width: 100%; */
 }
 
-/* :host(.vertical-menu) {
-  display: inline-block;
-  width: 200px;
-  padding-left: 4px;
-  flex-grow: 0;
-  background-color: #555;
-  overflow: auto;
+.menu {
+  padding: 10px 10px 10px 0;
+}
+.glyphicon {
+  top: 1px;
+  font-size: 14px;
+  margin-right: 4px;
+  margin-left: 8px;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  display: inline;
-} */
-
-button {
-/*  color: #666;
-  font-size: 15px;
-  line-height: 15px;
-
-  width: auto
-  color: #333; */
-}
