@@ -22,6 +22,9 @@
 .menu {
   padding: 10px 10px 10px 0;
 }
+.menu:hover {
+  background-color: #dfd;
+}
 .glyphicon {
   top: 1px;
   font-size: 14px;

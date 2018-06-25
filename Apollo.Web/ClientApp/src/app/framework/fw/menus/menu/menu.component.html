@@ -4,7 +4,7 @@
       <!-- Handle branch node buttons here -->
       <!-- Leaf node buttons here ie top level menus with no submenus-->
       <span *ngIf="!item.submenu || item.submenu.length === 0">
-         <button mat-button color="primary">
+         <button mat-button color="primary" >
             <span class="glyphicon {{ item.icon }}"></span>
             <span>{{item.text}} </span>
         </button>
