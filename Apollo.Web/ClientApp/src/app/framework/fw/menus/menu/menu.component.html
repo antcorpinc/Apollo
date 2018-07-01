@@ -2,6 +2,12 @@
 <div class="menu">
     <span *ngFor="let item of menuService.items">
       <!-- Handle branch node buttons here -->
+      <span *ngIf="item.submenu && item.submenu.length > 0">
+          <button mat-button [matMenuTriggerFor]="menu.childMenu">
+            {{item.text.toUpperCase()}}
+          </button>
+          <fw-menu-item #menu [items]="item.submenu"></fw-menu-item>
+        </span>
       <!-- Leaf node buttons here ie top level menus with no submenus-->
       <span *ngIf="!item.submenu || item.submenu.length === 0">
          <button mat-button color="primary" [routerLink]="item.route"

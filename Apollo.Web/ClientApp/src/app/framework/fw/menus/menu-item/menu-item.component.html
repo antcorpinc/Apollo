@@ -1,18 +1,17 @@
-<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+ <mat-menu #childMenu="matMenu" [overlapTrigger]="false">
     <span *ngFor="let child of items">
-        <!-- Handle branch node menu items -->
-        <span *ngIf="child.submenu && child.submenu.length > 0">
-          <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
-            <span>{{child.text}}</span>
-          </button>
-          <fw-menu-item #menu [items]="child.submenu"></fw-menu-item>
-        </span>
-        <!-- Handle leaf node menu items -->
-        <span *ngIf="!child.submenu || child.submenu.length === 0">
-          <button mat-menu-item >
-             <span>{{child.text}}</span>
-          </button>
-        </span>
+      <!-- Handle branch node menu items -->
+      <span *ngIf="child.submenu && child.submenu.length > 0">
+        <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+          <span>{{child.text.toUpperCase()}}</span>
+        </button>
+        <fw-menu-item #menu [items]="child.submenu"></fw-menu-item>
       </span>
-</mat-menu>
-
+      <!-- Handle leaf node menu items -->
+      <span *ngIf="!child.submenu || child.submenu.length === 0">
+        <button mat-menu-item [routerLink]="child.route">
+          <span>{{child.text.toUpperCase()}}</span>
+        </button>
+      </span>
+    </span>
+  </mat-menu>

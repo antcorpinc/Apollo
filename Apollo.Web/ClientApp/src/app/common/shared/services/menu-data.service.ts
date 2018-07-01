@@ -55,8 +55,27 @@ export let initialMenuItems: Array<IMenuItem> = [
         text: 'Test2',
         icon: '',
         route: 'hoteladmindashboard',
-        submenu: null
-    }
+        submenu: [
+          {
+            text: 'Test2-1',
+            icon: '',
+            route: 'hoteladmindashboard',
+            submenu: null
+          },
+          {
+            text: 'Test2-2',
+            icon: '',
+            route: 'hoteladmindashboard',
+            submenu: null
+          }
+        ]
+    },
+    {
+      text: 'Test3',
+      icon: '',
+      route: 'hoteladmindashboard',
+      submenu: null
+  }
     ]
   },
 

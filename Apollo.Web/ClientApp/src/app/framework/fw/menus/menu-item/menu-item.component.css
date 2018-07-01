@@ -1,5 +1,4 @@
-:host {
-  display: inline-block;
+ :host {
   position: relative;
   margin-left: 0;
   margin-top: 0;
@@ -13,25 +12,10 @@
   width: 100%;
 }
 
- /* The below is needed to activate the above inline-block display*/
- :host:not(.parent-is-popup) {
-  margin-left: 16px;
-  width: auto;
-}
+
 
 /*
-:host(.vertical-menu) {
-  display: block;
-  margin-left: 0;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  color: white;
-}
 
-:host(.vertical-menu.in-popup) {
-  padding-left: 16px;
-}
- */
 span {
   pointer-events: none;
 }
@@ -70,5 +54,18 @@ span {
 .router-link-active.vertical-menu {
   background-color: green;
 }
+ */
 
+/*
+:host(.vertical-menu) {
+  display: block;
+  margin-left: 0;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  color: white;
+}
 
+:host(.vertical-menu.in-popup) {
+  padding-left: 16px;
+}
+ */
