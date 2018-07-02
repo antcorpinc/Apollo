@@ -12,8 +12,13 @@
   width: 100%;
 }
 
+.menu-item {
+  padding: 10px 10px 10px 0;
+}
 
-
+.menu-item:hover {
+  background-color: #dfd;
+}
 /*
 
 span {
@@ -31,17 +36,13 @@ span {
   float: right;
 }
 
-.menu-item {
-  padding: 10px 10px 10px 0;
-}
+
 
 .menu-item.vertical-menu {
   padding: 6px 6px 6px 0;
 }
 
-.menu-item:hover {
-  background-color: #dfd;
-}
+
 
 .menu-item.vertical-menu:hover {
   background-color: green;

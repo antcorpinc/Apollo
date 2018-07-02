@@ -3,7 +3,8 @@
     <span *ngFor="let item of menuService.items">
       <!-- Handle branch node buttons here -->
       <span *ngIf="item.submenu && item.submenu.length > 0">
-          <button mat-button [matMenuTriggerFor]="menu.childMenu">
+          <button mat-button [matMenuTriggerFor]="menu.childMenu" color="primary">
+            <mat-icon>{{item.icon}}</mat-icon>
             {{item.text.toUpperCase()}}
           </button>
           <fw-menu-item #menu [items]="item.submenu"></fw-menu-item>
@@ -12,8 +13,8 @@
       <span *ngIf="!item.submenu || item.submenu.length === 0">
          <button mat-button color="primary" [routerLink]="item.route"
          routerLinkActive="router-link-active" >
-            <span class="glyphicon {{ item.icon }}"></span>
-            <span>{{item.text.toUpperCase()}} </span>
+          <mat-icon>{{item.icon}}</mat-icon>
+          <span>{{item.text.toUpperCase()}} </span>
         </button>
       </span>
     </span>

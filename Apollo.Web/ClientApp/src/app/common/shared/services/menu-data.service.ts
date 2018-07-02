@@ -36,35 +36,35 @@ export class MenuDataService {
 export let initialMenuItems: Array<IMenuItem> = [
   {
     text: 'Dashboard',
-    icon: 'fa fa-tachometer',
+    icon: 'person',
     route: 'dashboard',
     submenu: null
   },
   {
     text: 'Testing',
-    icon: 'fa fa-pencil',
+    icon: 'person',
     route: 'test',
     submenu: null
   },
   {
-    text: 'Testing2WithSub',
-    icon: 'fa fa-pencil',
+    text: 'Testing2',
+    icon: 'person',
     route: 'test',
     submenu: [
       {
         text: 'Test2',
-        icon: '',
+        icon: 'person',
         route: 'hoteladmindashboard',
         submenu: [
           {
             text: 'Test2-1',
-            icon: '',
+            icon: 'person',
             route: 'hoteladmindashboard',
             submenu: null
           },
           {
             text: 'Test2-2',
-            icon: '',
+            icon: 'person',
             route: 'hoteladmindashboard',
             submenu: null
           }
@@ -72,7 +72,7 @@ export let initialMenuItems: Array<IMenuItem> = [
     },
     {
       text: 'Test3',
-      icon: '',
+      icon: 'person',
       route: 'hoteladmindashboard',
       submenu: null
   }
