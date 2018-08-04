@@ -25,10 +25,14 @@ namespace Apollo.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);            
+            base.OnModelCreating(builder);
 
             // Changing the Default Schemas
             // https://stackoverflow.com/questions/28948309/how-to-remove-dbo-aspnetuserclaims-and-dbo-aspnetuserlogins-tables-identityuser/28950804
+            // Change the User entity to point to the User   Table instead of the default
+            builder.Entity<IdentityUser<Guid>>().ToTable("User", "Security");
+            // Change the Role entity to point to the Role Table instead of the default
+            builder.Entity<IdentityRole<Guid>>().ToTable("Role", "Security");
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AspNetUserClaims", "Security");
             builder.Entity<IdentityUserRole<Guid>>().ToTable("AspNetUserRoles", "Security");
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AspNetRoleClaims", "Security");
