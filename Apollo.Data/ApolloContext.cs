@@ -8,15 +8,15 @@ using System.Text;
 
 namespace Apollo.Data
 {
-   public class ApolloContext : IdentityDbContext<User,Role, Guid>
+   public class ApolloContext : IdentityDbContext<ApolloUser,ApolloRole, Guid>
     {
         public virtual DbSet<Application> Application { get; set; }
         public virtual DbSet<ApplicationFeature> ApplicationFeature { get; set; }
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
         public virtual DbSet<Feature> Feature { get; set; }
         public virtual DbSet<FeatureTypeRolePrivilege> FeatureTypeRolePrivilege { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<ApolloRole> Role { get; set; }
+        public virtual DbSet<ApolloUser> User { get; set; }
         public virtual DbSet<UserAppRoleMapping> UserAppRoleMapping { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
 
@@ -30,9 +30,9 @@ namespace Apollo.Data
             // Changing the Default Schemas
             // https://stackoverflow.com/questions/28948309/how-to-remove-dbo-aspnetuserclaims-and-dbo-aspnetuserlogins-tables-identityuser/28950804
             // Change the User entity to point to the User   Table instead of the default
-            builder.Entity<IdentityUser<Guid>>().ToTable("User", "Security");
+            builder.Entity<ApolloUser>().ToTable("User", "Security");
             // Change the Role entity to point to the Role Table instead of the default
-            builder.Entity<IdentityRole<Guid>>().ToTable("Role", "Security");
+            builder.Entity<ApolloRole>().ToTable("Role", "Security");
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AspNetUserClaims", "Security");
             builder.Entity<IdentityUserRole<Guid>>().ToTable("AspNetUserRoles", "Security");
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AspNetRoleClaims", "Security");

@@ -22,10 +22,10 @@ namespace Apollo.Domain.Entity
         public DateTime UpdatedDate { get; set; }
 
         [ForeignKey("ApplicationId")]
-        [InverseProperty("ApplicationRole")]
+      //  [InverseProperty("ApplicationRole")]
         public Application Application { get; set; }
         [ForeignKey("RoleId")]
-        [InverseProperty("ApplicationRole")]
-        public Role Role { get; set; }
+     //   [InverseProperty("ApplicationRole")]
+        public ApolloRole Role { get; set; }
     }
 }

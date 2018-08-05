@@ -14,10 +14,10 @@ namespace Apollo.Domain.Entity
         public bool IsActive { get; set; }
 
         [ForeignKey("ApplicationId")]
-        [InverseProperty("ApplicationFeature")]
+  //      [InverseProperty("ApplicationFeature")]
         public Application Application { get; set; }
         [ForeignKey("FeatureTypeId")]
-        [InverseProperty("ApplicationFeature")]
+  //      [InverseProperty("ApplicationFeature")]
         public Feature FeatureType { get; set; }
     }
 }

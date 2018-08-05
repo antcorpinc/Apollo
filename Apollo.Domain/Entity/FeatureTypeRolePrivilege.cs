@@ -23,10 +23,10 @@ namespace Apollo.Domain.Entity
         public bool IsActive { get; set; }
        
         [ForeignKey("FeatureTypeId")]
-        [InverseProperty("FeatureTypeRolePrivilege")]
+  //      [InverseProperty("FeatureTypeRolePrivilege")]
         public Feature FeatureType { get; set; }
         [ForeignKey("RoleId")]
-        [InverseProperty("FeatureTypeRolePrivilege")]
-        public Role Role { get; set; }
+  //      [InverseProperty("FeatureTypeRolePrivilege")]
+        public ApolloRole Role { get; set; }
     }
 }

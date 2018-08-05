@@ -10,8 +10,8 @@ namespace Apollo.Domain.Entity
     {
         public UserType()
         {
-            Role = new HashSet<Role>();
-            User = new HashSet<User>();
+            Role = new HashSet<ApolloRole>();
+            User = new HashSet<ApolloUser>();
         }
 
         public int Id { get; set; }
@@ -28,9 +28,9 @@ namespace Apollo.Domain.Entity
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        [InverseProperty("UserTypeNavigation")]
-        public ICollection<Role> Role { get; set; }
-        [InverseProperty("UserTypeNavigation")]
-        public ICollection<User> User { get; set; }
+ //       [InverseProperty("UserTypeNavigation")]
+        public ICollection<ApolloRole> Role { get; set; }
+ //       [InverseProperty("UserTypeNavigation")]
+        public ICollection<ApolloUser> User { get; set; }
     }
 }

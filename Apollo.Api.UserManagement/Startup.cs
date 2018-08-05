@@ -33,7 +33,7 @@ namespace Apollo.Api.UserManagement
                         Configuration.GetConnectionString("ApolloContextConnection"));
                 });
             services.AddTransient<ApolloContextSeedData>();
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<ApolloUser, ApolloRole>()
                     .AddEntityFrameworkStores<ApolloContext>();
 
         }

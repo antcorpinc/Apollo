@@ -1,22 +1,23 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Apollo.Core.Interface;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace Apollo.Domain.Entity
 {
-    [Table("Role", Schema = "Security")]
-    public partial class Role : IdentityRole<Guid>
+    public class ApolloRole : IdentityRole<Guid>, IIdentifiableModel<Guid>
     {
-        public Role()
+        public ApolloRole()
         {
             ApplicationRole = new HashSet<ApplicationRole>();
             FeatureTypeRolePrivilege = new HashSet<FeatureTypeRolePrivilege>();
             UserAppRoleMapping = new HashSet<UserAppRoleMapping>();
-        }     
-        
-       
+        }
+
+
         public int? UserType { get; set; }
         public bool IsActive { get; set; }
         [Required]
@@ -30,14 +31,14 @@ namespace Apollo.Domain.Entity
         public string Description { get; set; }
 
         [ForeignKey("UserType")]
-        [InverseProperty("Role")]
+   //     [InverseProperty("ApolloRole")]
         public UserType UserTypeNavigation { get; set; }
-        [InverseProperty("Role")]
+     //   [InverseProperty("ApolloRole")]
         public ICollection<ApplicationRole> ApplicationRole { get; set; }
-              
-        [InverseProperty("Role")]
+
+    //    [InverseProperty("ApolloRole")]
         public ICollection<FeatureTypeRolePrivilege> FeatureTypeRolePrivilege { get; set; }
-        [InverseProperty("Role")]
+    //    [InverseProperty("ApolloRole")]
         public ICollection<UserAppRoleMapping> UserAppRoleMapping { get; set; }
     }
 }

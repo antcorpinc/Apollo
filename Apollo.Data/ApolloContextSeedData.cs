@@ -11,11 +11,11 @@ namespace Apollo.Data
    public class ApolloContextSeedData
     {
         private ApolloContext _context;
-        private UserManager<User> _userManager;
-        private RoleManager<Role> _roleManager;
+        private UserManager<ApolloUser> _userManager;
+        private RoleManager<ApolloRole> _roleManager;
 
         public ApolloContextSeedData(ApolloContext context,
-            UserManager<User> userManager, RoleManager<Role> roleManager)
+            UserManager<ApolloUser> userManager, RoleManager<ApolloRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
@@ -42,25 +42,25 @@ namespace Apollo.Data
             // Adding Roles 
             // For now add Apollo role 
 
-            //if (await _roleManager.FindByNameAsync("SuperAdmin") == null)
-            //{
-            //    var role = new Role()
-            //    {
-            //        Id = new Guid("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
-            //        Name = "ApolloAdmin",
-            //        UserType = (int)Domain.Enum.UserType.Apollo,
-            //        CreatedBy = "SystemAdmin",
-            //        CreatedDate = DateTime.UtcNow,
-            //        UpdatedBy = "SystemAdmin",
-            //        UpdatedDate = DateTime.UtcNow,
+            if (await _roleManager.FindByNameAsync("ApolloSuperAdmin") == null)
+            {
+                var role = new ApolloRole()
+                {
+                    Id = new Guid("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    Name = "ApolloSuperAdmin",
+                    UserType = (int)Domain.Enum.UserType.Apollo,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
 
-            //    };
+                };
 
-            //    var result1 = await _roleManager.CreateAsync(role);
+                var result = await _roleManager.CreateAsync(role);
 
-            //    if (!result1.Succeeded) throw new InvalidProgramException("Failed to create seed role");
-            //}
-            _context.SaveChanges();
+                    if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+                }
+                _context.SaveChanges();
         }
     }
 }

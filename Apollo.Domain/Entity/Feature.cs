@@ -34,13 +34,13 @@ namespace Apollo.Domain.Entity
         public bool IsActive { get; set; }
 
         [ForeignKey("ParentFeatureId")]
-        [InverseProperty("InverseParentFeature")]
+ //       [InverseProperty("InverseParentFeature")]
         public Feature ParentFeature { get; set; }
-        [InverseProperty("FeatureType")]
+  //      [InverseProperty("FeatureType")]
         public ICollection<ApplicationFeature> ApplicationFeature { get; set; }
-        [InverseProperty("FeatureType")]
+  //      [InverseProperty("FeatureType")]
         public ICollection<FeatureTypeRolePrivilege> FeatureTypeRolePrivilege { get; set; }
-        [InverseProperty("ParentFeature")]
+  //      [InverseProperty("ParentFeature")]
         public ICollection<Feature> InverseParentFeature { get; set; }
     }
 }
