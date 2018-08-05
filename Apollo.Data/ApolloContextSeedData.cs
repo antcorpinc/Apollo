@@ -24,28 +24,43 @@ namespace Apollo.Data
 
         public async Task SeedAsync()
         {
-             // Adding Roles 
-            // For now add Apollo role 
 
-            if (await _roleManager.FindByNameAsync("SuperAdmin") == null)
-            {
-                var role = new Role()
+            // Add UserTypes 
+            if (_context.UserType.Find((int)Domain.Enum.UserType.Apollo) == null) {
+                Domain.Entity.UserType userType = new Domain.Entity.UserType()
                 {
-                    Id = new Guid("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
-                    Name = "SuperAdmin",
-                    UserType = (int)Domain.Enum.UserType.Apollo,
+                    Id = (int)Domain.Enum.UserType.Apollo,
+                    Type = "ApolloUser",
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
-                    UpdatedDate = DateTime.UtcNow,
-                   
+                    UpdatedDate = DateTime.UtcNow
                 };
-
-                var result1 = await _roleManager.CreateAsync(role);
-
-                if (!result1.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+                _context.Add(userType);
             }
+            // Adding Roles 
+            // For now add Apollo role 
 
+            //if (await _roleManager.FindByNameAsync("SuperAdmin") == null)
+            //{
+            //    var role = new Role()
+            //    {
+            //        Id = new Guid("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+            //        Name = "ApolloAdmin",
+            //        UserType = (int)Domain.Enum.UserType.Apollo,
+            //        CreatedBy = "SystemAdmin",
+            //        CreatedDate = DateTime.UtcNow,
+            //        UpdatedBy = "SystemAdmin",
+            //        UpdatedDate = DateTime.UtcNow,
+
+            //    };
+
+            //    var result1 = await _roleManager.CreateAsync(role);
+
+            //    if (!result1.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+            //}
+            _context.SaveChanges();
         }
     }
 }
