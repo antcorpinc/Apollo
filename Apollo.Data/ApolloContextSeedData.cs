@@ -136,6 +136,77 @@ namespace Apollo.Data
 
 
 
+            // Add States
+
+            if (_context.State.Find((int)States.Maharashtra) == null)
+            {
+                Domain.Entity.MasterData.State state = new Domain.Entity.MasterData.State()
+                {
+                    Id = (int)States.Maharashtra,
+                    Name= "Maharashtra",
+                    DisplayName= "Maharashtra",
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(state);
+            }
+
+            // Add Cities of the States
+
+            if (_context.City.Find((int)Cities.Pune) == null)
+            {
+                Domain.Entity.MasterData.City city = new Domain.Entity.MasterData.City()
+                {
+                    Id = (int)Cities.Pune,
+                    Name = "Pune",
+                    StateId = (int)States.Maharashtra,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(city);
+            }
+            // Add Areas within cities of the state
+
+            if (_context.Area.Find((int)Areas.AundhRoad) == null)
+            {
+                Domain.Entity.MasterData.Area area= new Domain.Entity.MasterData.Area()
+                {
+                    Id = (int)Areas.AundhRoad,
+                    Name = "AundhRoad",
+                    StateId = (int)States.Maharashtra,
+                    CityId = (int)Cities.Pune,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(area);
+            }
+
+            if (_context.Area.Find((int)Areas.Bopodi) == null)
+            {
+                Domain.Entity.MasterData.Area area = new Domain.Entity.MasterData.Area()
+                {
+                    Id = (int)Areas.Bopodi,
+                    Name = "Bopodi",
+                    StateId = (int)States.Maharashtra,
+                    CityId = (int)Cities.Pune,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(area);
+            }
+
             _context.SaveChanges();
         }
     }

@@ -13,7 +13,7 @@ namespace Apollo.Domain.Entity.MasterData
         [StringLength(100)]
         public string Name { get; set; }
 
-        int? StateId { get; set; }
+        public int? StateId { get; set; }
         public bool IsActive { get; set; }
         [Required]
         [StringLength(50)]

@@ -15,8 +15,8 @@ namespace Apollo.Domain.Entity.MasterData
 
         [StringLength(150)]
         public string Description{ get; set; }
-        int? StateId { get; set; }
-        int? CityId { get; set; }
+        public int? StateId { get; set; }
+        public int? CityId { get; set; }
         public bool IsActive { get; set; }
         [Required]
         [StringLength(50)]
