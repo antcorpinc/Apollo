@@ -18,7 +18,7 @@ namespace Apollo.Domain.Entity
         }
 
 
-        public int? UserType { get; set; }
+        public int? UserTypeId { get; set; }
         public bool IsActive { get; set; }
         [Required]
         [StringLength(128)]
@@ -30,15 +30,15 @@ namespace Apollo.Domain.Entity
         public DateTime UpdatedDate { get; set; }
         public string Description { get; set; }
 
-        [ForeignKey("UserType")]
-   //     [InverseProperty("ApolloRole")]
-        public UserType UserTypeNavigation { get; set; }
-     //   [InverseProperty("ApolloRole")]
+        [ForeignKey("UserTypeId")]
+   
+        public UserType UserType { get; set; }
+   
         public ICollection<ApplicationRole> ApplicationRole { get; set; }
 
-    //    [InverseProperty("ApolloRole")]
+   
         public ICollection<FeatureTypeRolePrivilege> FeatureTypeRolePrivilege { get; set; }
-    //    [InverseProperty("ApolloRole")]
+   
         public ICollection<UserAppRoleMapping> UserAppRoleMapping { get; set; }
     }
 }

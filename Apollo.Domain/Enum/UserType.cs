@@ -6,7 +6,8 @@ namespace Apollo.Domain.Enum
 {
     public enum UserType
     {
-        Apollo = 1,
+        SupportUser = 1,
+        SocietyUser = 2
         
     }
 }

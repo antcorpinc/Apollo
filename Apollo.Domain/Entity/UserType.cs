@@ -28,9 +28,9 @@ namespace Apollo.Domain.Entity
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
- //       [InverseProperty("UserTypeNavigation")]
+ 
         public ICollection<ApolloRole> Role { get; set; }
- //       [InverseProperty("UserTypeNavigation")]
+ 
         public ICollection<ApolloUser> User { get; set; }
     }
 }

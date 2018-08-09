@@ -9,8 +9,8 @@ namespace Apollo.Core.Interface
     public interface IRepository<T,U>
         where T:class,IIdentifiableModel<U>
     {
-        // May be the Add should return U which is the Id of the newly created Entity
-        void Add(T newEntity);
+        
+        U Add(T newEntity);
         
         void Remove(T entity);
         void Remove(U id);

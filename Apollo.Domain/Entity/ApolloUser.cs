@@ -19,7 +19,7 @@ namespace Apollo.Domain.Entity
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public int UserType { get; set; }
+        public int UserTypeId { get; set; }
 
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -33,8 +33,8 @@ namespace Apollo.Domain.Entity
         public DateTime? UpdatedDate { get; set; }
 
 
-        [ForeignKey("UserType")]
-        public UserType UserTypeNavigation { get; set; }
+        [ForeignKey("UserTypeId")]
+        public UserType UserType { get; set; }
         public ICollection<UserAppRoleMapping> UserAppRoleMapping { get; set; }
     }
 }

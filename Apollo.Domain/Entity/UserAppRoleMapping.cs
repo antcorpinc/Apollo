@@ -23,13 +23,13 @@ namespace Apollo.Domain.Entity
         public bool IsActive { get; set; }
 
         [ForeignKey("ApplicationId")]
-  //      [InverseProperty("UserAppRoleMapping")]
+  
         public Application Application { get; set; }
         [ForeignKey("RoleId")]
-  //      [InverseProperty("UserAppRoleMapping")]
+  
         public ApolloRole Role { get; set; }
         [ForeignKey("UserId")]
-  //      [InverseProperty("UserAppRoleMapping")]
+  
         public ApolloUser User { get; set; }
     }
 }

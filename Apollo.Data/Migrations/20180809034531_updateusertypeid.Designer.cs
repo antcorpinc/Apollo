@@ -4,14 +4,16 @@ using Apollo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Apollo.Data.Migrations
 {
     [DbContext(typeof(ApolloContext))]
-    partial class ApolloContextModelSnapshot : ModelSnapshot
+    [Migration("20180809034531_updateusertypeid")]
+    partial class updateusertypeid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,8 +278,6 @@ namespace Apollo.Data.Migrations
 
                     b.Property<Guid>("RoleId");
 
-                    b.Property<Guid?>("SocietyId");
-
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
                         .HasMaxLength(128);
@@ -289,8 +289,6 @@ namespace Apollo.Data.Migrations
                     b.HasIndex("FeatureId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("SocietyId");
 
                     b.ToTable("FeatureTypeRolePrivilege","Security");
                 });
@@ -648,10 +646,6 @@ namespace Apollo.Data.Migrations
                         .WithMany("FeatureTypeRolePrivilege")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Apollo.Domain.Entity.Society.Society", "Society")
-                        .WithMany()
-                        .HasForeignKey("SocietyId");
                 });
 
             modelBuilder.Entity("Apollo.Domain.Entity.MasterData.Area", b =>

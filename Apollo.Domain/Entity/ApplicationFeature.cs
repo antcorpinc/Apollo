@@ -10,14 +10,12 @@ namespace Apollo.Domain.Entity
     {
         public Guid Id { get; set; }
         public Guid ApplicationId { get; set; }
-        public int FeatureTypeId { get; set; }
+        public int FeatureId { get; set; }
         public bool IsActive { get; set; }
 
         [ForeignKey("ApplicationId")]
-  //      [InverseProperty("ApplicationFeature")]
         public Application Application { get; set; }
-        [ForeignKey("FeatureTypeId")]
-  //      [InverseProperty("ApplicationFeature")]
-        public Feature FeatureType { get; set; }
+        [ForeignKey("FeatureId")]
+          public Feature Feature { get; set; }
     }
 }

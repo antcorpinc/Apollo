@@ -29,11 +29,11 @@ namespace Apollo.Domain.Entity
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-  //      [InverseProperty("Application")]
+ 
         public ICollection<ApplicationFeature> ApplicationFeature { get; set; }
-  //      [InverseProperty("Application")]
+ 
         public ICollection<ApplicationRole> ApplicationRole { get; set; }
-  //      [InverseProperty("Application")]
+ 
         public ICollection<UserAppRoleMapping> UserAppRoleMapping { get; set; }
     }
 }

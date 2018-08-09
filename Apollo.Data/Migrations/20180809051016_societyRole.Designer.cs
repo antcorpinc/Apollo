@@ -4,14 +4,16 @@ using Apollo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Apollo.Data.Migrations
 {
     [DbContext(typeof(ApolloContext))]
-    partial class ApolloContextModelSnapshot : ModelSnapshot
+    [Migration("20180809051016_societyRole")]
+    partial class societyRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
