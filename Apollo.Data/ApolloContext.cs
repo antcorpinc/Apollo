@@ -13,13 +13,15 @@ namespace Apollo.Data
    public class ApolloContext : IdentityDbContext<ApolloUser,ApolloRole, Guid>
     {
         // Security Schema Tables 
+        public virtual DbSet<ApolloRole> Role { get; set; }
+        public virtual DbSet<ApolloUser> User { get; set; }
         public virtual DbSet<Application> Application { get; set; }
         public virtual DbSet<ApplicationFeature> ApplicationFeature { get; set; }
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
         public virtual DbSet<Feature> Feature { get; set; }
         public virtual DbSet<FeatureTypeRolePrivilege> FeatureTypeRolePrivilege { get; set; }
-        public virtual DbSet<ApolloRole> Role { get; set; }
-        public virtual DbSet<ApolloUser> User { get; set; }
+        public virtual DbSet<SocietyRole> SocietyRole { get; set; }
+        public virtual DbSet<SocietyUser> SocietyUser { get; set; }
         public virtual DbSet<UserAppRoleMapping> UserAppRoleMapping { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
 

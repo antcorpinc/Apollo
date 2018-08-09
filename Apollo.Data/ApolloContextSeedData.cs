@@ -77,6 +77,25 @@ namespace Apollo.Data
                     if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
             }
 
+            if (await _roleManager.FindByNameAsync("SocietyAdmin") == null)
+            {
+                var role = new ApolloRole()
+                {
+                    Id = new Guid("A5BE6F05-7D89-4532-A275-85F6919A637F"),
+                    Name = "SocietyAdmin",
+                    UserTypeId = (int)Domain.Enum.UserType.SocietyUser,
+                    Description = "This role has access to all features in society",
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+
+                var result = await _roleManager.CreateAsync(role);
+
+                if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+            }
             // Add Applications
             if (_context.Application.Find(Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97")) == null)
             {
@@ -96,7 +115,26 @@ namespace Apollo.Data
                 _context.Add(backoffice);
             }
 
+            if (_context.Application.Find(Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712")) == null)
+            {
+                Application backoffice = new Application()
+                {
+                    Id = new Guid("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                    Name = "Apollo",
+                    Description = "Application for managing Society features",
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+
+                _context.Add(backoffice);
+            }
             // Add Roles for the Applications
+
+
 
             _context.SaveChanges();
         }

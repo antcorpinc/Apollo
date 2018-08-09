@@ -8,7 +8,7 @@ namespace Apollo.Domain.Entity
     [Table("ApplicationRole", Schema = "Security")]
     public partial class ApplicationRole
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Guid ApplicationId { get; set; }
         public Guid RoleId { get; set; }
         public bool IsActive { get; set; }

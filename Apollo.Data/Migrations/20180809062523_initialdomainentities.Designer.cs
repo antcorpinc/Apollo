@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Apollo.Data.Migrations
 {
     [DbContext(typeof(ApolloContext))]
-    [Migration("20180805013818_IdentityUserRoleTableNameChange")]
-    partial class IdentityUserRoleTableNameChange
+    [Migration("20180809062523_initialdomainentities")]
+    partial class initialdomainentities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace Apollo.Data.Migrations
 
                     b.Property<DateTime>("UpdatedDate");
 
-                    b.Property<int?>("UserType");
+                    b.Property<int?>("UserTypeId");
 
                     b.HasKey("Id");
 
@@ -60,7 +60,7 @@ namespace Apollo.Data.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.HasIndex("UserType");
+                    b.HasIndex("UserTypeId");
 
                     b.ToTable("Role","Security");
                 });
@@ -122,7 +122,7 @@ namespace Apollo.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int>("UserType");
+                    b.Property<int>("UserTypeId");
 
                     b.HasKey("Id");
 
@@ -134,7 +134,7 @@ namespace Apollo.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("UserType");
+                    b.HasIndex("UserTypeId");
 
                     b.ToTable("User","Security");
                 });
@@ -175,7 +175,7 @@ namespace Apollo.Data.Migrations
 
                     b.Property<Guid>("ApplicationId");
 
-                    b.Property<int>("FeatureTypeId");
+                    b.Property<int>("FeatureId");
 
                     b.Property<bool>("IsActive");
 
@@ -183,16 +183,15 @@ namespace Apollo.Data.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("FeatureTypeId");
+                    b.HasIndex("FeatureId");
 
                     b.ToTable("ApplicationFeature","Security");
                 });
 
             modelBuilder.Entity("Apollo.Domain.Entity.ApplicationRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("ApplicationId");
 
@@ -270,13 +269,15 @@ namespace Apollo.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int>("FeatureTypeId");
+                    b.Property<int>("FeatureId");
 
                     b.Property<bool>("IsActive");
 
                     b.Property<string>("Privileges");
 
                     b.Property<Guid>("RoleId");
+
+                    b.Property<Guid?>("SocietyId");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -286,11 +287,208 @@ namespace Apollo.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FeatureTypeId");
+                    b.HasIndex("FeatureId");
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("SocietyId");
+
                     b.ToTable("FeatureTypeRolePrivilege","Security");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.MasterData.Area", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CityId");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("StateId");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Area","MasterData");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.MasterData.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("StateId");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("City","MasterData");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.MasterData.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("State","MasterData");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.Society.Society", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AdditionalPhoneNumber");
+
+                    b.Property<string>("AddressLine1")
+                        .IsRequired();
+
+                    b.Property<string>("AddressLine2");
+
+                    b.Property<int>("AreaId");
+
+                    b.Property<int>("CityId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<Guid?>("ParentSocietyId");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("PinCode")
+                        .IsRequired();
+
+                    b.Property<int>("StateId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ParentSocietyId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Society","Society");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.SocietyRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<Guid>("RoleId");
+
+                    b.Property<Guid>("SocietyId");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("SocietyId");
+
+                    b.ToTable("SocietyRole","Security");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.SocietyUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("RoleId");
+
+                    b.Property<Guid>("SocietyId");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SocietyUser","Security");
                 });
 
             modelBuilder.Entity("Apollo.Domain.Entity.UserAppRoleMapping", b =>
@@ -444,16 +642,16 @@ namespace Apollo.Data.Migrations
 
             modelBuilder.Entity("Apollo.Domain.Entity.ApolloRole", b =>
                 {
-                    b.HasOne("Apollo.Domain.Entity.UserType", "UserTypeNavigation")
+                    b.HasOne("Apollo.Domain.Entity.UserType", "UserType")
                         .WithMany("Role")
-                        .HasForeignKey("UserType");
+                        .HasForeignKey("UserTypeId");
                 });
 
             modelBuilder.Entity("Apollo.Domain.Entity.ApolloUser", b =>
                 {
-                    b.HasOne("Apollo.Domain.Entity.UserType", "UserTypeNavigation")
+                    b.HasOne("Apollo.Domain.Entity.UserType", "UserType")
                         .WithMany("User")
-                        .HasForeignKey("UserType")
+                        .HasForeignKey("UserTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -464,9 +662,9 @@ namespace Apollo.Data.Migrations
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Apollo.Domain.Entity.Feature", "FeatureType")
+                    b.HasOne("Apollo.Domain.Entity.Feature", "Feature")
                         .WithMany("ApplicationFeature")
-                        .HasForeignKey("FeatureTypeId")
+                        .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -492,14 +690,83 @@ namespace Apollo.Data.Migrations
 
             modelBuilder.Entity("Apollo.Domain.Entity.FeatureTypeRolePrivilege", b =>
                 {
-                    b.HasOne("Apollo.Domain.Entity.Feature", "FeatureType")
+                    b.HasOne("Apollo.Domain.Entity.Feature", "Feature")
                         .WithMany("FeatureTypeRolePrivilege")
-                        .HasForeignKey("FeatureTypeId")
+                        .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Apollo.Domain.Entity.ApolloRole", "Role")
                         .WithMany("FeatureTypeRolePrivilege")
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Apollo.Domain.Entity.Society.Society", "Society")
+                        .WithMany()
+                        .HasForeignKey("SocietyId");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.MasterData.Area", b =>
+                {
+                    b.HasOne("Apollo.Domain.Entity.MasterData.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("Apollo.Domain.Entity.MasterData.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.MasterData.City", b =>
+                {
+                    b.HasOne("Apollo.Domain.Entity.MasterData.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.Society.Society", b =>
+                {
+                    b.HasOne("Apollo.Domain.Entity.MasterData.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Apollo.Domain.Entity.MasterData.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Apollo.Domain.Entity.Society.Society", "ParentSociety")
+                        .WithMany()
+                        .HasForeignKey("ParentSocietyId");
+
+                    b.HasOne("Apollo.Domain.Entity.MasterData.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.SocietyRole", b =>
+                {
+                    b.HasOne("Apollo.Domain.Entity.ApolloRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Apollo.Domain.Entity.Society.Society", "Society")
+                        .WithMany()
+                        .HasForeignKey("SocietyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Apollo.Domain.Entity.SocietyUser", b =>
+                {
+                    b.HasOne("Apollo.Domain.Entity.ApolloRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
+
+                    b.HasOne("Apollo.Domain.Entity.ApolloUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
