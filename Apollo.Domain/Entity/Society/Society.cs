@@ -12,7 +12,7 @@ namespace Apollo.Domain.Entity.Society
     {
         public Society()
         {
-
+            Buildings = new HashSet<Building>();
         }
         public Guid Id { get; set; }
        
@@ -49,6 +49,8 @@ namespace Apollo.Domain.Entity.Society
 
         [ForeignKey("ParentSocietyId")]
          public Society ParentSociety { get; set; }
+
+        public ICollection<Building> Buildings { get; set; }
 
     }
 }
