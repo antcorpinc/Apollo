@@ -27,7 +27,7 @@ namespace Apollo.Data
 
         // ~ Security Schema Tables
 
-        // Mater Schema Tables 
+        // Master Schema Tables 
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<City> City { get; set; }
 
@@ -41,7 +41,8 @@ namespace Apollo.Data
 
         public virtual DbSet<Flat> Flat { get; set; }
 
-        // Society Schema Tables 
+        //~ Society Schema Tables 
+
 
         public ApolloContext(DbContextOptions<ApolloContext> options) : base(options)
         {

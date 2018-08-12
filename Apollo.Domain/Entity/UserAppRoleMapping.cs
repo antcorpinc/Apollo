@@ -12,6 +12,8 @@ namespace Apollo.Domain.Entity
         public Guid RoleId { get; set; }
         public Guid UserId { get; set; }
         public Guid ApplicationId { get; set; }
+        public Guid? SocietyId { get; set; }
+
         [Required]
         [StringLength(128)]
         public string CreatedBy { get; set; }
@@ -31,5 +33,10 @@ namespace Apollo.Domain.Entity
         [ForeignKey("UserId")]
   
         public ApolloUser User { get; set; }
+
+        [ForeignKey("SocietyId")]
+
+        public Society.Society Society { get; set; }
+
     }
 }
