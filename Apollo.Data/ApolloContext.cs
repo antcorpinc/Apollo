@@ -66,7 +66,7 @@ namespace Apollo.Data
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AspNetUserTokens", "Security");
             // ~The below AspIdentity Tables are not used , however they need to be created
 
-         
+            
         }
     }
 }
