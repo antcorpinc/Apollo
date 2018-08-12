@@ -37,6 +37,9 @@ namespace Apollo.Data
 
         // Society Schema Tables 
         public virtual DbSet<Society> Society { get; set; }
+        public virtual DbSet<Building> Building { get; set; }
+
+        public virtual DbSet<Flat> Flat { get; set; }
 
         // Society Schema Tables 
 
