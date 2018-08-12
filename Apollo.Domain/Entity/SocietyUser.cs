@@ -21,8 +21,8 @@ namespace Apollo.Domain.Entity
         // https://social.msdn.microsoft.com/Forums/en-US/25962df3-9400-49f3-b6da-29fba0a127b9/ef-core-introducing-foreign-key-constraint-may-cause-cycles-or-multiple-cascade-paths?forum=adodotnetentityframework
         // https://stackoverflow.com/questions/41711772/entity-framework-core-cascade-delete-one-to-many-relationship
 
-        //[ForeignKey("SocietyId")]
-        //public Society.Society Society { get; set; }
+        [ForeignKey("SocietyId")]
+        public Society.Society Society { get; set; }
 
         //[ForeignKey("BuildingId")]
         //public Society.Building Building { get; set; }
