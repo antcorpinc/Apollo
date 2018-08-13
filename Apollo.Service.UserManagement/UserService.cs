@@ -66,8 +66,7 @@ namespace Apollo.Service.UserManagement
                         featurePermission.ParentFeatureId = roleDetail.ParentFeatureId;
                         featurePermission.Order = roleDetail.Order;
                         featurePermission.Privileges = roleDetail.Privileges;
-                                                
-                        // Added if we need the fearures as an array
+                                         
                         applicationPermission.FeaturesList.Add(featurePermission);
                     }
 

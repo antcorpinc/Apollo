@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Apollo.Data;
+using Apollo.Data.DataRepository;
+using Apollo.Data.Interface;
 using Apollo.Domain.Entity;
+using Apollo.Service.UserManagement;
+using Apollo.Service.UserManagement.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +40,10 @@ namespace Apollo.Api.UserManagement
             services.AddIdentity<ApolloUser, ApolloRole>()
                     .AddEntityFrameworkStores<ApolloContext>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +52,17 @@ namespace Apollo.Api.UserManagement
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(appbuilder =>
+                {
+                    appbuilder.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("An unexpected fault happened . Try again later");
+                    });
+                });
             }
             app.UseCors(policy =>
             {

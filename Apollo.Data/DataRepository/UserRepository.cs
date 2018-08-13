@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
@@ -24,6 +25,11 @@ namespace Apollo.Data.DataRepository
         public Guid Add(ApolloUser newEntity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IdentityResult> Add(ApolloUser user, string password)
+        {
+            return await _userManager.CreateAsync(user, password).ConfigureAwait(false); ;
         }
 
         public IQueryable<ApolloUser> Find(Expression<Func<ApolloUser, bool>> predicate)
@@ -46,6 +52,11 @@ namespace Apollo.Data.DataRepository
         public void Remove(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IdentityResult> Update(ApolloUser user)
+        {
+            return await _userManager.UpdateAsync(user).ConfigureAwait(false);
         }
     }
 }
