@@ -15,7 +15,7 @@ namespace Apollo.Domain.Enum
             SocietyManagement,
             FormManagement,
             UserManagement,
-            Adversitements,
+            Advertisements,
             Reports,
 
             // Each child level menus will have abucket of 10 items

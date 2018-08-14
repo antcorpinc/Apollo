@@ -156,9 +156,124 @@ namespace Apollo.Data
 
                 _context.Add(backoffice);
             }
+
             // Add Roles for the Applications
 
+            // Add Features 
+            // Add Apollo Features
+            // Add Top Level Apollo Features
+            if (_context.Feature.Find((int)FeatureTypes.ApolloFeature.ApolloDashboard) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.ApolloFeature.ApolloDashboard,
+                    Name = "ApolloDashboard",
+                    Description = "Dashboard",
+                    Order = 1,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
 
+                };
+                _context.Add(feature);
+            }
+            if (_context.Feature.Find((int)FeatureTypes.ApolloFeature.SocietyManagement) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.ApolloFeature.SocietyManagement,
+                    Name = "SocietyManagement",
+                    Description = "Society Management",
+                    Order = 2,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+
+            if (_context.Feature.Find((int)FeatureTypes.ApolloFeature.FormManagement) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.ApolloFeature.FormManagement,
+                    Name = "FormManagement",
+                    Description = "Forms",
+                    Order = 3,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+
+            if (_context.Feature.Find((int)FeatureTypes.ApolloFeature.UserManagement) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.ApolloFeature.UserManagement,
+                    Name = "UserManagement",
+                    Description = "User Management",
+                    Order = 4,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+
+            if (_context.Feature.Find((int)FeatureTypes.ApolloFeature.Advertisements) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.ApolloFeature.Advertisements,
+                    Name = "Advertisements",
+                    Description = "Advertisements",
+                    Order = 5,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+
+            if (_context.Feature.Find((int)FeatureTypes.ApolloFeature.Reports) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.ApolloFeature.Reports,
+                    Name = "Reports",
+                    Description = "Reports",
+                    Order = 6,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+            // ~Add Top Level Apollo Features
+
+            // ~Add Apollo Features
+            // Add BackOffice Features
+            // ~Add BackOffice Features
+            // ~Add Features 
 
             // Add States
 
