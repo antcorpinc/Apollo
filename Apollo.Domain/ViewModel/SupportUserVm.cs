@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Apollo.Domain.ViewModel
 {
-    public class UserVm
+    public class SupportUserVm
     {
     }
 }

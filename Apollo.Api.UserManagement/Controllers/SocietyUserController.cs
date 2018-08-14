@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apollo.Api.UserManagement.Controllers
 {
-    public class SocietyUserController: Controller
+    public class SocietyUserController: BaseUserController
     {
     }
 }

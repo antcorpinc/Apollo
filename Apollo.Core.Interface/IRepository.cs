@@ -17,7 +17,7 @@ namespace Apollo.Core.Interface
         T Get(U id);
         IQueryable<T> Find(Expression<Func<T, bool>> predicate);
 
-
+        bool Save();
 
     }
 }

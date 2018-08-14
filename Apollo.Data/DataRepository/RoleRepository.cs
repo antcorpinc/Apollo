@@ -15,6 +15,7 @@ namespace Apollo.Data.DataRepository
         private readonly ApolloContext _context;
         public Guid Add(ApolloRole newEntity)
         {
+           
             throw new NotImplementedException();
         }
 
@@ -83,6 +84,11 @@ namespace Apollo.Data.DataRepository
         public void Remove(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }

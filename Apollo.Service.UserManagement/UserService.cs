@@ -1,6 +1,7 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
 using Apollo.Domain.Enum;
+using Apollo.Domain.ViewModel;
 using Apollo.Service.UserManagement.Interface;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,14 @@ namespace Apollo.Service.UserManagement
             _userRepository = userRepository;
             _roleRepository = roleRepository;
         }
+
+        public void CreateSupportUser(SupportUserVm user)
+        {
+            // Todo: Call the Helper to create Pwd for Support User before inserting in the Apollo User Table
+            // Deserialize to User Entity 
+            throw new NotImplementedException();
+        }
+
         public UserDetails GetUserDetails(Guid id)
         {
             var user = _userRepository.Get(id);

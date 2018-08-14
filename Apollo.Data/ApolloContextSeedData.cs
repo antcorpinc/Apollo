@@ -96,6 +96,30 @@ namespace Apollo.Data
 
                 if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
             }
+
+            // Add Users 
+            if (await _userManager.FindByNameAsync("ronithomas@gmail.com") == null)
+            {
+                var user = new ApolloUser()
+                {
+                    Id = new Guid("7430DD69-3F53-4471-A621-E1E3BB582D45"),
+                    IsActive = true,
+                    Email = "ronithomas@gmail.com",
+                    FirstName = "Roni",
+                    LastName = "Thomas",
+                    PhoneNumber = "214-529-2634",
+                    UserName = "ronithomas@gmail.com",
+                    UserTypeId = (int)Domain.Enum.UserType.SupportUser,
+                    CreatedBy = "SystemAdmin",
+                    UpdatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,                  
+                    
+                   
+                };
+                await _userManager.CreateAsync(user, "DDdd@1234");
+            }
+
             // Add Applications
             if (_context.Application.Find(Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97")) == null)
             {

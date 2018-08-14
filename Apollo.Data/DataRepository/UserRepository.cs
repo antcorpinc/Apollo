@@ -54,6 +54,11 @@ namespace Apollo.Data.DataRepository
             throw new NotImplementedException();
         }
 
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
+
         public async Task<IdentityResult> Update(ApolloUser user)
         {
             return await _userManager.UpdateAsync(user).ConfigureAwait(false);

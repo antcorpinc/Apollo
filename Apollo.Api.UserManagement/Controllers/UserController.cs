@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Apollo.Api.UserManagement.Controllers
 {
     [Route("api/user")]
-    public class UserController: Controller
+    public class UserController: BaseUserController
     {
         private readonly IUserService _userService;
         
@@ -40,6 +40,8 @@ namespace Apollo.Api.UserManagement.Controllers
             // Todo : Get ALl Users
             return null;
         }
+
+       
 
     }
 }
