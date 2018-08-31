@@ -64,12 +64,15 @@ namespace Apollo.Api.UserManagement
                     });
                 });
             }
+            // Todo: Need to be more specific for the CORS policy - Refer PS of Brian Noyes 
+
             app.UseCors(policy =>
             {
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
                 policy.AllowAnyOrigin();
             });
+            // Todo: Need to add the content security policy (CSP) - Refer PS of Brian Noyes 
             app.UseMvc();
 
             // Do it in the last Seed Data only in Development
