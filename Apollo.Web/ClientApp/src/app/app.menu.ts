@@ -1,4 +1,4 @@
-import { IMenuItem } from "./framework/fw/services/menu.service";
+import { IMenuItem } from './framework/fw/services/menu.service';
 
 export let initialMenuItems: Array<IMenuItem> = [
   {
@@ -44,5 +44,5 @@ export let initialMenuItems: Array<IMenuItem> = [
         submenu: null
       }
     ]
-  },  
+  },
 ];
