@@ -7,9 +7,9 @@ namespace Apollo.Web.Settings
 {
     public class AppSettings
     {
-         public BaserUrls BaserUrls { get; set; }        
+         public BaseUrls BaseUrls { get; set; }        
     }
-    public class BaserUrls {
+    public class BaseUrls {
         public string UserMgmtApi {get; set;}		
     }
 }

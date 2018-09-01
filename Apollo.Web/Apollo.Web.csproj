@@ -11,6 +11,7 @@
 
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\common\viewmodels\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
