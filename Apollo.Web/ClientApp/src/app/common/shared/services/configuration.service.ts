@@ -11,7 +11,7 @@ export class ConfigurationService {
   private readonly configUrlPath: string = 'AppSettings';
   private configData: AppSettingsViewModel;
  // constructor(private http: HttpClient, @Inject('BASE_URL') private originUrl: string) { }
- constructor(private http: HttpClient, ) {
+ constructor(private http: HttpClient ) {
 
  }
   // Call the AppSettings  endpoint, deserialize the response,
@@ -22,7 +22,9 @@ export class ConfigurationService {
 
   // return this.http.get(`${this.originUrl}${this.configUrlPath}`)
   // Todo : Need to change the Http or Https w/o hardocding
- return this.http.get(`http://${window.location.host}/${this.configUrlPath}`)
+  console.log('Location: is ' + window.location.protocol);
+ // return this.http.get(`http://${window.location.host}/${this.configUrlPath}`)
+ return this.http.get(`${window.location.protocol}//${window.location.host}/${this.configUrlPath}`)
     .toPromise()
     .then((response: any) => {
       this.configData = response;
