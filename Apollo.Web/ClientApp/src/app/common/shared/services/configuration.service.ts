@@ -21,7 +21,8 @@ export class ConfigurationService {
    console.log('From window directy:' + window.location.host);
 
   // return this.http.get(`${this.originUrl}${this.configUrlPath}`)
- return this.http.get(`${window.location.host}${this.configUrlPath}`)
+  // Todo : Need to change the Http or Https w/o hardocding
+ return this.http.get(`http://${window.location.host}/${this.configUrlPath}`)
     .toPromise()
     .then((response: any) => {
       this.configData = response;

@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfigurationService } from './services/configuration.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,4 +22,13 @@ import { HttpClientModule } from '@angular/common/http';
 }
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  // Preventing importing this modules more than once
+  // https://angular.io/guide/ngmodule-faq
+  constructor(@Optional() @SkipSelf() parentModule: SharedModule) {
+    if (parentModule) {
+      throw new Error(
+        'SharedModule is already loaded. Import it in the AppModule only');
+    }
+  }
+}
