@@ -1,14 +1,24 @@
-<a *ngFor="let icon of frameworkConfigService.socialIcons"
+<!-- <a *ngFor="let icon of frameworkConfigService.socialIcons"
 [href]="icon.link"
 [title]="icon.alt">
 <img
     class="top-image"
     [src]="icon.imageFile"
     [alt]="icon.alt">
-</a>
-<div *ngIf="frameworkConfigService.showUserControls">
-<span>SIGN IN</span>
-</div>
-
-
-
+</a> -->
+<!-- <div *ngIf="frameworkConfigService.showUserControls"> -->
+    <!-- <div > -->
+      <span>
+          <a *ngFor="let icon of frameworkConfigService.socialIcons"
+          [href]="icon.link"
+          [title]="icon.alt">
+          <img
+              class="top-image"
+              [src]="icon.imageFile"
+              [alt]="icon.alt">
+          </a>
+      </span>
+      <span>
+        <button *ngIf="!isLoggedIn()" mat-button (click)="login()">LOGIN</button>
+      </span>
+   <!-- </div> -->

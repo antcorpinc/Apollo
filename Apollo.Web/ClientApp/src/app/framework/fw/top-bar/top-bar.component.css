@@ -38,3 +38,10 @@ span.glyphicon {
   cursor: pointer;
 }
 
+.mat-button{
+  color: #bebdd0;
+  font-size: 14px;
+  font-family: 'montserratregular';
+  line-height: 25px;
+}
+

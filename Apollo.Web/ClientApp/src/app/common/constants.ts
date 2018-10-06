@@ -2,7 +2,8 @@ export let CONSTANTS = {
 
     application: {
         backoffice: 'backoffice',
-        apollo: 'apollo',
+     //   apollo: 'apollo',
+        society: 'society'
       },
       operation: {
         read: 'read',

@@ -31,7 +31,7 @@ export class StateService {
       const appPermission = this._userDetails.applicationPermissions.find(x => x.name === app);
       if (appPermission != null) {
         const appRole = appPermission.role;
-        if (app.toUpperCase() === CONSTANTS.application.apollo.toUpperCase()) {
+        if (app.toUpperCase() === CONSTANTS.application.society.toUpperCase()) {
           // Todo - Change the route
           //   this.router.navigate(['/extranetdashboard']);
 

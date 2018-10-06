@@ -144,7 +144,8 @@ namespace Apollo.Data
                 Application backoffice = new Application()
                 {
                     Id = new Guid("664EAA01-3C48-42BE-9194-86879AD0A712"),
-                    Name = "Apollo",
+              //      Name = "Apollo",
+                    Name = "Society",
                     Description = "Application for managing Society features",
                     IsActive = true,
                     CreatedBy = "SystemAdmin",
