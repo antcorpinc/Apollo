@@ -14,11 +14,24 @@ namespace Apollo.Sts
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+             CreateWebHostBuilder(args).Build().Run();
+
+            // var config = new ConfigurationBuilder()
+            //       .AddCommandLine(args)
+            //       .Build();
+
+            //BuildWebHost(args, config).Run(); 
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+          public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>();  
+          
+           //  public static IWebHost BuildWebHost(string[] args, IConfigurationRoot configuration) =>
+           //WebHost.CreateDefaultBuilder(args)
+           //    .UseStartup<Startup>()
+           //    .UseConfiguration(configuration)
+           //     .UseUrls(args[1])
+           //    .Build();
     }
 }

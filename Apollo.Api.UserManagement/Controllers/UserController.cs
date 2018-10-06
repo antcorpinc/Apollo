@@ -15,6 +15,7 @@ namespace Apollo.Api.UserManagement.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+            
         }
 
         [HttpGet("{id:Guid}",Name = "GetUserDetails")]

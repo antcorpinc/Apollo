@@ -23,9 +23,8 @@ namespace Apollo.Sts.Configuration
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new ApiResource[]
-                {                   
-
-                   new ApiResource
+                {
+                  new ApiResource
                    {
                        Name="apollo.api.usermanagement",
                        DisplayName="User Management Api",

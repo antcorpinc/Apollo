@@ -26,31 +26,26 @@ namespace Apollo.Sts.Configuration
             // Add Other Clients as needed
             return null;
         }
-        // Todo: Need to change this Implicit grant type -- Brian Noyes
+        
         private Client GetApolloWebClient()
         {
             return new Client
             {
                 ClientId = "apollo.web",
                 ClientName = "Apollo Web Application",
-                AllowedGrantTypes = GrantTypes.Hybrid,
-                ClientSecrets = {new Secret("02F97D49-18F8-4E20-AD8D-0EA51F3450A0".Sha256())},
-                RedirectUris= { $"{_appSettings.BaseUrls.Web}signin-oidc" },
-                FrontChannelLogoutUri = $"{_appSettings.BaseUrls.Web}signout-oidc",
-                PostLogoutRedirectUris= new List<string>{$"{_appSettings.BaseUrls.Web}signout-callback-oidc" },
-                 
-                    AllowedScopes = new List<string>
+                AllowedGrantTypes = GrantTypes.Implicit,
+                AllowAccessTokensViaBrowser = true,
+                RequireConsent = false,
+                RedirectUris= { $"{_appSettings.BaseUrls.Web}assets/oidc-login-redirect.html" },
+                PostLogoutRedirectUris= { $"{_appSettings.BaseUrls.Web}?postLogout=true" },
+                AllowedCorsOrigins = { $"{_appSettings.BaseUrls.Web}" },
+                AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "apollo.api.usermanagement",
-                    },
-                    AllowOfflineAccess = true,
-                    RequireConsent=false,
-                    AlwaysIncludeUserClaimsInIdToken=true,
-                    RefreshTokenUsage = TokenUsage.ReUse,
-                    RefreshTokenExpiration = TokenExpiration.Absolute,
-                    AbsoluteRefreshTokenLifetime = 157700000  // 5 years
+                        // Todo : Add Other Api's as needed
+                    },                    
             };
         }      
     }

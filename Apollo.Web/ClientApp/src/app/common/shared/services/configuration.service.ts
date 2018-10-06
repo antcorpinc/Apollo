@@ -10,8 +10,7 @@ export class ConfigurationService {
     // Endpoint of the Server Controller for AppSettings ie AppSettingsController
   private readonly configUrlPath: string = 'AppSettings';
   private configData: AppSettingsViewModel;
- // constructor(private http: HttpClient, @Inject('BASE_URL') private originUrl: string) { }
- constructor(private http: HttpClient ) {
+  constructor(private http: HttpClient ) {
 
  }
   // Call the AppSettings  endpoint, deserialize the response,

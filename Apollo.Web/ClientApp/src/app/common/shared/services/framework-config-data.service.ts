@@ -11,7 +11,7 @@ export class FrameworkConfigDataService {
    }
 
     configure() {
-      // Todo: Get this data from the http service.
+      // Todo: Get this data from the http service or can hardcode -- where does it change?.
     const config: IFrameworkConfigSettings = {
       socialIcons: [
         { imageFile: 'assets/social-fb-bw.png', alt: 'Facebook', link: 'http://www.facebook.com'},
