@@ -1,0 +1,13 @@
+
+:host {
+  display: block;
+  outline: none;
+}
+
+.mat-list-item {
+  padding: 8px 0;
+}
+
+.routeIcon {
+  margin-right: 40px;
+}

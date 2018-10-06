@@ -5,27 +5,16 @@
   flex-grow: 1;
   background-color: lightgoldenrodyellow;
 
-
-  /* margin-left: 16px;
-  width: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
-  font-size: 15px;
-  line-height: 15px;
-  color: #666;
-  cursor: pointer;
-  box-sizing: border-box;
-  width: 100%; */
 }
 
 .menu {
   padding: 10px 10px 10px 0;
 }
-.menu:hover {
+/* .menu:hover {
   background-color: #dfd;
 }
-.glyphicon {
+ */
+ .glyphicon {
   top: 1px;
   font-size: 14px;
   margin-right: 4px;

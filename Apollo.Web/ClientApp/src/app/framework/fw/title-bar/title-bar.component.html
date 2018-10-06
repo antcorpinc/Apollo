@@ -1,12 +1,14 @@
+
 <!--For Small Screens-->
 <div *ngIf="screenService.isBelowLarge()" class="title-bar-small">
-    <!-- <span class="glyphicon glyphicon-menu-hamburger"></span> -->
-    <mat-icon>menu</mat-icon>
-    <div class="small-image-holder">
-        <img class="small-image" src="assets/Apollo-Logo.png">
-    </div>
-    <!-- <span class="glyphicon glyphicon-option-vertical"></span> -->
-    <!-- <mat-icon>reorder</mat-icon>  -->
+  <mat-icon (click)="menuService.toggleLeftSideMenu()">menu</mat-icon>
+<div class="small-image-holder">
+  <img class="small-image" src="assets/Apollo-Logo.png">
+</div>
+<div>
+  <fw-top-bar>
+  </fw-top-bar>
+</div>
 </div>
 
 <!--For Large Screens-->

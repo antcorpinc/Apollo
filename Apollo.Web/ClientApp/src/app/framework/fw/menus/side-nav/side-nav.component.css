@@ -1,0 +1,22 @@
+.mat-sidenav {
+  width: 360px;
+}
+.mat-sidenav-container {
+  background-color: white !important;
+  height: 85vh;
+}
+.sidenav-toolbar {
+  height: 64px;
+  display: flex;
+  flex-direction : row;
+}
+.mat-nav-list {
+  padding-top: 0;
+}
+
+mat-nav-list {
+  visibility: visible;
+}
+ .mat-drawer{
+  transform: none !important;
+}

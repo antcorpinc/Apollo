@@ -10,6 +10,8 @@ import { MaterialModule } from '../../common/material/material.module';
 import { MenuComponent } from './menus/menu/menu.component';
 import { MenuItemComponent } from './menus/menu-item/menu-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SideNavComponent } from './menus/side-nav/side-nav.component';
+import { SideNavItemComponent } from './menus/side-nav-item/side-nav-item.component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent,
-    TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent],
+    TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent,
+    SideNavComponent, SideNavItemComponent],
   exports: [
     FrameworkBodyComponent
   ]

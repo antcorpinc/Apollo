@@ -1,0 +1,14 @@
+<div *ngIf = "menuService.items && menuService.items.length  > 0">
+
+    <mat-sidenav-container>
+        <mat-sidenav #appDrawer mode="over" opened="false">
+          <mat-nav-list>
+            <fw-side-nav-item *ngFor="let item of menuService.items" [item]="item">
+
+            </fw-side-nav-item>
+          </mat-nav-list>
+        </mat-sidenav>
+
+       <!--  <router-outlet></router-outlet> -->
+      </mat-sidenav-container>
+</div>
