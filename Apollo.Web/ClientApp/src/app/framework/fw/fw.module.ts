@@ -12,6 +12,7 @@ import { MenuItemComponent } from './menus/menu-item/menu-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './menus/side-nav/side-nav.component';
 import { SideNavItemComponent } from './menus/side-nav-item/side-nav-item.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { SideNavItemComponent } from './menus/side-nav-item/side-nav-item.compon
   ],
   declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent,
     TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent,
-    SideNavComponent, SideNavItemComponent],
+    SideNavComponent, SideNavItemComponent, UnauthorizedComponent],
   exports: [
     FrameworkBodyComponent
   ]

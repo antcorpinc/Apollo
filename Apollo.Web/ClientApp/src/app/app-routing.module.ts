@@ -5,6 +5,7 @@ import { DashboardComponent } from './common/dashboard/dashboard/dashboard.compo
 import { TestComponent } from './common/dashboard/test/test.component';
 import { DefaultComponent } from './common/default/default/default.component';
 import { HomeComponent } from './common/default/home/home.component';
+import { UnauthorizedComponent } from './framework/fw/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
   // { path: 'dashboard', component: DashboardComponent},
@@ -13,7 +14,7 @@ export const routes: Routes = [
   { path: 'test', component: TestComponent},
  // { path: '', component: DashboardComponent },
  // { path: '**', component: DashboardComponent },
-
+  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '', component: DefaultComponent },
   { path: '**', component: DefaultComponent },
 ];

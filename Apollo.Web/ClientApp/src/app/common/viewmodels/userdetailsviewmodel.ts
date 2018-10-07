@@ -41,7 +41,7 @@ export class UserDetailsViewModel {
     lastName: string;
     userType: number;
     profilePictureUri: string;
-    disabled: boolean;
+    isActive: boolean;
     userName: string;
     email: string;
     applicationPermissions: Array<ApplicationPermissionViewModel>;

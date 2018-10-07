@@ -33,7 +33,7 @@ export class UserProfileService {
         this.userDetailsDto = user;
 
         if (this.userDetailsDto) {
-          if (this.userDetailsDto.disabled || this.userDetailsDto.applicationPermissions === undefined
+          if (!this.userDetailsDto.isActive || this.userDetailsDto.applicationPermissions === undefined
               || this.userDetailsDto.applicationPermissions.length === 0) {
            this._router.navigate(['/unauthorized']);
          } else {
