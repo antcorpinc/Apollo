@@ -1,21 +1,6 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:58751",
-      "sslPort": 44353
-    }
-  },
-  "profiles": {
-    "IIS Express": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "Apollo.Sts": {
+    "profiles": {
+      "Apollo.Sts": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
