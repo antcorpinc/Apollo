@@ -17,13 +17,23 @@ export class AuthService {
       response_type: 'id_token token',
       post_logout_redirect_uri: `${this.configurationService.config.baseUrls.web}?postLogout=true`,
       userStore: new WebStorageStateStore({ store: window.localStorage}),
+      automaticSilentRenew: true,
+      silent_redirect_uri: `${this.configurationService.config.baseUrls.web}assets/silent-redirect.html`
     };
     this._userManager = new UserManager(config);
 
     this._userManager.getUser().then(user => {
       if (user && !user.expired) {
         this._user = user;
+        //  console.log('User is ' + JSON.stringify(this._user.profile.sub));
+       // Todo: Call User Profile to get user details again?. May be not
       }
+    });
+    this._userManager.events.addUserLoaded(args => {
+      this._userManager.getUser().then(user => {
+        this._user = user;
+        // Todo: Call User Profile to get user details again?. May be not
+      });
     });
   }
 

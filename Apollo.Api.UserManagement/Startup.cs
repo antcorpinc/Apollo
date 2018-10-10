@@ -8,12 +8,14 @@ using Apollo.Data.Interface;
 using Apollo.Domain.Entity;
 using Apollo.Service.UserManagement;
 using Apollo.Service.UserManagement.Interface;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Apollo.Api.UserManagement
 {
@@ -40,10 +42,23 @@ namespace Apollo.Api.UserManagement
             services.AddIdentity<ApolloUser, ApolloRole>()
                     .AddEntityFrameworkStores<ApolloContext>();
 
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                   .AddIdentityServerAuthentication(options =>
+                   {
+                       options.Authority = Configuration["BaseUrls:Sts"];
+                       options.RequireHttpsMetadata = false;
+                       options.ApiName = "apollo.api.usermanagement";
+                   });
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "User Management API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +87,13 @@ namespace Apollo.Api.UserManagement
                 policy.AllowAnyMethod();
                 policy.AllowAnyOrigin();
             });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "User Management API V1");
+            });
             // Todo: Need to add the content security policy (CSP) - Refer PS of Brian Noyes 
+            app.UseAuthentication();
             app.UseMvc();
 
             // Do it in the last Seed Data only in Development

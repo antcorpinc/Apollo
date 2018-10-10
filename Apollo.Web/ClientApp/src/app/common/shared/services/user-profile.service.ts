@@ -28,8 +28,8 @@ export class UserProfileService {
   getUserProfile() {
     if (this.authService.isLoggedIn()) {
       // Todo --> No need to pass the UserId as it is already part of the token.
-    this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi,
-      'api/User/' + this.authService.getSubjectId()).subscribe((user ) => {
+    this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi
+      + 'api/User/' + this.authService.getSubjectId()).subscribe((user ) => {
         this.userDetailsDto = user;
 
         if (this.userDetailsDto) {

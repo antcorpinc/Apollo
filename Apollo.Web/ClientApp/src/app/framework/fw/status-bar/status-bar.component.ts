@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./status-bar.component.css']
 })
 export class StatusBarComponent implements OnInit {
-
+  currentDate: Date = new Date();
   constructor() { }
 
   ngOnInit() {

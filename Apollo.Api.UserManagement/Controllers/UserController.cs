@@ -1,5 +1,6 @@
 ﻿using Apollo.Service.UserManagement.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,23 @@ namespace Apollo.Api.UserManagement.Controllers
     public class UserController: BaseUserController
     {
         private readonly IUserService _userService;
-        
-        public UserController(IUserService userService)
+        private readonly ILogger _logger;
+
+
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
-            
+            _logger = logger;
+
+
         }
 
         [HttpGet("{id:Guid}",Name = "GetUserDetails")]
         public IActionResult GetUserDetails(Guid id)
         {
             var userDetails = this._userService.GetUserDetails(id);
-            return Ok(userDetails);
+            _logger.LogInformation("SubJectId :" + this.LoggedInUserId);
+             return Ok(userDetails);
            
         }
 

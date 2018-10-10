@@ -11,23 +11,20 @@ export class AuthenticatedHttpService {
     private _http: HttpClient
   ) { }
 
-      get(url, relativeuri= ''): Observable<any> {
-         const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getAccessToken()}`)
-                                        .set('relative-uri', relativeuri);
-       return this._http.get(url , {headers: headers})  ;
+      get(url): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getAccessToken()}`);
+        return this._http.get(url , {headers: headers});
 
     }
-    post(url, data, relativeuri= '') {
-          const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getAccessToken())
-                                        .set('Content-Type', 'application/json')
-                                        .set('relative-uri', relativeuri);
-             return this._http.post(url , data, {headers: headers});
+    post(url, data) {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getAccessToken()}`)
+                                         .set('Content-Type', 'application/json');
+        return this._http.post(url , data, {headers: headers});
     }
 
-    put(url, data, relativeuri= '') {
-      const headers =  new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getAccessToken())
-                                        .set('Content-Type', 'application/json')
-                                        .set('relative-uri', relativeuri);
-        return this._http.put(url , data, { headers: headers });
+    put(url, data) {
+       const headers =  new HttpHeaders().set('Authorization', `Bearer ${this.authService.getAccessToken()}`)
+                                         .set('Content-Type', 'application/json');
+       return this._http.put(url , data, { headers: headers });
     }
 }

@@ -49,7 +49,7 @@ export let initialMenuItems: Array<IMenuItem> = [
 
 
 // *** The number of elements here should be the same as that in the initial menus in initialMenuItems
-// Otherwise it gives the.
+// Otherwise it gives the change detection error.
 export let defaultMenuItems: Array<IMenuItem> = [
   {
     text: '',

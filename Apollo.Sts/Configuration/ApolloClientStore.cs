@@ -36,7 +36,10 @@ namespace Apollo.Sts.Configuration
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowAccessTokensViaBrowser = true,
                 RequireConsent = false,
-                RedirectUris= { $"{_appSettings.BaseUrls.Web}assets/oidc-login-redirect.html" },
+                RedirectUris= { 
+                    $"{_appSettings.BaseUrls.Web}assets/oidc-login-redirect.html" ,
+                    $"{_appSettings.BaseUrls.Web}assets/silent-redirect.html"
+                    },
                 PostLogoutRedirectUris= { $"{_appSettings.BaseUrls.Web}?postLogout=true" },
                 AllowedCorsOrigins = { $"{_appSettings.BaseUrls.Web}" },
                 AllowedScopes = new List<string>
@@ -45,7 +48,9 @@ namespace Apollo.Sts.Configuration
                         IdentityServerConstants.StandardScopes.Profile,
                         "apollo.api.usermanagement",
                         // Todo : Add Other Api's as needed
-                    },                    
+                    }, 
+                    //IdentityTokenLifetime = 120,
+                    //AccessTokenLifetime = 120                   
             };
         }      
     }
