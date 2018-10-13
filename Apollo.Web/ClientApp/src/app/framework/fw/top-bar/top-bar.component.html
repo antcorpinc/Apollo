@@ -21,4 +21,14 @@
       <span>
         <button *ngIf="!isLoggedIn()" mat-button (click)="login()">LOGIN</button>
       </span>
+
+      <span *ngIf="topBarService.getTopBarItem()!= null">
+        <div  *ngIf="topBarService.getTopBarItem().applications!=null">
+          <select (change)="onApplicationChange($event)" >
+            <option *ngFor="let item of topBarService.getTopBarItem().applications">
+              {{item.application}}
+            </option>
+          </select>
+        </div>
+      </span>
    <!-- </div> -->

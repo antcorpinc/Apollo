@@ -11,6 +11,7 @@ import { AuthService } from '../../../common/shared/services/auth.service';
 })
 export class TopBarComponent implements OnInit {
 
+  currentApp: string;
   constructor(public frameworkConfigService: FrameworkConfigService ,
     private _authService: AuthService, public topBarService: TopBarService) { }
 
@@ -27,6 +28,11 @@ export class TopBarComponent implements OnInit {
 
   isLoggedIn() {
     return this._authService.isLoggedIn();
+  }
+
+  onApplicationChange($event) {
+    this.topBarService.onAppChange($event);
+    this.currentApp = $event.target.value;
   }
 
 }
