@@ -7,7 +7,7 @@ namespace Apollo.Domain.Enum
     public static class FeatureTypes
     {
 
-        // Apollo Features from 1 - 1000
+        // Society Features from 1 - 1000 -- Todo: Needs to be refactored
         public enum ApolloFeature
         {
             // Top Level Menu Features for Apollo  Assign 1 - 10 For top level Menus
@@ -57,7 +57,11 @@ namespace Apollo.Domain.Enum
             SocietyManagement,
             FinanceManagement,
             UserManagement,
+
+            Advertisements,
+            Tools,
             Reports,
+
 
             // Todo Add Child Level Menus
 

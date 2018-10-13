@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Apollo.Data.Migrations
 {
-    public partial class initialdomainentities : Migration
+    public partial class upduserapproleid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -418,77 +418,6 @@ namespace Apollo.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SocietyUser",
-                schema: "Security",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    SocietyId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SocietyUser", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SocietyUser_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalSchema: "Security",
-                        principalTable: "Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SocietyUser_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "Security",
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserAppRoleMapping",
-                schema: "Security",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
-                    ApplicationId = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 128, nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 128, nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserAppRoleMapping", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserAppRoleMapping_Application_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalSchema: "Security",
-                        principalTable: "Application",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserAppRoleMapping_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalSchema: "Security",
-                        principalTable: "Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserAppRoleMapping_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "Security",
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Society",
                 schema: "Society",
                 columns: table => new
@@ -614,6 +543,129 @@ namespace Apollo.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SocietyUser",
+                schema: "Security",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    SocietyId = table.Column<Guid>(nullable: false),
+                    BuildingId = table.Column<Guid>(nullable: false),
+                    FlatId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocietyUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SocietyUser_Society_SocietyId",
+                        column: x => x.SocietyId,
+                        principalSchema: "Society",
+                        principalTable: "Society",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SocietyUser_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Security",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserAppRoleMapping",
+                schema: "Security",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    ApplicationId = table.Column<Guid>(nullable: false),
+                    SocietyId = table.Column<Guid>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 128, nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 128, nullable: false),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAppRoleMapping", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserAppRoleMapping_Application_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalSchema: "Security",
+                        principalTable: "Application",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserAppRoleMapping_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "Security",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserAppRoleMapping_Society_SocietyId",
+                        column: x => x.SocietyId,
+                        principalSchema: "Society",
+                        principalTable: "Society",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserAppRoleMapping_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Security",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Building",
+                schema: "Society",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    SocietyId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Building", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Building_Society_SocietyId",
+                        column: x => x.SocietyId,
+                        principalSchema: "Society",
+                        principalTable: "Society",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Flat",
+                schema: "Society",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    SocietyId = table.Column<Guid>(nullable: false),
+                    BuildingId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flat", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Flat_Building_BuildingId",
+                        column: x => x.BuildingId,
+                        principalSchema: "Society",
+                        principalTable: "Building",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityId",
                 schema: "MasterData",
@@ -731,10 +783,10 @@ namespace Apollo.Data.Migrations
                 column: "SocietyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SocietyUser_RoleId",
+                name: "IX_SocietyUser_SocietyId",
                 schema: "Security",
                 table: "SocietyUser",
-                column: "RoleId");
+                column: "SocietyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SocietyUser_UserId",
@@ -775,10 +827,28 @@ namespace Apollo.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserAppRoleMapping_SocietyId",
+                schema: "Security",
+                table: "UserAppRoleMapping",
+                column: "SocietyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserAppRoleMapping_UserId",
                 schema: "Security",
                 table: "UserAppRoleMapping",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Building_SocietyId",
+                schema: "Society",
+                table: "Building",
+                column: "SocietyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flat_BuildingId",
+                schema: "Society",
+                table: "Flat",
+                column: "BuildingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Society_AreaId",
@@ -852,12 +922,12 @@ namespace Apollo.Data.Migrations
                 schema: "Security");
 
             migrationBuilder.DropTable(
-                name: "Feature",
-                schema: "Security");
+                name: "Flat",
+                schema: "Society");
 
             migrationBuilder.DropTable(
-                name: "Society",
-                schema: "Society");
+                name: "Feature",
+                schema: "Security");
 
             migrationBuilder.DropTable(
                 name: "Application",
@@ -872,12 +942,20 @@ namespace Apollo.Data.Migrations
                 schema: "Security");
 
             migrationBuilder.DropTable(
-                name: "Area",
-                schema: "MasterData");
+                name: "Building",
+                schema: "Society");
 
             migrationBuilder.DropTable(
                 name: "UserType",
                 schema: "Security");
+
+            migrationBuilder.DropTable(
+                name: "Society",
+                schema: "Society");
+
+            migrationBuilder.DropTable(
+                name: "Area",
+                schema: "MasterData");
 
             migrationBuilder.DropTable(
                 name: "City",

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Apollo.Data.Migrations
 {
     [DbContext(typeof(ApolloContext))]
-    [Migration("20180812032302_RemoveSocIdFKFromFlat")]
-    partial class RemoveSocIdFKFromFlat
+    [Migration("20181012050655_upduserapproleid")]
+    partial class upduserapproleid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -524,6 +524,8 @@ namespace Apollo.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SocietyId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("SocietyUser","Security");
@@ -531,9 +533,8 @@ namespace Apollo.Data.Migrations
 
             modelBuilder.Entity("Apollo.Domain.Entity.UserAppRoleMapping", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("ApplicationId");
 
@@ -546,6 +547,8 @@ namespace Apollo.Data.Migrations
                     b.Property<bool>("IsActive");
 
                     b.Property<Guid>("RoleId");
+
+                    b.Property<Guid?>("SocietyId");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -560,6 +563,8 @@ namespace Apollo.Data.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("SocietyId");
 
                     b.HasIndex("UserId");
 
@@ -814,6 +819,11 @@ namespace Apollo.Data.Migrations
 
             modelBuilder.Entity("Apollo.Domain.Entity.SocietyUser", b =>
                 {
+                    b.HasOne("Apollo.Domain.Entity.Society.Society", "Society")
+                        .WithMany("SocietyUsers")
+                        .HasForeignKey("SocietyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Apollo.Domain.Entity.ApolloUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -831,6 +841,10 @@ namespace Apollo.Data.Migrations
                         .WithMany("UserAppRoleMapping")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Apollo.Domain.Entity.Society.Society", "Society")
+                        .WithMany()
+                        .HasForeignKey("SocietyId");
 
                     b.HasOne("Apollo.Domain.Entity.ApolloUser", "User")
                         .WithMany("UserAppRoleMapping")

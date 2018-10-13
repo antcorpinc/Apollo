@@ -531,9 +531,8 @@ namespace Apollo.Data.Migrations
 
             modelBuilder.Entity("Apollo.Domain.Entity.UserAppRoleMapping", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("ApplicationId");
 

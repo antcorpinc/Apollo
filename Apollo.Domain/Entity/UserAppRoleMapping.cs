@@ -8,7 +8,7 @@ namespace Apollo.Domain.Entity
     [Table("UserAppRoleMapping", Schema = "Security")]
     public partial class UserAppRoleMapping
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Guid RoleId { get; set; }
         public Guid UserId { get; set; }
         public Guid ApplicationId { get; set; }
