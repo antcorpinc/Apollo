@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MenuService, IMenuItem } from '../../../framework/fw/services/menu.service';
-import { initialMenuItems } from '../../../app.menu';
-import { UserDetailsViewModel } from '../../viewmodels/userdetailsviewmodel';
+import { UserDetailsViewModel, FeaturePermissionViewModel } from '../../viewmodels/userdetailsviewmodel';
+import { TopBarService } from '../../../framework/fw/services/top-bar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuDataService {
   _userDetails: UserDetailsViewModel;
-  constructor(private menuService: MenuService) { }
+  constructor(private menuService: MenuService, private topBarService: TopBarService) { }
 
   initializeNonLoggedInMenus(menuItems: IMenuItem[]) {
     this.menuService.items = this.initializeMenuData(menuItems);
@@ -17,23 +17,39 @@ export class MenuDataService {
   initializeLoggedInMenus(userDetails: UserDetailsViewModel) {
     this._userDetails = userDetails;
     if (userDetails.applicationPermissions.length > 0) {
-      // const app = userDetails.applicationPermissions[0].name;
-   //   const app  = this.topBarService.getTopBarItem().applications[0].application;
-   //    const translatedMenu = this.TransformMenuData(app);
-   //   console.log('Translated Menus' + JSON.stringify(translatedMenu));
+      const app  = this.topBarService.getTopBarItem().applications[0].application;
+      this.transformMenuData(app);
      }
   }
 
-  // Todo:This is used for testing only
- private initializeTestMenuData(menuItems: Array<IMenuItem>) {
-    const translatedMenus: Array<IMenuItem> = new Array<IMenuItem>();
-    menuItems.forEach(item => {
+  transformMenuData(app: string) {
+    const appPermission = this._userDetails.applicationPermissions.find(x => x.name.trim().toUpperCase()
+     === app.trim().toUpperCase());
+     const featureListData: Array<FeaturePermissionViewModel> = appPermission.featuresList;
+     let  parentsMenuData: Array<FeaturePermissionViewModel> = new Array<FeaturePermissionViewModel>();
+     if (featureListData != null && featureListData.length > 0) {
+      // Top Level Menus
+     parentsMenuData = featureListData.filter(val => val.parentFeatureId == null );
+    parentsMenuData.forEach(parentMenuItem => {
+     this.buildTreeviewMenu(parentMenuItem, featureListData);
+    });
+  }
+  const translatedMenus =  this.translateModelToMenusRecursively(parentsMenuData);
+  //  console.log('TranslatedMenus' + JSON.stringify(translatedMenus));
+    this.menuService.items = translatedMenus;
+
+  }
+  private translateModelToMenusRecursively(featurePermissionViewModel: Array<FeaturePermissionViewModel>) {
+    const translatedMenus: IMenuItem[] = [];
+    featurePermissionViewModel.forEach(element => {
+
       const tempMenuItem: IMenuItem = {icon: '', route: '', submenu: null, text: ''};
-      tempMenuItem.icon = item.icon;
-      tempMenuItem.route = item.route;
-      tempMenuItem.text = item.text;
-      if (item.submenu !== null) {
-        tempMenuItem.submenu  = this.initializeTestMenuData(item.submenu);
+        tempMenuItem.icon = element.icon;
+        tempMenuItem.route = element.route;
+        tempMenuItem.text = element.label;
+
+      if (element.subFeaturePermissionViewModel != null && element.subFeaturePermissionViewModel.length > 0) {
+        tempMenuItem.submenu = this.translateModelToMenusRecursively(element.subFeaturePermissionViewModel);
       } else {
         tempMenuItem.submenu = null;
       }
@@ -41,6 +57,64 @@ export class MenuDataService {
     });
     return translatedMenus;
   }
+
+  private buildTreeviewMenu(parentMenuItem: FeaturePermissionViewModel ,
+    menuData: Array<FeaturePermissionViewModel>) {
+   let menuItems: Array<FeaturePermissionViewModel>;
+   // Get all child menu Items for the Parent
+   menuItems = menuData.filter(menu => menu.parentFeatureId === parentMenuItem.featureTypeId);
+   if (menuItems != null && menuItems.length > 0) {
+     parentMenuItem.subFeaturePermissionViewModel = new Array<FeaturePermissionViewModel>();
+     this.AddAdditionalMenuAttributes(parentMenuItem, true);
+     menuItems.forEach((childMenu) => {
+     parentMenuItem.subFeaturePermissionViewModel.push(childMenu) ;
+     this.buildTreeviewMenu(childMenu, menuData);
+       });
+   }
+   // tslint:disable-next-line:one-line
+   else {
+     this.AddAdditionalMenuAttributes(parentMenuItem, false);
+     }
+   }
+
+   private AddAdditionalMenuAttributes(menuItem: FeaturePermissionViewModel, parent?: boolean):
+ FeaturePermissionViewModel  {
+  if (menuItem != null) {
+     menuItem.icon =  this.getIconforMenuFeature(menuItem.typeName);
+    if (parent === false)    {
+      menuItem.route = this.getRouteforMenuFeature(menuItem.typeName);
+    } else {
+      menuItem.route = null; }
+
+  }
+  return menuItem;
+}
+// Todo: Change This
+private getIconforMenuFeature(feature: string): string {
+  if (feature.toUpperCase() === 'B2BHOTELS') {
+    return 'person';
+  } else if (feature.toUpperCase() === 'UNBEATABLEDEALS') {
+  return 'person';
+  } else if (feature.toUpperCase() === 'VIEWBOOKINGS') {
+  return 'person';
+  } else {
+    return null;
+  }
+}
+// Todo : Change This
+private getRouteforMenuFeature(feature: string): string {
+  if (feature.toUpperCase() === 'B2BHOTELS') {
+    return 'authenticated/hotelmgmt/hotelinfo';
+  } else if (feature.toUpperCase() === 'UNBEATABLEDEALS') {
+    // Todo Change these
+    return 'home';
+  } else if (feature.toUpperCase() === 'VIEWBOOKINGS') {
+    // Todo Change these
+    return 'authenticated/bookingmgmt/reservationList';
+  } else {
+    return null;
+  }
+}
 
   private initializeMenuData(menuItems: Array<IMenuItem>) {
     const translatedMenus: Array<IMenuItem> = new Array<IMenuItem>();
