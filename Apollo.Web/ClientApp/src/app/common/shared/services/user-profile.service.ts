@@ -45,7 +45,8 @@ export class UserProfileService {
             // Create a State Service to route to the right View
             this.stateService.initializeState(this.userDetailsDto);
             // Todo - Change the below add State Service
-            // this._router.navigate(['/hotelmgmt/hotelinfo']);
+            // this._router.navigate(['/home']);
+
          }
         }
       },

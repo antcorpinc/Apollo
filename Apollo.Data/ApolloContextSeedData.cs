@@ -647,7 +647,7 @@ namespace Apollo.Data
             {
                 UserAppRoleMapping usrAppRoleMapping = new UserAppRoleMapping()
                 {
-                   Id = new Guid("29D89942-FF57-4FBB-B25A-D624C22BF5C5"),
+                   Id = new Guid("8D70132B-60B2-4D36-9189-46A0A4FAD627"),
                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                    UserId = Guid.Parse("7430DD69-3F53-4471-A621-E1E3BB582D45"),
                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),

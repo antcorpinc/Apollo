@@ -13,6 +13,10 @@ namespace Apollo.Data.DataRepository
     public class RoleRepository : IRoleRepository
     {
         private readonly ApolloContext _context;
+        public RoleRepository(ApolloContext context)
+        {
+            _context = context;
+        }
         public Guid Add(ApolloRole newEntity)
         {
            

@@ -32,12 +32,9 @@ export class StateService {
       if (appPermission != null) {
         const appRole = appPermission.role;
         if (app.toUpperCase() === CONSTANTS.application.society.toUpperCase()) {
-          // Todo - Change the route
-          //   this.router.navigate(['/extranetdashboard']);
-
+             this.router.navigate(['/auth/societydashboard']);
         } else if (app.toUpperCase() === CONSTANTS.application.backoffice.toUpperCase()) {
-          // Todo - Change the route
-              //        this.router.navigate(['/backofficedashboard']);
+                this.router.navigate(['/auth/backofficedashboard']);
         }
       }
     }
