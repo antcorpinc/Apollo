@@ -2,7 +2,6 @@ export let CONSTANTS = {
 
     application: {
         backoffice: 'backoffice',
-     //   apollo: 'apollo',
         society: 'society'
       },
       operation: {
@@ -11,5 +10,14 @@ export let CONSTANTS = {
         edit: 'edit',
         delete: 'delete',
         approve: 'approve',
+      },
+      feature: {
+        backoffice: {
+          dashboard: 'BackOfficeDashboard',
+        },
+        society: {
+
+        }
       }
+
 };

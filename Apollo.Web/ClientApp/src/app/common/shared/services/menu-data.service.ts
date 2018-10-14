@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MenuService, IMenuItem } from '../../../framework/fw/services/menu.service';
 import { UserDetailsViewModel, FeaturePermissionViewModel } from '../../viewmodels/userdetailsviewmodel';
 import { TopBarService } from '../../../framework/fw/services/top-bar.service';
+import { CONSTANTS } from '../../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -103,8 +104,8 @@ private getIconforMenuFeature(feature: string): string {
 }
 // Todo : Change This
 private getRouteforMenuFeature(feature: string): string {
-  if (feature.toUpperCase() === 'B2BHOTELS') {
-    return 'authenticated/hotelmgmt/hotelinfo';
+  if (feature.toUpperCase() === CONSTANTS.feature.backoffice.dashboard.toUpperCase()) {
+    return 'auth/backofficedashboard';
   } else if (feature.toUpperCase() === 'UNBEATABLEDEALS') {
     // Todo Change these
     return 'home';
