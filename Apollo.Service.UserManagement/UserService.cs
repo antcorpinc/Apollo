@@ -1,10 +1,13 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
+using Apollo.Domain.Entity;
 using Apollo.Domain.Enum;
 using Apollo.Domain.ViewModel;
 using Apollo.Service.UserManagement.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Apollo.Service.UserManagement
 {
@@ -25,6 +28,15 @@ namespace Apollo.Service.UserManagement
             throw new NotImplementedException();
         }
 
+        public List<ApolloUser> GetAllUsersBasedOnUserType(Domain.Enum.UserType userType)
+        {
+            //    return _userRepository.Find(users => users.UserTypeId == (int)userType)
+
+            //             .ToList();
+            // return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)userType).ToList();
+            return _userRepository.GetSupportUsers();
+        }
+
         public UserDetails GetUserDetails(Guid id)
         {
             var user = _userRepository.Get(id);
@@ -41,16 +53,16 @@ namespace Apollo.Service.UserManagement
             };
             var applicationPermissions = new List<ApplicationPermission>();
 
-            foreach(var userAppRole in user.UserAppRoleMapping)
+            foreach(var userAppRole in user.UserAppRoleMappings)
             {
                 List<RolePrivilege> roleDetails = new List<RolePrivilege>();
 
-                if(userDetails.UserTypeId == (int)UserType.SupportUser)
+                if(userDetails.UserTypeId == (int)Apollo.Domain.Enum.UserType.SupportUser)
                 {
                     roleDetails =
                         _roleRepository.GetRelatedPrivilegesForRoleAndApp(userAppRole.RoleId, userAppRole.ApplicationId);
                 }
-                else if(userDetails.UserTypeId==(int)UserType.SocietyUser)
+                else if(userDetails.UserTypeId==(int)Apollo.Domain.Enum.UserType.SocietyUser)
                 {
                     roleDetails =
                         _roleRepository.GetRelatedPrivilegesForRoleAppAndSociety

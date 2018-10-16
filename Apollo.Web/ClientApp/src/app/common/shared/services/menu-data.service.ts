@@ -36,7 +36,7 @@ export class MenuDataService {
     });
   }
   const translatedMenus =  this.translateModelToMenusRecursively(parentsMenuData);
-  //  console.log('TranslatedMenus' + JSON.stringify(translatedMenus));
+    console.log('TranslatedMenus' + JSON.stringify(translatedMenus));
     this.menuService.items = translatedMenus;
 
   }
@@ -106,9 +106,8 @@ private getIconforMenuFeature(feature: string): string {
 private getRouteforMenuFeature(feature: string): string {
   if (feature.toUpperCase() === CONSTANTS.feature.backoffice.dashboard.toUpperCase()) {
     return 'auth/backofficedashboard';
-  } else if (feature.toUpperCase() === 'UNBEATABLEDEALS') {
-    // Todo Change these
-    return 'home';
+  } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.supportuser.toUpperCase()) {
+       return 'auth/bo/usermgmt/supportusers';
   } else if (feature.toUpperCase() === 'VIEWBOOKINGS') {
     // Todo Change these
     return 'authenticated/bookingmgmt/reservationList';

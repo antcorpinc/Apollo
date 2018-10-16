@@ -8,6 +8,7 @@ using Apollo.Data.Interface;
 using Apollo.Domain.Entity;
 using Apollo.Service.UserManagement;
 using Apollo.Service.UserManagement.Interface;
+using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,11 @@ namespace Apollo.Api.UserManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
             services.AddCors();
             services.AddDbContext<ApolloContext>(
                 options =>
@@ -59,6 +64,8 @@ namespace Apollo.Api.UserManagement
             {
                 c.SwaggerDoc("v1", new Info { Title = "User Management API", Version = "v1" });
             });
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

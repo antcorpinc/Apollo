@@ -399,6 +399,27 @@ namespace Apollo.Data
                 _context.Add(feature);
             }
 
+            // Add BackOffice 1st Level Sub Menu 
+             if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.SupportUser) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.BackOfficeFeature.SupportUser,
+                    Name = "SupportUser",
+                    Description = "Support",
+                    Order = 1,
+                    ParentFeatureId = 1004,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+            // ~Add BackOffice 1st Level Sub Menu 
+
             // ~Add BackOffice Features
             // ~Add Features 
 
@@ -487,6 +508,19 @@ namespace Apollo.Data
                 };
                 _context.Add(boFeature);
             }
+
+            if (_context.ApplicationFeature.Find(Guid.Parse("686BD99B-C3DD-4934-B342-5B18AE23E02A")) == null)
+            {
+                ApplicationFeature boFeature = new ApplicationFeature()
+                {
+                    Id = new Guid("686BD99B-C3DD-4934-B342-5B18AE23E02A"),
+                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
+                    FeatureId = 1041,
+                    IsActive=true
+                };
+                _context.Add(boFeature);
+            }
+
                 // ~Add BackOffice Features
 
                 // Todo : Add Society Features
@@ -640,6 +674,23 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("6575989A-67DC-4DE2-B445-1A4C8EC16D74")) == null)
+            {
+                FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
+                {
+                    Id = new Guid("6575989A-67DC-4DE2-B445-1A4C8EC16D74"),
+                    FeatureId = 1041,
+                    Privileges = "VW|CR|DE|AP",
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    SocietyId = null,
+                    IsActive=true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(boFeaturePriv);
+            }
             // ~Add FeatureTypeRoleProvilege
 
             // Add UserAppRoleMapping

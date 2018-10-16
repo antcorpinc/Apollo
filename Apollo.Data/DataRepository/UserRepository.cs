@@ -37,10 +37,30 @@ namespace Apollo.Data.DataRepository
             return _context.User.Where(predicate);
         }
 
+        public List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate)
+        {
+           return  this.Find(predicate)
+                       .Include(user => user.UserAppRoleMappings).ToList();
+                    //    .ThenInclude(role => role.Application)
+                    //    .ThenInclude(role => role.ApplicationRole)
+                    //    .ThenInclude(role => role.Role)
+            ;
+
+            
+        }
+
+
+        public List<ApolloUser> GetSupportUsers()
+        {
+            return _context.User.Where(user => user.UserTypeId == 1)
+                     .Include(userRole => userRole.UserAppRoleMappings)
+                    .ToList();
+
+        }
         public ApolloUser Get(Guid id)
         {
             return _context.User.Where(users => users.Id == id)
-                .Include(user => user.UserAppRoleMapping)
+                .Include(user => user.UserAppRoleMappings)
                 .FirstOrDefault();
         }
 

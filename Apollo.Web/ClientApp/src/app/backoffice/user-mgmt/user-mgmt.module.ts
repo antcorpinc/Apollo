@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupportUserListComponent } from './support-user/support-user-list/support-user-list.component';
-import { SupportUserInfoComponent } from './support-user/support-user-info/support-user-info.component';
+import { UserMgmtRoutingModule, routedUserComponents } from './user-mgmt-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MaterialModule } from '../../common/material/material.module';
+import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-shared.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    UserMgmtRoutingModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    FormsModule,
+    BackofficeSharedModule
   ],
-  declarations: [SupportUserListComponent, SupportUserInfoComponent]
+  declarations: [routedUserComponents]
 })
 export class UserMgmtModule { }

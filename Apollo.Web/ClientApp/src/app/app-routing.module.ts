@@ -22,7 +22,8 @@ export const routes: Routes = [
         children: [
           // All Authenticated BackOffice Routes
           { path : 'backofficedashboard' , component: BackofficeDashboardComponent},
-
+          { path: 'bo/usermgmt', loadChildren:
+              './backoffice/user-mgmt/user-mgmt.module#UserMgmtModule' } ,
           // ~ All Authenticated BackOffice Routes
 
           // All Authenticated Society Routes

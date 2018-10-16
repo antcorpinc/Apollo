@@ -12,7 +12,7 @@ namespace Apollo.Domain.Entity
     {
         public ApolloUser()
         {
-            UserAppRoleMapping = new HashSet<UserAppRoleMapping>();
+            UserAppRoleMappings = new HashSet<UserAppRoleMapping>();
 
         }
 
@@ -33,8 +33,8 @@ namespace Apollo.Domain.Entity
         public DateTime? UpdatedDate { get; set; }
 
 
-        [ForeignKey("UserTypeId")]
-        public UserType UserType { get; set; }
-        public ICollection<UserAppRoleMapping> UserAppRoleMapping { get; set; }
+       /*  [ForeignKey("UserTypeId")]
+        public UserType UserType { get; set; } */
+        public ICollection<UserAppRoleMapping> UserAppRoleMappings { get; set; }
     }
 }

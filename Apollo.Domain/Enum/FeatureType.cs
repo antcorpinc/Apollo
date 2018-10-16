@@ -8,6 +8,7 @@ namespace Apollo.Domain.Enum
     {
 
         // Society Features from 1 - 1000 -- Todo: Needs to be refactored
+        // Todo -- Need to change the name from ApolloFeature to SocietyFeature
         public enum ApolloFeature
         {
             // Top Level Menu Features for Apollo  Assign 1 - 10 For top level Menus
@@ -74,7 +75,7 @@ namespace Apollo.Domain.Enum
 
             // Child Level menus for FinanceManagement -- 1031 - 1040
 
-            // Child Level menus for UserManagement -- 1041 - 1050
+            // Child Level menus for UserManagement -- 1041 - 1050 (Parent - 1004)
             SupportUser = 1041,
             SocietyUser,
             RolesPermissions
