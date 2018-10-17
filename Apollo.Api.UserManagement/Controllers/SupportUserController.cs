@@ -37,7 +37,8 @@ namespace Apollo.Api.UserManagement.Controllers
         {
             // Todo First check that the logged in user is of support user type if yes then only let him call the below
             var supportUserList = this._userService.GetAllUsersBasedOnUserType(Domain.Enum.UserType.SupportUser);
-            return Ok(supportUserList);
+            return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
+            //return Ok(supportUserList);
         }
 
     }

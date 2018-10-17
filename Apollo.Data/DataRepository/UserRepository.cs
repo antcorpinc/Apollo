@@ -40,10 +40,10 @@ namespace Apollo.Data.DataRepository
         public List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate)
         {
            return  this.Find(predicate)
-                       .Include(user => user.UserAppRoleMappings).ToList();
-                    //    .ThenInclude(role => role.Application)
-                    //    .ThenInclude(role => role.ApplicationRole)
-                    //    .ThenInclude(role => role.Role)
+                       .Include(user => user.UserAppRoleMappings)
+                        .ThenInclude(role => role.Application)
+                        .ThenInclude(role => role.ApplicationRole)
+                        .ThenInclude(role => role.Role).ToList()
             ;
 
             

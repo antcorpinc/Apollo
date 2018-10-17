@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Apollo.Data;
 using Apollo.Data.DataRepository;
 using Apollo.Data.Interface;
+using Apollo.Domain.DTO;
 using Apollo.Domain.Entity;
 using Apollo.Service.UserManagement;
 using Apollo.Service.UserManagement.Interface;
@@ -103,6 +104,11 @@ namespace Apollo.Api.UserManagement
             app.UseAuthentication();
             app.UseMvc();
 
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<ApolloUser, SupportUserList>()
+                .ForMember(des=> des.UserApplicationRole , opt => opt.MapFrom(s => s.UserAppRoleMappings));
+            });
             // Do it in the last Seed Data only in Development
             if (env.IsDevelopment())
             {

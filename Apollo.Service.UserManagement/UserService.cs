@@ -30,11 +30,8 @@ namespace Apollo.Service.UserManagement
 
         public List<ApolloUser> GetAllUsersBasedOnUserType(Domain.Enum.UserType userType)
         {
-            //    return _userRepository.Find(users => users.UserTypeId == (int)userType)
-
-            //             .ToList();
-            // return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)userType).ToList();
-            return _userRepository.GetSupportUsers();
+            return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)userType).ToList();
+           // return _userRepository.GetSupportUsers();
         }
 
         public UserDetails GetUserDetails(Guid id)
