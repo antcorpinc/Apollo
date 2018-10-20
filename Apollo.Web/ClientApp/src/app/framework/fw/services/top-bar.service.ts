@@ -20,5 +20,6 @@ export class TopBarService {
 
   onAppChange($event): void {
     this.appChangeSource.next($event.target.value);
+    this._item.activeApplication = $event.target.value;
 }
 }

@@ -9,7 +9,9 @@ import { CONSTANTS } from '../../constants';
 })
 export class MenuDataService {
   _userDetails: UserDetailsViewModel;
-  constructor(private menuService: MenuService, private topBarService: TopBarService) { }
+  constructor(private menuService: MenuService, private topBarService: TopBarService) {
+    this.topBarService.appChange$.subscribe((app) => this.transformMenuData(app));
+   }
 
   initializeNonLoggedInMenus(menuItems: IMenuItem[]) {
     this.menuService.items = this.initializeMenuData(menuItems);
