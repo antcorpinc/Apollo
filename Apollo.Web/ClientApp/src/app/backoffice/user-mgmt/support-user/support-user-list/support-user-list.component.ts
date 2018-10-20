@@ -13,7 +13,7 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<SupportUserListViewModel>;
-  displayedColumns = ['firstName', 'email'];
+  displayedColumns = ['firstName', 'email', 'isActive'];
   totalRecords: number;
 
   subscriptions: Subscription[] = [];
