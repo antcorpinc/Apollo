@@ -524,9 +524,24 @@ namespace Apollo.Data
                 // ~Add BackOffice Features
 
                 // Todo : Add Society Features
+            if (_context.ApplicationFeature.Find(Guid.Parse("EEC18F0F-7BA0-4AD1-BCD2-D2594FA2C84D")) == null)
+            {
+                ApplicationFeature soFeature = new ApplicationFeature()
+                {
+                    Id = new Guid("EEC18F0F-7BA0-4AD1-BCD2-D2594FA2C84D"),
+                    ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                    FeatureId = 1,
+                    IsActive=true
+                };
+                _context.Add(soFeature);
+            }
+                // For now added only Dashboard - Need to add the others.
+
+                // ~Todo : Add Society Features
             // ~Add Application Feature
 
             // Add Application Role
+            // Add App Roles for BackOffice
             if (_context.ApplicationRole.Find(Guid.Parse("6F6146CF-D4AF-4761-8D80-80F891B53244")) == null)
             {
                 ApplicationRole boFeature = new ApplicationRole()
@@ -543,11 +558,35 @@ namespace Apollo.Data
                 _context.Add(boFeature);
             }
 
+            // ~Add App Roles for BackOffice
+
+            //  Add App Roles for Society
+            if (_context.ApplicationRole.Find(Guid.Parse("8C604013-E830-46C9-A4A3-769E1D3D39FB")) == null)
+            {
+                ApplicationRole soAppRole = new ApplicationRole()
+                {
+                    Id = new Guid("8C604013-E830-46C9-A4A3-769E1D3D39FB"),
+                    ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                    RoleId = Guid.Parse("A5BE6F05-7D89-4532-A275-85F6919A637F"),
+                    IsActive=true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(soAppRole);
+            }
+            //  ~Add App Roles for Society
+
             // Todo: Add other Application Roles
             // ~Add Application Role
 
-            // Add FeatureTypeRoleProvilege
-            // Info: Society Id is null for BaackOffice Role , For Society it should have the Society Id
+            // Add FeatureTypeRolePrivilege
+            // Info: Society Id is null for Support  Roles , For Society it should have the Society Id
+            // Info : Ex.. If th roles are support thenn they have access to BackOffice features
+            // and also society features with society Id is null . Ex SuperAdmin will have society = null
+            // For Society specific roles then they will have society Id
+            // Add FeatureTypeRolePrivilege for BO
             if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("CA9DE951-3C40-479C-AAAE-F3EA6246F9C5")) == null)
             {
                 FeatureTypeRolePrivilege boFeature = new FeatureTypeRolePrivilege()
@@ -691,6 +730,28 @@ namespace Apollo.Data
                 };
                 _context.Add(boFeaturePriv);
             }
+
+             // ~Add FeatureTypeRolePrivilege for BO
+
+              // Add FeatureTypeRolePrivilege for Society
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("4EEABE04-2F5E-4684-B9D5-27D934F8D5DA")) == null)
+            {
+                FeatureTypeRolePrivilege soFeaturePriv = new FeatureTypeRolePrivilege()
+                {
+                    Id = new Guid("4EEABE04-2F5E-4684-B9D5-27D934F8D5DA"),
+                    FeatureId = 1,
+                    Privileges = "VW|CR|DE|AP",
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    SocietyId = null,
+                    IsActive=true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(soFeaturePriv);
+            }
+              // ~Add FeatureTypeRolePrivilege for Society
             // ~Add FeatureTypeRoleProvilege
 
             // Add UserAppRoleMapping
@@ -710,6 +771,25 @@ namespace Apollo.Data
                 };
                 _context.Add(usrAppRoleMapping);
             }
+
+            if (_context.UserAppRoleMapping.Find(Guid.Parse("68601373-6F1F-468F-B59F-DD61B10D6B66")) == null)
+            {
+                UserAppRoleMapping usrAppRoleMapping = new UserAppRoleMapping()
+                {
+                   Id = new Guid("68601373-6F1F-468F-B59F-DD61B10D6B66"),
+                   RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                   UserId = Guid.Parse("7430DD69-3F53-4471-A621-E1E3BB582D45"),
+                   ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                   IsActive=true,
+                   CreatedBy = "SystemAdmin",
+                   CreatedDate = DateTime.UtcNow,
+                   UpdatedBy = "SystemAdmin",
+                   UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(usrAppRoleMapping);
+            }
+
+
             // ~ // Add UserAppRoleMapping
 
             // Add States
