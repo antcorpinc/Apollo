@@ -39,6 +39,10 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subscription);
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
