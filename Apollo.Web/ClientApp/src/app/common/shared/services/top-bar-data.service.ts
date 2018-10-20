@@ -41,6 +41,10 @@ export class TopBarDataService {
             role: val.roleName
           }));
       }
+      if (topBarItemViewModel.applications !== null && topBarItemViewModel.applications.length > 0 &&
+        (topBarItemViewModel.activeApplication === null  || topBarItemViewModel.activeApplication === '')) {
+        topBarItemViewModel.activeApplication = topBarItemViewModel.applications[0].application;
+      }
       this._topBarItem = topBarItemViewModel;
     }
 

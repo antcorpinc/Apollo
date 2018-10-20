@@ -24,8 +24,8 @@
 
       <span *ngIf="topBarService.getTopBarItem()!= null">
         <div  *ngIf="topBarService.getTopBarItem().applications!=null">
-          <select (change)="onApplicationChange($event)" >
-            <option *ngFor="let item of topBarService.getTopBarItem().applications">
+          <select (change)="onApplicationChange($event)" [value]= "topBarService.getTopBarItem().activeApplication">
+            <option *ngFor="let item of topBarService.getTopBarItem().applications" [value]="item.application">
               {{item.application}}
             </option>
           </select>

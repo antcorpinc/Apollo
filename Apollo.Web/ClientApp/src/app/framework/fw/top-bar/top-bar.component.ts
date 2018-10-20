@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FrameworkConfigService } from '../services/framework-config.service';
 import { TopBarService } from '../services/top-bar.service';
 import { AuthService } from '../../../common/shared/services/auth.service';
@@ -9,13 +9,17 @@ import { AuthService } from '../../../common/shared/services/auth.service';
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css']
 })
-export class TopBarComponent implements OnInit {
+export class TopBarComponent implements OnInit , OnChanges {
 
   currentApp: string;
   constructor(public frameworkConfigService: FrameworkConfigService ,
     private _authService: AuthService, public topBarService: TopBarService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    console.log('On Changes being called');
   }
 
   login() {
@@ -34,5 +38,4 @@ export class TopBarComponent implements OnInit {
     this.topBarService.onAppChange($event);
     this.currentApp = $event.target.value;
   }
-
 }
