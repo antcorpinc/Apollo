@@ -1,4 +1,8 @@
 import { NgModule } from '@angular/core';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
 
 import {
     MatAutocompleteModule,
@@ -9,24 +13,19 @@ import {
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatCommonModule,
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
-    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatLineModule,
     MatMenuModule,
     MatNativeDateModule,
-    MatOptionModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatPseudoCheckboxModule,
     MatRadioModule,
     MatRippleModule,
     MatSelectModule,
@@ -39,21 +38,17 @@ import {
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTreeModule,
+
+
 } from '@angular/material';
 
-import {CdkTableModule} from '@angular/cdk/table';
-import { A11yModule } from '@angular/cdk/a11y';
-import { BidiModule } from '@angular/cdk/bidi';
-import { ObserversModule } from '@angular/cdk/observers';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { PlatformModule } from '@angular/cdk/platform';
-import { PortalModule } from '@angular/cdk/portal';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { CdkStepperModule } from '@angular/cdk/stepper';
-// Todo -- Add tree
 @NgModule({
   imports: [
+    CdkTableModule,
+    CdkTreeModule,
+    DragDropModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
@@ -62,24 +57,19 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatCommonModule,
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
-    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatLineModule,
     MatMenuModule,
     MatNativeDateModule,
-    MatOptionModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatPseudoCheckboxModule,
     MatRadioModule,
     MatRippleModule,
     MatSelectModule,
@@ -93,21 +83,13 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    CdkTableModule
+    MatTreeModule,
+    ScrollingModule,
   ],
   exports: [
-
-    // CDK
-    A11yModule,
-    BidiModule,
-    ObserversModule,
-    OverlayModule,
-    PlatformModule,
-    PortalModule,
-    ScrollDispatchModule,
-    CdkStepperModule,
     CdkTableModule,
-    // Material
+    CdkTreeModule,
+    DragDropModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
@@ -116,24 +98,19 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatCommonModule,
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
-    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatLineModule,
     MatMenuModule,
     MatNativeDateModule,
-    MatOptionModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatPseudoCheckboxModule,
     MatRadioModule,
     MatRippleModule,
     MatSelectModule,
@@ -147,7 +124,8 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    CdkTableModule
+    MatTreeModule,
+    ScrollingModule,
   ]
 })
 export class MaterialModule { }
