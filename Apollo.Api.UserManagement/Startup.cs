@@ -107,7 +107,7 @@ namespace Apollo.Api.UserManagement
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<ApolloUser, SupportUserList>()
-                .ForMember(des=> des.UserApplicationRole , opt => opt.MapFrom(s => s.UserAppRoleMappings));
+                .ForMember(des=> des.UserApplicationRole , opt => opt.MapFrom(s => s.UserAppRoleMappings)).ReverseMap();
             });
             // Do it in the last Seed Data only in Development
             if (env.IsDevelopment())
