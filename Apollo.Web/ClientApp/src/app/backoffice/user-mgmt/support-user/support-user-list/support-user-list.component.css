@@ -5,3 +5,8 @@
   font-size: 14px;
   width: 100%;
 }
+.active-status {
+  border-radius: 50%;
+  color: #03a83a;
+  margin-right: 0.5rem;
+}

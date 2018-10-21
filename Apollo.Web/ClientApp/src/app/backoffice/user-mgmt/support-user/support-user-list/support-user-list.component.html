@@ -31,7 +31,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
           <td mat-cell  *matCellDef="let row">
               <ng-container *ngIf="row.isActive">
-                  Active
+                  <span class="fa fa-circle active-status" aria-hidden="true"></span> Active
               </ng-container>
             </td>
 
