@@ -3,6 +3,8 @@ import { UserDataService } from '../../../common/backoffice-shared/services/user
 import {Subscription} from 'rxjs';
 import { SupportUserListViewModel } from '../../../viewmodel/user-mgmt-vm/supportuserlistviewmodel';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { CONSTANTS } from '../../../../common/constants';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-support-user-list',
@@ -19,7 +21,13 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   userList: SupportUserListViewModel[];
 
- constructor(private userDataService: UserDataService ) { }
+  edit = CONSTANTS.operation.edit;
+  create = CONSTANTS.operation.create;
+  read = CONSTANTS.operation.read;
+  operation: string;
+
+ constructor(private router: Router, private activatedRoute: ActivatedRoute,
+  private userDataService: UserDataService ) { }
 
   ngOnInit() {
     this.getSupportUserList();
@@ -37,6 +45,10 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
       console.log('Error' + error);
     });
     this.subscriptions.push(subscription);
+  }
+
+  createSupportUser() {
+    this.router.navigate(['../supportuser', 0, this.create], { relativeTo: this.activatedRoute });
   }
 
   applyFilter(filterValue: string) {
