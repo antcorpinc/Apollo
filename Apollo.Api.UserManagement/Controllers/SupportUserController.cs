@@ -12,9 +12,9 @@ namespace Apollo.Api.UserManagement.Controllers
     [Route("api/supportuser")]
     public class SupportUserController: BaseUserController
     {
-        private readonly IUserService _userService;
+        private readonly ISupportUserService _userService;
         private readonly IMapper _mapper;
-        public SupportUserController(IUserService userService, IMapper mapper)
+        public SupportUserController(ISupportUserService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
@@ -27,7 +27,7 @@ namespace Apollo.Api.UserManagement.Controllers
             {
                 return BadRequest();
             }
-            this._userService.CreateSupportUser(user);
+         //   this._userService.CreateSupportUser(user);
             // Todo: Change the below
             return null;
         }
@@ -36,9 +36,9 @@ namespace Apollo.Api.UserManagement.Controllers
        public IActionResult GetSupportUsers()
         {
             // Todo First check that the logged in user is of support user type if yes then only let him call the below
-            var supportUserList = this._userService.GetAllUsersBasedOnUserType(Domain.Enum.UserType.SupportUser);
+            var supportUserList = this._userService.GetAllUsers();
             return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
-            //return Ok(supportUserList);
+            
         }
 
     }

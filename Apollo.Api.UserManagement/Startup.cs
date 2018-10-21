@@ -60,6 +60,8 @@ namespace Apollo.Api.UserManagement
             services.AddScoped<IRoleRepository, RoleRepository>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISupportUserService, SupportUserService>();
+            services.AddScoped<ISocietyUserService, SocietyUserService>();
 
             services.AddSwaggerGen(c =>
             {
