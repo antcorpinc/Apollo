@@ -48,7 +48,8 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
   }
 
   createSupportUser() {
-    this.router.navigate(['../supportuser', 0, this.create], { relativeTo: this.activatedRoute });
+   // this.router.navigate(['../supportuser', 0, this.create], { relativeTo: this.activatedRoute });
+   this.router.navigate(['../supportuser', CONSTANTS.create.id, this.create], { relativeTo: this.activatedRoute });
   }
 
   applyFilter(filterValue: string) {

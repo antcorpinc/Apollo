@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApplicationViewModel } from '../../../../backoffice/viewmodel/user-mgmt-vm/applicationviewmodel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-support-user-info',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./support-user-info.component.css']
 })
 export class SupportUserInfoComponent implements OnInit {
+  applicationList: ApplicationViewModel[];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getApplications();
+  }
+
+  getApplications() {
+    this.applicationList = this.activatedRoute.snapshot.data['applications'];
+  //  console.log(this.applicationList);
   }
 
 }

@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Apollo.Core.Interface
 {
+    // Todo: Need to reafctor to add the GetAll and remove from other i/f's
     public interface IRepository<T,U>
         where T:class,IIdentifiableModel<U>
     {

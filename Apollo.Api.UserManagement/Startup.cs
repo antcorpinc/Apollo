@@ -58,10 +58,12 @@ namespace Apollo.Api.UserManagement
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IApplicationRepository, ApplicationRepository>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISupportUserService, SupportUserService>();
             services.AddScoped<ISocietyUserService, SocietyUserService>();
+            services.AddScoped<IApplicationService, ApplicationService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -110,6 +112,9 @@ namespace Apollo.Api.UserManagement
             {
                 cfg.CreateMap<ApolloUser, SupportUserList>()
                 .ForMember(des=> des.UserApplicationRole , opt => opt.MapFrom(s => s.UserAppRoleMappings)).ReverseMap();
+
+                cfg.CreateMap<Domain.Entity.Application, Domain.DTO.Application>();
+
             });
             // Do it in the last Seed Data only in Development
             if (env.IsDevelopment())

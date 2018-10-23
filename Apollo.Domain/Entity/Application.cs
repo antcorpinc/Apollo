@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Apollo.Core.Interface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Apollo.Domain.Entity
 {
     [Table("Application", Schema = "Security")]
-    public partial class Application
+    public partial class Application: IIdentifiableModel<Guid>
     {
         public Application()
         {

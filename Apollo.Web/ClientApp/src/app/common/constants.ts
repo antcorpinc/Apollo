@@ -19,6 +19,10 @@ export let CONSTANTS = {
         society: {
 
         }
+      },
+
+      create: {
+        id: 'A3AFC710-B3E4-40AF-ACA5-20738C86FAA3'
       }
 
 };
