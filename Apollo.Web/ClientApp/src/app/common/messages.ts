@@ -1,5 +1,6 @@
 export let ErrorMessages = {
   requiredFieldMessage : 'This field is required',
+  validateAppRole: 'This app type is already selected.',
 };
 
 export let InfoMessages = {

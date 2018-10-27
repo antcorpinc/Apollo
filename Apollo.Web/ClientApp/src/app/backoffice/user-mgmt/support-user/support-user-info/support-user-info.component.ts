@@ -6,16 +6,17 @@ import { CONSTANTS } from '../../../../common/constants';
 import { RoleViewModel } from '../../../viewmodel/user-mgmt-vm/roleviewmodel';
 import { Subscription } from 'rxjs';
 import { BackOfficeLookupService } from '../../../common/backoffice-shared/services/lookup.service';
-import { InfoMessages } from 'src/app/common/messages';
+import { InfoMessages, ErrorMessages } from 'src/app/common/messages';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog/confirm-dialog.component';
+import { UserMgmtSupportUserSyncValidators } from './support-user-info.validator';
 
 @Component({
   selector: 'app-support-user-info',
   templateUrl: './support-user-info.component.html',
   styleUrls: ['./support-user-info.component.css']
 })
-export class SupportUserInfoComponent implements OnInit , OnDestroy {
+export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
   supportUserForm: FormGroup;
 
@@ -36,7 +37,7 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
     private backOfficeLookUpService: BackOfficeLookupService,
     private dialog: MatDialog
-     ) { }
+  ) { }
 
   ngOnInit() {
     // Read Route parameters
@@ -62,7 +63,7 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
       Validators.email
       ]),
       isActive: new FormControl(true),
-      userApplicationRole: new FormArray([])
+      userApplicationRole: new FormArray([], [UserMgmtSupportUserSyncValidators.ApplicationRoleValidator] )
     });
 
     if (this.operation.toLowerCase().trim() === this.create) {
@@ -80,23 +81,24 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
 
   confirmDeleteAppRole(index: number) {
     if (this.isNullOrEmpty(this.userApplicationRole.value[index].applicationId) &&
-    this.isNullOrEmpty(this.userApplicationRole.value[index].roleId)) {
+      this.isNullOrEmpty(this.userApplicationRole.value[index].roleId)) {
       this.deleteAppRole(index);
     } else {
-     const dialogRef =   this.dialog.open(ConfirmDialogComponent , {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '450px',
-        data: { title: 'Confirm Delete',
-                content: InfoMessages.applicationRoleDeletionMessage
-              }
+        data: {
+          title: 'Confirm Delete',
+          content: InfoMessages.applicationRoleDeletionMessage
+        }
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-        this.deleteAppRole(index);
+          this.deleteAppRole(index);
         }
       },
-      (error) => {
-        console.log('Error' + error);
-      });
+        (error) => {
+          console.log('Error' + error);
+        });
     }
   }
 
@@ -134,14 +136,30 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
   getRolesForApplication(applicationId, applicationIndex) {
     if (applicationId !== null) {
       const subscription = this.backOfficeLookUpService.getRolesByApplicationIdAndUserType(applicationId,
-         CONSTANTS.userTypeId.supportUser).subscribe(data => {
+        CONSTANTS.userTypeId.supportUser).subscribe(data => {
           this.appRolesListArray[applicationIndex] = data;
         },
-        (error) => console.error(`Error in Suppport-User-getRolesForApplication. ${error}`));
+          (error) => console.error(`Error in Suppport-User-getRolesForApplication. ${error}`));
       this.subscriptions.push(subscription);
     } else {
       this.userApplicationRole.controls[applicationIndex].get('roleId').setValue(null);
       this.appRolesListArray[applicationIndex] = [];
+    }
+  }
+
+  hasErrors(controlName: string) {
+    return (this.supportUserForm.get(controlName).dirty ||
+     this.supportUserForm.get(controlName).touched) &&
+     this.supportUserForm.get(controlName).errors !== null;
+  }
+
+  getValidationMessage(controlName: string): string {
+    if (this.supportUserForm.get(controlName).hasError('required')) {
+      return ErrorMessages.requiredFieldMessage;
+    } else if (this.supportUserForm.get(controlName).hasError('ValidateAppRole')) {
+      return ErrorMessages.validateAppRole;
+    } else {
+      return '';
     }
   }
 

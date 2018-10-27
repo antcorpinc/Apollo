@@ -56,6 +56,7 @@
                     <mat-option [value]="app.id">{{app.name}}</mat-option>
                   </ng-container>
                 </mat-select>
+                <mat-error *ngIf="hasErrors('userApplicationRole.' + i + '.applicationId')">{{this.getValidationMessage('userApplicationRole.' + i + '.applicationId')}}</mat-error>
               </mat-form-field>
             </div>
             <div class="col">
@@ -83,6 +84,7 @@
           </div>
         </div>
       </div>
+      <mat-error *ngIf="hasErrors('userApplicationRole')">{{this.getValidationMessage('userApplicationRole')}}</mat-error>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Submit</button>
