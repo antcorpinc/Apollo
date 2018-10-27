@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { CONSTANTS } from '../../../../common/constants';
 import { RoleViewModel } from '../../../viewmodel/user-mgmt-vm/roleviewmodel';
 import { Subscription } from 'rxjs';
-import { LookupService } from '../../../common/backoffice-shared/services/lookup.service';
+import { BackOfficeLookupService } from '../../../common/backoffice-shared/services/lookup.service';
 
 @Component({
   selector: 'app-support-user-info',
@@ -31,7 +31,7 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
-    private backOfficeLookUpService: LookupService) { }
+    private backOfficeLookUpService: BackOfficeLookupService) { }
 
   ngOnInit() {
     // Read Route parameters

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LookupService {
+export class BackOfficeLookupService {
 
   constructor(private authenticatedHttpService: AuthenticatedHttpService,
     private configurationService: ConfigurationService ) { }
