@@ -41,44 +41,46 @@
         </div>
       </div>
 
-      <h6 >Please Select Application & Role</h6>
+      <h6>Please Select Application & Role</h6>
       <mat-card-title>Shipping Information</mat-card-title>
       <div formArrayName="userApplicationRole" *ngFor="let appRole of userApplicationRole.controls; let i =index">
         <div [formGroupName]="i">
 
-            <div class="row">
-                <div class="col">
-                  <mat-form-field class="full-width">
-                      <mat-select formControlName="applicationId" placeholder="Application"
-                      (selectionChange)="getRolesForApplication($event.value, i)"required>
-                          <mat-option [value]="null">Select</mat-option>
-                          <ng-container *ngFor="let app of applicationList">
-                            <mat-option [value]="app.id">{{app.name}}</mat-option>
-                          </ng-container>
-                        </mat-select>
-                  </mat-form-field>
-                </div>
-                 <div class="col">
-                  <mat-form-field class="full-width">
-                      <mat-select formControlName="roleId" placeholder="Role" required>
-                          <mat-option [value]="null">Select</mat-option>
-                          <ng-container *ngFor="let role of this.appRolesListArray[i] ">
-                            <mat-option [value]="role.id">{{role.name}}</mat-option>
-                          </ng-container>
-                        </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <ng-container *ngIf="i > 0">
-                    <button mat-fab type="button"  (click)="confirmDeleteAppRole(i)">
-                        <mat-icon>remove</mat-icon>
-                    </button>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-select formControlName="applicationId" placeholder="Application" (selectionChange)="getRolesForApplication($event.value, i)"
+                  required>
+                  <mat-option [value]="null">Select</mat-option>
+                  <ng-container *ngFor="let app of applicationList">
+                    <mat-option [value]="app.id">{{app.name}}</mat-option>
                   </ng-container>
-                  <button mat-fab type="button"[hidden]='isMaxLength' (click)="addAppRole()">
-                      <mat-icon>add</mat-icon>
-                  </button>
-                </div>
-              </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-select formControlName="roleId" placeholder="Role" required>
+                  <mat-option [value]="null">Select</mat-option>
+                  <ng-container *ngFor="let role of this.appRolesListArray[i] ">
+                    <mat-option [value]="role.id">{{role.name}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <ng-container *ngIf="i > 0">
+                <button mat-fab type="button" (click)="confirmDeleteAppRole(i)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *ngIf='!isMaxLength'>
+                <button type="button" mat-fab (click)="addAppRole()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </div>
         </div>
       </div>
     </mat-card-content>
