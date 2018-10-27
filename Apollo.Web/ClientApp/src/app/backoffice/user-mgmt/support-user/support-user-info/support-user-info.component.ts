@@ -6,7 +6,6 @@ import { CONSTANTS } from '../../../../common/constants';
 import { RoleViewModel } from '../../../viewmodel/user-mgmt-vm/roleviewmodel';
 import { Subscription } from 'rxjs';
 import { BackOfficeLookupService } from '../../../common/backoffice-shared/services/lookup.service';
-import { DialogsService } from '../../../common/backoffice-shared/dialogs/dialogs.service';
 import { InfoMessages } from 'src/app/common/messages';
 
 @Component({
@@ -34,7 +33,7 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
     private backOfficeLookUpService: BackOfficeLookupService,
-    private dialogsService: DialogsService ) { }
+     ) { }
 
   ngOnInit() {
     // Read Route parameters
