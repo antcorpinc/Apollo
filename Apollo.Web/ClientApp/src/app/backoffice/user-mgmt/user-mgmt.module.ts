@@ -4,6 +4,7 @@ import { UserMgmtRoutingModule, routedUserComponents } from './user-mgmt-routing
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../common/material/material.module';
 import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-shared.module';
+import { DialogsModule } from '../common/backoffice-shared/dialogs/dialogs.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-s
     ReactiveFormsModule,
     MaterialModule,
     FormsModule,
-    BackofficeSharedModule
+    BackofficeSharedModule,
+    DialogsModule,
   ],
   declarations: [ routedUserComponents]
 })

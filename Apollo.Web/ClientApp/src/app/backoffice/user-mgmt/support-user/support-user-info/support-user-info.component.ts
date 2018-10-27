@@ -6,6 +6,8 @@ import { CONSTANTS } from '../../../../common/constants';
 import { RoleViewModel } from '../../../viewmodel/user-mgmt-vm/roleviewmodel';
 import { Subscription } from 'rxjs';
 import { BackOfficeLookupService } from '../../../common/backoffice-shared/services/lookup.service';
+import { DialogsService } from '../../../common/backoffice-shared/dialogs/dialogs.service';
+import { InfoMessages } from 'src/app/common/messages';
 
 @Component({
   selector: 'app-support-user-info',
@@ -31,7 +33,8 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
-    private backOfficeLookUpService: BackOfficeLookupService) { }
+    private backOfficeLookUpService: BackOfficeLookupService,
+    private dialogsService: DialogsService ) { }
 
   ngOnInit() {
     // Read Route parameters
@@ -65,6 +68,38 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
 
   get userApplicationRole(): FormArray {
     return <FormArray>this.supportUserForm.get('userApplicationRole');
+  }
+
+  isNullOrEmpty(value: any): boolean {
+    return value === undefined || value === null || value === '';
+  }
+
+  confirmDeleteAppRole(index: number) {
+    if (this.isNullOrEmpty(this.userApplicationRole.value[index].applicationId) &&
+    this.isNullOrEmpty(this.userApplicationRole.value[index].roleId)) {
+      this.deleteAppRole(index);
+    } else {
+   //   const subscribtion = this.dialogsService
+   //   .confirm('Confirm', InfoMessages.applicationRoleDeletionMessage).subscribe(res => {
+   //     if (res) {
+          this.deleteAppRole(index);
+       //   this.mgUserForm.get('userApplicationRole').markAsDirty();
+       //   this.mgUserForm.get('userApplicationRole').markAsTouched();
+       //   this.mgUserForm.get('userApplicationRole').updateValueAndValidity();
+     //   } else {
+        //  this.actions = null;
+      //  }
+     // },
+     // (error) => console.error(`Error in deleting SupportUser-confirmDeleteAppRole(index: number). ${error}`));
+     // this.subscriptions.push(subscribtion);
+    }
+  }
+
+  deleteAppRole(index: number) {
+    this.userApplicationRole.removeAt(index);
+    this.appRolesListArray.splice(index, 1);
+    this.isMaxLength = false;
+    this.cd.detectChanges();
   }
 
   addAppRole() {
