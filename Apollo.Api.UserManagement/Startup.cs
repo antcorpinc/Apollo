@@ -6,6 +6,7 @@ using Apollo.Data;
 using Apollo.Data.DataRepository;
 using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
+using Apollo.Domain.DTO.Base;
 using Apollo.Domain.Entity;
 using Apollo.Service.UserManagement;
 using Apollo.Service.UserManagement.Interface;
@@ -64,6 +65,7 @@ namespace Apollo.Api.UserManagement
             services.AddScoped<ISupportUserService, SupportUserService>();
             services.AddScoped<ISocietyUserService, SocietyUserService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -115,6 +117,12 @@ namespace Apollo.Api.UserManagement
 
                 cfg.CreateMap<Domain.Entity.Application, Domain.DTO.Application>();
 
+                cfg.CreateMap<Domain.Entity.ApplicationRole, Role>()
+                   .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Role.Id))
+                   .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Role.Name))
+                   .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.Role.IsActive))
+                   .ForMember(des => des.Description, opt => opt.MapFrom(s => s.Role.Description));
+                //   .ForMember(des => des.ApplicationList, opt => opt.MapFrom(s => s.Role.ApplicationRole));
             });
             // Do it in the last Seed Data only in Development
             if (env.IsDevelopment())

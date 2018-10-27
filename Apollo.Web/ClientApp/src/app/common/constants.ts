@@ -23,6 +23,12 @@ export let CONSTANTS = {
 
       create: {
         id: 'A3AFC710-B3E4-40AF-ACA5-20738C86FAA3'
+      },
+
+      userTypeId: {
+        supportUser: 1,
+        societyUser: 2,
+
       }
 
 };

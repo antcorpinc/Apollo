@@ -11,5 +11,7 @@ namespace Apollo.Data.Interface
     {
         List<RolePrivilege> GetRelatedPrivilegesForRoleAndApp(Guid roleId, Guid appId);
         List<RolePrivilege> GetRelatedPrivilegesForRoleAppAndSociety(Guid roleId, Guid appId, Guid? societyId);
+
+        List<Domain.Entity.ApplicationRole> GetRolesForApplicationAndUserType(Guid applicationId ,Apollo.Domain.Enum.UserType? userType);
     }
 }

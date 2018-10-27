@@ -17,4 +17,9 @@ export class LookupService {
         this.configurationService.config.baseUrls.userMgmtApi +
          'api/application/');
     }
+
+    getRolesByApplicationIdAndUserType(applicationId, userType): Observable<any> {
+      return this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi +
+         'api/Role/GetByApplicationId?applicationId=' + applicationId + '&userType=' + userType);
+    }
 }

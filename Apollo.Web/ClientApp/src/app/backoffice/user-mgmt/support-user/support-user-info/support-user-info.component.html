@@ -1,3 +1,80 @@
-<p>
-  support-user-info works!
-</p>
+<form [formGroup]="supportUserForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="support-user-card">
+    <mat-card-header>
+      <mat-card-title>Support User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <span>User Status </span>
+          <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First name" formControlName="firstName" required>
+            <mat-error *ngIf="supportUserForm.controls['firstName'].hasError('required')">
+              First name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last name" formControlName="lastName">
+            <mat-error *ngIf="supportUserForm.controls['lastName'].hasError('required')">
+              Last name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email " formControlName="email">
+            <mat-error *ngIf="supportUserForm.controls['firstName'].hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <h6 >Please Select Application & Role</h6>
+      <mat-card-title>Shipping Information</mat-card-title>
+      <div formArrayName="userApplicationRole" *ngFor="let appRole of userApplicationRole.controls; let i =index">
+        <div [formGroupName]="i">
+
+            <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                      <mat-select formControlName="applicationId" placeholder="Application"
+                      (selectionChange)="getRolesForApplication($event.value, i)"required>
+                          <mat-option [value]="null">Select</mat-option>
+                          <ng-container *ngFor="let app of applicationList">
+                            <mat-option [value]="app.id">{{app.name}}</mat-option>
+                          </ng-container>
+                        </mat-select>
+                  </mat-form-field>
+                </div>
+                 <div class="col">
+                  <mat-form-field class="full-width">
+                      <mat-select formControlName="roleId" placeholder="Role" required>
+                          <mat-option [value]="null">Select</mat-option>
+                          <ng-container *ngFor="let role of this.appRolesListArray[i] ">
+                            <mat-option [value]="role.id">{{role.name}}</mat-option>
+                          </ng-container>
+                        </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

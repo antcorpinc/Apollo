@@ -14,6 +14,6 @@ import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-s
     FormsModule,
     BackofficeSharedModule
   ],
-  declarations: [routedUserComponents]
+  declarations: [ routedUserComponents]
 })
 export class UserMgmtModule { }

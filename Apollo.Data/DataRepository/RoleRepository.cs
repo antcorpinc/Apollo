@@ -1,12 +1,14 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
 using Apollo.Domain.Entity;
+using Apollo.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ApplicationRole = Apollo.Domain.Entity.ApplicationRole;
 
 namespace Apollo.Data.DataRepository
 {
@@ -25,7 +27,7 @@ namespace Apollo.Data.DataRepository
 
         public IQueryable<ApolloRole> Find(Expression<Func<ApolloRole, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _context.Role.Where(predicate);
         }
 
         public ApolloRole Get(Guid id)
@@ -80,6 +82,17 @@ namespace Apollo.Data.DataRepository
             return rolePrivileges;
         }
 
+       /*  List<ApplicationRole> GetRolesForApplicationAndUserType(Guid applicationId ,Apollo.Domain.Enum.UserType? userType){
+            var roles = _context.ApplicationRole.Where(a => a.ApplicationId == applicationId && a.IsActive == true)
+                                 .Include(r => r.Application)
+                                 .Include(r => r.Role).ToList();
+            if((int)userType > 0){
+                roles = roles.Where(r => r.Role.UserTypeId == (int)userType).ToList(); 
+            }
+
+            return roles;
+        } */
+
         public void Remove(ApolloRole entity)
         {
             throw new NotImplementedException();
@@ -93,6 +106,18 @@ namespace Apollo.Data.DataRepository
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        List<ApplicationRole> IRoleRepository.GetRolesForApplicationAndUserType(Guid applicationId, Domain.Enum.UserType? userType)
+        {
+            var roles = _context.ApplicationRole.Where(a => a.ApplicationId == applicationId && a.IsActive == true)
+                                 .Include(r => r.Application)
+                                 .Include(r => r.Role).ToList();
+            if((int)userType > 0){
+                roles = roles.Where(r => r.Role.UserTypeId == (int)userType).ToList(); 
+            }
+
+            return roles;
         }
     }
 }
