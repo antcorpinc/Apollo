@@ -4,7 +4,7 @@ import { UserMgmtRoutingModule, routedUserComponents } from './user-mgmt-routing
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../common/material/material.module';
 import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-shared.module';
-import { DialogsModule } from '../common/backoffice-shared/dialogs/dialogs.module';
+import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -14,8 +14,9 @@ import { DialogsModule } from '../common/backoffice-shared/dialogs/dialogs.modul
     MaterialModule,
     FormsModule,
     BackofficeSharedModule,
-    DialogsModule,
+
   ],
-  declarations: [ routedUserComponents]
+  declarations: [ routedUserComponents, ConfirmDialogComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class UserMgmtModule { }

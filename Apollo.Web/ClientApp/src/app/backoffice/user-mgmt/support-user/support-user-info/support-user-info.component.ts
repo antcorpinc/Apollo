@@ -7,6 +7,8 @@ import { RoleViewModel } from '../../../viewmodel/user-mgmt-vm/roleviewmodel';
 import { Subscription } from 'rxjs';
 import { BackOfficeLookupService } from '../../../common/backoffice-shared/services/lookup.service';
 import { InfoMessages } from 'src/app/common/messages';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-support-user-info',
@@ -33,6 +35,7 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
     private backOfficeLookUpService: BackOfficeLookupService,
+    private dialog: MatDialog
      ) { }
 
   ngOnInit() {
@@ -55,7 +58,9 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
       firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(50),
-      Validators.pattern('^[\\w+]+(\\.[\\w+]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0-9]{2,4})$')]),
+      // Validators.pattern('^[\\w+]+(\\.[\\w+]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0-9]{2,4})$')
+      Validators.email
+      ]),
       isActive: new FormControl(true),
       userApplicationRole: new FormArray([])
     });
@@ -78,19 +83,20 @@ export class SupportUserInfoComponent implements OnInit , OnDestroy {
     this.isNullOrEmpty(this.userApplicationRole.value[index].roleId)) {
       this.deleteAppRole(index);
     } else {
-   //   const subscribtion = this.dialogsService
-   //   .confirm('Confirm', InfoMessages.applicationRoleDeletionMessage).subscribe(res => {
-   //     if (res) {
-          this.deleteAppRole(index);
-       //   this.mgUserForm.get('userApplicationRole').markAsDirty();
-       //   this.mgUserForm.get('userApplicationRole').markAsTouched();
-       //   this.mgUserForm.get('userApplicationRole').updateValueAndValidity();
-     //   } else {
-        //  this.actions = null;
-      //  }
-     // },
-     // (error) => console.error(`Error in deleting SupportUser-confirmDeleteAppRole(index: number). ${error}`));
-     // this.subscriptions.push(subscribtion);
+     const dialogRef =   this.dialog.open(ConfirmDialogComponent , {
+        width: '450px',
+        data: { title: 'Confirm Delete',
+                content: InfoMessages.applicationRoleDeletionMessage
+              }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+        this.deleteAppRole(index);
+        }
+      },
+      (error) => {
+        console.log('Error' + error);
+      });
     }
   }
 
