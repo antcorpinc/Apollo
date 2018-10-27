@@ -68,8 +68,17 @@
                         </mat-select>
                   </mat-form-field>
                 </div>
+                <div class="col">
+                  <ng-container *ngIf="i > 0">
+                    <button mat-fab type="button" >
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                  </ng-container>
+                  <button mat-fab type="button"[hidden]='isMaxLength' (click)="addAppRole()">
+                      <mat-icon>add</mat-icon>
+                  </button>
+                </div>
               </div>
-
         </div>
       </div>
     </mat-card-content>
