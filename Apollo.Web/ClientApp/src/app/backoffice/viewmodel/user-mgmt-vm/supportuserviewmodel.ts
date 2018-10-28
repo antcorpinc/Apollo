@@ -11,6 +11,7 @@ export class SupportUserViewModel implements IObjectWithState {
   userName: string;
   email: string;
   phoneNumber: string;
+  isActive: boolean;
   userApplicationRole: ApplicationRoleIdViewModel[];
   createdBy: string;
   updatedBy: string;

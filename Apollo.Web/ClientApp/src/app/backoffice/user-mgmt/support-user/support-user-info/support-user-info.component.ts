@@ -11,6 +11,8 @@ import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 import { UserMgmtSupportUserSyncValidators } from './support-user-info.validator';
 import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
+import { ObjectState } from 'src/app/common/enums';
+import { UserProfileService } from '../../../../common/shared/services/user-profile.service';
 
 @Component({
   selector: 'app-support-user-info',
@@ -33,13 +35,16 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   read = CONSTANTS.operation.read;
   operation: string;
 
+  // This is one we get initially ,
   supportUserViewModel: SupportUserViewModel = <SupportUserViewModel>{};
+  // This one is when we update in Db
+  supportUserSaveViewModel: SupportUserViewModel = <SupportUserViewModel>{};
 
   subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
     private backOfficeLookUpService: BackOfficeLookupService,
-    private dialog: MatDialog
+    private dialog: MatDialog, private userProfileService: UserProfileService,
   ) { }
 
   ngOnInit() {
@@ -169,14 +174,22 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.supportUserForm.valid) {
-      const user = Object.assign({}, this.supportUserViewModel, this.supportUserForm.value);
-      user.userName = user.email;
+      this.updateSaveObjectState();
+      console.log('user= ' + JSON.stringify(this.supportUserSaveViewModel));
+    }
+  }
+
+  updateSaveObjectState() {
+    this.supportUserSaveViewModel = Object.assign({}, this.supportUserViewModel, this.supportUserForm.value);
+      this.supportUserSaveViewModel.userName = this.supportUserSaveViewModel.email;
       // Todo :Do we need to Add updated by updated by?
       // Password for new users needs to be generated at API side using custom
       if (this.operation === this.create) {
-        // Todo: Do we need to add created by?
+          this.supportUserSaveViewModel.objectState = ObjectState.Added;
+        this.supportUserSaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().userName;
+        this.supportUserSaveViewModel.userApplicationRole.forEach(item =>
+        item.objectState = ObjectState.Added);
       }
-    }
   }
 
   ngOnDestroy(): void {
