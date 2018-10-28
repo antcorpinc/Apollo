@@ -10,6 +10,7 @@ import { InfoMessages, ErrorMessages } from 'src/app/common/messages';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 import { UserMgmtSupportUserSyncValidators } from './support-user-info.validator';
+import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
 
 @Component({
   selector: 'app-support-user-info',
@@ -31,6 +32,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   create = CONSTANTS.operation.create;
   read = CONSTANTS.operation.read;
   operation: string;
+
+  supportUserViewModel: SupportUserViewModel = <SupportUserViewModel>{};
 
   subscriptions: Subscription[] = [];
 
@@ -62,6 +65,7 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       // Validators.pattern('^[\\w+]+(\\.[\\w+]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0-9]{2,4})$')
       Validators.email
       ]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       isActive: new FormControl(true),
       userApplicationRole: new FormArray([], [UserMgmtSupportUserSyncValidators.ApplicationRoleValidator] )
     });
@@ -164,7 +168,15 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-
+    if (this.supportUserForm.valid) {
+      const user = Object.assign({}, this.supportUserViewModel, this.supportUserForm.value);
+      user.userName = user.email;
+      // Todo :Do we need to Add updated by updated by?
+      // Password for new users needs to be generated at API side using custom
+      if (this.operation === this.create) {
+        // Todo: Do we need to add created by?
+      }
+    }
   }
 
   ngOnDestroy(): void {
