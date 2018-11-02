@@ -75,6 +75,7 @@
                     <mat-option [value]="role.id">{{role.name}}</mat-option>
                   </ng-container>
                 </mat-select>
+                <mat-error *ngIf="hasErrors('userApplicationRole.' + i + '.roleId')">{{this.getValidationMessage('userApplicationRole.' + i + '.roleId')}}</mat-error>
               </mat-form-field>
             </div>
             <div class="col">

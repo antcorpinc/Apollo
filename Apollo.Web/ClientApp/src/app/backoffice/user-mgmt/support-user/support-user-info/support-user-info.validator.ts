@@ -1,4 +1,5 @@
 import { AbstractControl } from '@angular/forms';
+import { Utilities } from 'src/app/common/utilities/utilities';
 
 export class UserMgmtSupportUserSyncValidators {
   // Validation to check the same application is not added again.
@@ -18,8 +19,14 @@ export class UserMgmtSupportUserSyncValidators {
       for (let i = 0; i < sorterAppList.length - 1; i++) {
         if (sorterAppList[i + 1] != null && sorterAppList[i] != null) {
           if (sorterAppList[i + 1] === sorterAppList[i]) {
-            console.log('ValidateAppRole' + 'Failed');
-            return { 'ValidateAppRole': true };
+              return { 'ValidateAppRole': true };
+          }
+        }
+      }
+      for (let i = 0; i < appRoleArray.length; i++) {
+        if ( appRoleArray[i] != null) {
+          if (appRoleArray[i].applicationId !== null &&  Utilities.isNullOrEmpty(appRoleArray[i].roleId) ) {
+            return { 'ValidateAppRoleNotNull': true };
           }
         }
       }

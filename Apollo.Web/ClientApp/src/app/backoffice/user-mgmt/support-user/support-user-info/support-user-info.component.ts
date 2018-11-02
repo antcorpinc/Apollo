@@ -136,8 +136,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   buildAppRole(): FormGroup {
     let appRoleFormGroup: FormGroup;
     appRoleFormGroup = new FormGroup({
-      applicationId: new FormControl({ value: '' }, Validators.required),
-      roleId: new FormControl({ value: '' }, Validators.required)
+      applicationId: new FormControl(null , Validators.required),
+      roleId: new FormControl(null, Validators.required)
     });
     return appRoleFormGroup;
   }
@@ -167,12 +167,25 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       return ErrorMessages.requiredFieldMessage;
     } else if (this.supportUserForm.get(controlName).hasError('ValidateAppRole')) {
       return ErrorMessages.validateAppRole;
+    } else if (this.supportUserForm.get(controlName).hasError('ValidateAppRoleNotNull')) {
+      return ErrorMessages.validateAppRoleNotNull;
     } else {
       return '';
     }
   }
 
   onSubmit() {
+
+    Object.keys(this.supportUserForm.controls).forEach(
+      ctrl => {
+        this.supportUserForm.get(ctrl).markAsTouched();
+
+      });
+      // For each element of Form Array
+       this.userApplicationRole.controls.forEach((control, index) => {
+        control.get('applicationId').markAsTouched();
+        control.get('roleId').markAsTouched();
+      });
     if (this.supportUserForm.valid) {
       this.updateSaveObjectState();
       console.log('user= ' + JSON.stringify(this.supportUserSaveViewModel));
