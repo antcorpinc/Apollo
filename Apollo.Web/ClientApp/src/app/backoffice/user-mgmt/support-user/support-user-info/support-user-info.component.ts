@@ -13,6 +13,7 @@ import { UserMgmtSupportUserSyncValidators } from './support-user-info.validator
 import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
 import { ObjectState } from 'src/app/common/enums';
 import { UserProfileService } from '../../../../common/shared/services/user-profile.service';
+import { UserDataService } from 'src/app/backoffice/common/backoffice-shared/services/user-data.service';
 
 @Component({
   selector: 'app-support-user-info',
@@ -42,9 +43,13 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  userDetailsValueChanges = false;
+  userAppRoleValueChanges = false;
+
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
     private backOfficeLookUpService: BackOfficeLookupService,
     private dialog: MatDialog, private userProfileService: UserProfileService,
+    private userDataService: UserDataService
   ) { }
 
   ngOnInit() {
@@ -55,9 +60,33 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
     this.getApplications();
     // Create Form Model
     this.createFormModel();
+    // Value changes has to be always after creating Form Model
+    this.checkValueChanges();
   }
 
+  checkValueChanges() {
+    // Subscribe to value changes event in edit operation
+    if (this.operation.toLowerCase().trim() === this.edit) {
+      // Check if any of the below value changes - Set the object state accordingly
+      this.supportUserForm.get('firstName').valueChanges.subscribe(value => {
+        this.userDetailsValueChanges = true;
+      });
+      this.supportUserForm.get('lastName').valueChanges.subscribe(value => {
+        this.userDetailsValueChanges = true;
+      });
+      // Email cant change - Make it non editable in edit mode
+      this.supportUserForm.get('phoneNumber').valueChanges.subscribe(value => {
+        this.userDetailsValueChanges = true;
+      });
 
+      this.supportUserForm.get('isActive').valueChanges.subscribe(value => {
+        this.userDetailsValueChanges = true;
+      });
+      this.userApplicationRole.valueChanges.subscribe( value => {
+        this.userAppRoleValueChanges = true;
+      });
+  }
+  }
   getApplications() {
     this.applicationList = this.activatedRoute.snapshot.data['applications'];
   }
@@ -188,6 +217,15 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       });
     if (this.supportUserForm.valid) {
       this.updateSaveObjectState();
+
+      if (this.operation === this.create) {
+        const subscription = this.userDataService.createSupportUser(this.supportUserSaveViewModel)
+        .subscribe(data => {
+
+        });
+
+      }
+
       console.log('user= ' + JSON.stringify(this.supportUserSaveViewModel));
     }
   }
@@ -195,11 +233,13 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   updateSaveObjectState() {
     this.supportUserSaveViewModel = Object.assign({}, this.supportUserViewModel, this.supportUserForm.value);
       this.supportUserSaveViewModel.userName = this.supportUserSaveViewModel.email;
+      this.supportUserSaveViewModel.userType = CONSTANTS.userTypeId.supportUser;
       // Todo :Do we need to Add updated by updated by?
       // Password for new users needs to be generated at API side using custom
       if (this.operation === this.create) {
           this.supportUserSaveViewModel.objectState = ObjectState.Added;
         this.supportUserSaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().userName;
+        this.supportUserSaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().userName;
         this.supportUserSaveViewModel.userApplicationRole.forEach(item =>
         item.objectState = ObjectState.Added);
       }

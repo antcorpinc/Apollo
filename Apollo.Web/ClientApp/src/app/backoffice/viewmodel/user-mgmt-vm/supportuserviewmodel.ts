@@ -9,6 +9,7 @@ export class SupportUserViewModel implements IObjectWithState {
   firstName: string;
   lastName: string;
   userName: string;
+  userType: number;
   email: string;
   phoneNumber: string;
   isActive: boolean;

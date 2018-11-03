@@ -1,4 +1,5 @@
-﻿using Apollo.Domain.ViewModel;
+﻿using Apollo.Domain.DTO;
+using Apollo.Domain.ViewModel;
 using Apollo.Service.UserManagement.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +21,19 @@ namespace Apollo.Api.UserManagement.Controllers
             _mapper = mapper;
         }
 
+        [Route("create")]
         [HttpPost]
-        public IActionResult Create([FromBody]SupportUserVm user)
+         public IActionResult Create([FromBody]SupportUser user)
         {
             if(user == null)
             {
                 return BadRequest();
             }
-         //   this._userService.CreateSupportUser(user);
-            // Todo: Change the below
-            return null;
+            // Todo : Change thiis later - Use some logic like Ew
+
+            var password = string.IsNullOrEmpty(user.Password) ? "DDdd@1234": user.Password;
+            user.Password = password;
+            return Ok(this._userService.CreateUser(user));
         }
         
         [HttpGet]

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Apollo.Domain.DTO.Base
 {
-    public class User : BaseModel
+    public class User : BaseModelWithActive
     {
         public User()
         {
@@ -14,6 +14,7 @@ namespace Apollo.Domain.DTO.Base
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+        public int UserType { get; set; }
         public string PhoneNumber {get;set;}
         public string UserName { get; set; }
         public string Email { get; set; }
