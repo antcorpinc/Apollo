@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Apollo.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,10 @@ namespace Apollo.Domain.Entity
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; }
+
+        [NotMapped]
+        public ObjectState? ObjectState { get; set; }
+
 
         [ForeignKey("ApplicationId")]
   

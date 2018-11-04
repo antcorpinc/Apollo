@@ -1,3 +1,4 @@
+using Apollo.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -5,7 +6,7 @@ using System.Text;
 
 namespace Apollo.Domain.DTO.Base
 {
-    public class User : BaseModelWithActive
+    public class User : BaseModelWithActive , IObjectWithState
     {
         public User()
         {
@@ -19,6 +20,7 @@ namespace Apollo.Domain.DTO.Base
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
+        public ObjectState? ObjectState { get;set; }
+        
     }
 }

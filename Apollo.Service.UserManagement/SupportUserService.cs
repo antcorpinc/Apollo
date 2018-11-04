@@ -42,6 +42,8 @@ namespace Apollo.Service.UserManagement
             apolloUser.CreatedDate = DateTime.UtcNow;
             apolloUser.UpdatedBy = user.UpdatedBy;
             apolloUser.UpdatedDate = DateTime.UtcNow;
+            apolloUser.ObjectState = user.ObjectState;
+
 
             apolloUser.UserAppRoleMappings.Clear();
 
@@ -53,6 +55,7 @@ namespace Apollo.Service.UserManagement
                     ApplicationId = item.ApplicationId,
                     RoleId = item.RoleId,                    
                     IsActive = true,
+                    ObjectState = item.ObjectState,
                     CreatedBy = user.CreatedBy,
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = user.UpdatedBy,

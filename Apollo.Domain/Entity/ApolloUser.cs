@@ -1,4 +1,5 @@
 ﻿using Apollo.Core.Interface;
+using Apollo.Domain.Enum;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,11 @@ namespace Apollo.Domain.Entity
         [StringLength(256)]
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
+       
+        [NotMapped]
+        public ObjectState? ObjectState { get; set; }
 
-
-         [ForeignKey("UserTypeId")]
+        [ForeignKey("UserTypeId")]
         public UserType UserType { get; set; }
         public ICollection<UserAppRoleMapping> UserAppRoleMappings { get; set; }
     }
