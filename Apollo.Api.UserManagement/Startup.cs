@@ -115,6 +115,9 @@ namespace Apollo.Api.UserManagement
                 cfg.CreateMap<ApolloUser, SupportUserList>()
                 .ForMember(des=> des.UserApplicationRole , opt => opt.MapFrom(s => s.UserAppRoleMappings)).ReverseMap();
 
+                cfg.CreateMap<ApolloUser, SupportUser>()
+                .ForMember(des => des.UserApplicationRole, opt => opt.MapFrom(s => s.UserAppRoleMappings)).ReverseMap();
+
                 cfg.CreateMap<Domain.Entity.Application, Domain.DTO.Application>();
 
                 cfg.CreateMap<Domain.Entity.ApplicationRole, Role>()

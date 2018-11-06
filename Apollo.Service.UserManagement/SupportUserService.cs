@@ -35,6 +35,7 @@ namespace Apollo.Service.UserManagement
             apolloUser.LastName = user.LastName;
             apolloUser.UserName = user.UserName;
             apolloUser.Email = user.Email;
+            apolloUser.PhoneNumber = user.PhoneNumber;
             apolloUser.UserTypeId = user.UserType;
             apolloUser.IsActive = user.IsActive;
             

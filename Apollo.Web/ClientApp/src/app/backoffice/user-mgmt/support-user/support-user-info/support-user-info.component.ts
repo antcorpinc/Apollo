@@ -115,7 +115,7 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   }
 
   getSupportUser(userId: string) {
-    const subscribtion = this.userDataService.getSupportUserById(userId)
+    const subscription = this.userDataService.getSupportUserById(userId)
       .subscribe(data => {
         this.supportUserViewModel = data;
         // Info: Set the Form Model based on returned values
@@ -139,7 +139,7 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       (error) => {
         console.log('Error' + error);
       });
-      this.subscriptions.push(subscribtion);
+      this.subscriptions.push(subscription);
   }
 
   get userApplicationRole(): FormArray {
