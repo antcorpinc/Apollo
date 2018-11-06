@@ -106,7 +106,40 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
     if (this.operation.toLowerCase().trim() === this.create) {
       this.addAppRole();
+    } else if (this.operation.toLowerCase().trim() === this.edit) {
+        this.getSupportUser(this.userId);
+    } else if (this.operation.toLowerCase().trim() === this.read) {
+      this.getSupportUser(this.userId);
+      this.supportUserForm.disable();
     }
+  }
+
+  getSupportUser(userId: string) {
+    const subscribtion = this.userDataService.getSupportUserById(userId)
+      .subscribe(data => {
+        this.supportUserViewModel = data;
+        // Info: Set the Form Model based on returned values
+        this.supportUserForm.get('firstName').setValue(this.supportUserViewModel.firstName);
+        this.supportUserForm.get('lastName').setValue(this.supportUserViewModel.lastName);
+        this.supportUserForm.get('email').setValue(this.supportUserViewModel.email);
+        this.supportUserForm.get('phoneNumber').setValue(this.supportUserViewModel.phoneNumber);
+        this.supportUserForm.get('isActive').setValue(this.supportUserViewModel.isActive);
+
+        const appRoleValue = data.userApplicationRole;
+        for (let i = 0; i < appRoleValue.length; i++) {
+          this.addAppRole();
+        }
+        this.userApplicationRole.controls.forEach((control , index) => {
+          control.get('applicationId').setValue(appRoleValue[index].applicationId);
+          this.getRolesForApplication(appRoleValue[index].applicationId, index);
+          control.get('roleId').setValue(appRoleValue[index].roleId);
+        });
+        this.cd.detectChanges();
+      },
+      (error) => {
+        console.log('Error' + error);
+      });
+      this.subscriptions.push(subscribtion);
   }
 
   get userApplicationRole(): FormArray {
@@ -165,8 +198,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   buildAppRole(): FormGroup {
     let appRoleFormGroup: FormGroup;
     appRoleFormGroup = new FormGroup({
-      applicationId: new FormControl(null , Validators.required),
-      roleId: new FormControl(null, Validators.required)
+      applicationId: new FormControl({ value: null , disabled : this.operation.toLowerCase().trim() === this.read } , Validators.required),
+      roleId: new FormControl({value: null, disabled : this.operation.toLowerCase().trim() === this.read }, Validators.required)
     });
     return appRoleFormGroup;
   }

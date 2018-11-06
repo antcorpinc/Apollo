@@ -12,5 +12,7 @@ namespace Apollo.Service.UserManagement.Interface
     {
         List<ApolloUser> GetAllUsers();
         Task<IdentityResult> CreateUser(SupportUser user);
+
+        ApolloUser GetById(Guid id);
     }
 }

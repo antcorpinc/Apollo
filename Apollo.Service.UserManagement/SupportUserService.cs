@@ -71,5 +71,12 @@ namespace Apollo.Service.UserManagement
         {
             return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser).ToList();
         }
+
+        public ApolloUser GetById(Guid id)
+        {
+           return _userRepository.FindSupportUsers(
+               user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser && 
+                    user.Id == id).FirstOrDefault();
+        }
     }
 }

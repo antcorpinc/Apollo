@@ -29,6 +29,11 @@ export let CONSTANTS = {
         supportUser: 1,
         societyUser: 2,
 
-      }
+      },
+
+      // Info: FeatureTypeId's  are the same Id's as defined in FeatureType enum and Security.Feature table
+  featuretypeid: {
+    Support: 1041
+  },
 
 };

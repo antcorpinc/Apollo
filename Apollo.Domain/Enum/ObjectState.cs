@@ -7,7 +7,7 @@ namespace Apollo.Domain.Enum
 
     public interface IObjectWithState
     {
-        ObjectState? ObjectState { get; set; }
+        ObjectState ObjectState { get; set; }
     }
 
     // See the state should be similar to EF states

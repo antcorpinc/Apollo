@@ -23,4 +23,9 @@ export class UserDataService {
     return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.userMgmtApi
       + 'api/supportuser/create/', user);
   }
+
+  getSupportUserById(userId: string): Observable<SupportUserViewModel> {
+    return this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi
+      + 'api/supportuser/getbyid?userId=' + userId);
+  }
 }

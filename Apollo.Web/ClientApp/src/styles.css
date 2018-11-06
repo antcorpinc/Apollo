@@ -3,4 +3,10 @@
 body {
   font-family: Roboto, "Helvetica Neue",'Open Sans', sans-serif;
 }
+/* Info: Seems like mat classes needs to be put in styles.css to take effect instead of in corr component css */
+.mat-header-cell.text-center *{
+  text-align: center;
+}
+
+
 

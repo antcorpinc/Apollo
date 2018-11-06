@@ -544,6 +544,7 @@ namespace Apollo.Data
             // Add App Roles for BackOffice
             if (_context.ApplicationRole.Find(Guid.Parse("6F6146CF-D4AF-4761-8D80-80F891B53244")) == null)
             {
+                // Role --> SuperAdmin App --> BackOffice
                 ApplicationRole boFeature = new ApplicationRole()
                 {
                     Id = new Guid("6F6146CF-D4AF-4761-8D80-80F891B53244"),
@@ -563,6 +564,7 @@ namespace Apollo.Data
             //  Add App Roles for Society
             if (_context.ApplicationRole.Find(Guid.Parse("8C604013-E830-46C9-A4A3-769E1D3D39FB")) == null)
             {
+                // Role --> SocietyAdmin App --> Society
                 ApplicationRole soAppRole = new ApplicationRole()
                 {
                     Id = new Guid("8C604013-E830-46C9-A4A3-769E1D3D39FB"),
@@ -576,6 +578,24 @@ namespace Apollo.Data
                 };
                 _context.Add(soAppRole);
             }
+
+            if (_context.ApplicationRole.Find(Guid.Parse("0039C5EE-609C-4D2D-A74B-C09BB63C64A8")) == null)
+            {
+                // Role --> Super Admin App --> Society
+                ApplicationRole soAppRole = new ApplicationRole()
+                {
+                    Id = new Guid("0039C5EE-609C-4D2D-A74B-C09BB63C64A8"),
+                    ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    IsActive=true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(soAppRole);
+            }
+
             //  ~Add App Roles for Society
 
             // Todo: Add other Application Roles

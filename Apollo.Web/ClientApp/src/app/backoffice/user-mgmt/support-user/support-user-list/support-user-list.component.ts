@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { UserDataService } from '../../../common/backoffice-shared/services/user-data.service';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SupportUserListViewModel } from '../../../viewmodel/user-mgmt-vm/supportuserlistviewmodel';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { CONSTANTS } from '../../../../common/constants';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserProfileService } from '../../../../common/shared/services/user-profile.service';
 
 @Component({
   selector: 'app-support-user-list',
@@ -15,7 +16,7 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<SupportUserListViewModel>;
-  displayedColumns = ['firstName', 'email', 'isActive'];
+  displayedColumns = ['firstName', 'email', 'userApplicationRole', 'isActive', 'actions'];
   totalRecords: number;
 
   subscriptions: Subscription[] = [];
@@ -26,11 +27,17 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
   read = CONSTANTS.operation.read;
   operation: string;
 
- constructor(private router: Router, private activatedRoute: ActivatedRoute,
-  private userDataService: UserDataService ) { }
+  privileges: string[];
+  deleteAction = false;
+  createAction = false;
+  readAction = false;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+    private userDataService: UserDataService, private userProfileService: UserProfileService) { }
 
   ngOnInit() {
     this.getSupportUserList();
+    this.getPrivileges();
   }
 
   getSupportUserList() {
@@ -40,20 +47,46 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
         this.userList = data;
         this.dataSource = new MatTableDataSource<SupportUserListViewModel>(this.userList);
         this.totalRecords = this.userList.length;
-    },
-    (error) => {
-      console.log('Error' + error);
-    });
+      },
+        (error) => {
+          console.log('Error' + error);
+        });
     this.subscriptions.push(subscription);
   }
 
   createSupportUser() {
-   // this.router.navigate(['../supportuser', 0, this.create], { relativeTo: this.activatedRoute });
-   this.router.navigate(['../supportuser', CONSTANTS.create.id, this.create], { relativeTo: this.activatedRoute });
+    // this.router.navigate(['../supportuser', 0, this.create], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../supportuser', CONSTANTS.create.id, this.create], { relativeTo: this.activatedRoute });
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  goToUser(value) {
+    const val = value.split(':');
+    const userId = val[0];
+    this.operation = val[1];
+    this.router.navigate(['../supportuser', userId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
+  }
+
+  getPrivileges() {
+    this.privileges = this.userProfileService.GetUserPermissionsForFeature(
+      CONSTANTS.application.backoffice,
+      CONSTANTS.featuretypeid.Support
+    );
+    if (this.privileges !== null) {
+      for (const privilege of this.privileges) {
+        if (privilege === 'VW') {
+          this.readAction = true;
+        } else if (privilege === 'CR') {
+          this.createAction = true;
+          this.readAction = true;
+        } else if (privilege === 'DE') {
+          this.deleteAction = true;
+        }
+      }
+    }
   }
 
   ngOnDestroy(): void {

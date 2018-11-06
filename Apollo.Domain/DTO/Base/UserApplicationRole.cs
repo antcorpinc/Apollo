@@ -9,6 +9,6 @@ namespace Apollo.Domain.DTO.Base
     {
         public Guid ApplicationId { get; set; }
         public Guid RoleId { get; set; }
-        public ObjectState? ObjectState { get; set; }
+        public ObjectState ObjectState { get; set; }
     }
 }
