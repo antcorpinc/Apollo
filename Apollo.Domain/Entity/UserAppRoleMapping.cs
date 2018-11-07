@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Apollo.Domain.Entity
 {
     [Table("UserAppRoleMapping", Schema = "Security")]
-    public partial class UserAppRoleMapping
+    public partial class UserAppRoleMapping : IObjectWithState
     {
         public Guid Id { get; set; }
         public Guid RoleId { get; set; }
@@ -26,7 +26,7 @@ namespace Apollo.Domain.Entity
         public bool IsActive { get; set; }
 
         [NotMapped]
-        public ObjectState? ObjectState { get; set; }
+        public ObjectState ObjectState { get; set; }
 
 
         [ForeignKey("ApplicationId")]

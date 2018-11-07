@@ -60,33 +60,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
     this.getApplications();
     // Create Form Model
     this.createFormModel();
-    // Value changes has to be always after creating Form Model
-    this.checkValueChanges();
   }
 
-  checkValueChanges() {
-    // Subscribe to value changes event in edit operation
-    if (this.operation.toLowerCase().trim() === this.edit) {
-      // Check if any of the below value changes - Set the object state accordingly
-      this.supportUserForm.get('firstName').valueChanges.subscribe(value => {
-        this.userDetailsValueChanges = true;
-      });
-      this.supportUserForm.get('lastName').valueChanges.subscribe(value => {
-        this.userDetailsValueChanges = true;
-      });
-      // Email cant change - Make it non editable in edit mode
-      this.supportUserForm.get('phoneNumber').valueChanges.subscribe(value => {
-        this.userDetailsValueChanges = true;
-      });
-
-      this.supportUserForm.get('isActive').valueChanges.subscribe(value => {
-        this.userDetailsValueChanges = true;
-      });
-      this.userApplicationRole.valueChanges.subscribe( value => {
-        this.userAppRoleValueChanges = true;
-      });
-  }
-  }
   getApplications() {
     this.applicationList = this.activatedRoute.snapshot.data['applications'];
   }
@@ -101,13 +76,14 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       ]),
       phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       isActive: new FormControl(true),
-      userApplicationRole: new FormArray([], [UserMgmtSupportUserSyncValidators.ApplicationRoleValidator] )
+      objectState: new FormControl(ObjectState.Unchanged),
+      userApplicationRole: new FormArray([], [UserMgmtSupportUserSyncValidators.ApplicationRoleValidator])
     });
 
     if (this.operation.toLowerCase().trim() === this.create) {
       this.addAppRole();
     } else if (this.operation.toLowerCase().trim() === this.edit) {
-        this.getSupportUser(this.userId);
+      this.getSupportUser(this.userId);
     } else if (this.operation.toLowerCase().trim() === this.read) {
       this.getSupportUser(this.userId);
       this.supportUserForm.disable();
@@ -116,30 +92,36 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
   getSupportUser(userId: string) {
     const subscription = this.userDataService.getSupportUserById(userId)
-      .subscribe(data => {
+          .subscribe(data => {
         this.supportUserViewModel = data;
+        // Info :  Set the initial obejct state to Unchanged
+        // this.supportUserViewModel.objectState = ObjectState.Unchanged;
         // Info: Set the Form Model based on returned values
         this.supportUserForm.get('firstName').setValue(this.supportUserViewModel.firstName);
         this.supportUserForm.get('lastName').setValue(this.supportUserViewModel.lastName);
         this.supportUserForm.get('email').setValue(this.supportUserViewModel.email);
         this.supportUserForm.get('phoneNumber').setValue(this.supportUserViewModel.phoneNumber);
         this.supportUserForm.get('isActive').setValue(this.supportUserViewModel.isActive);
-
+        this.supportUserForm.get('objectState').setValue(ObjectState.Unchanged);
         const appRoleValue = data.userApplicationRole;
         for (let i = 0; i < appRoleValue.length; i++) {
           this.addAppRole();
+          // Info :  Set the initial obejct state to Unchanged
+          //  data.userApplicationRole[i].objectState = ObjectState.Unchanged;
         }
-        this.userApplicationRole.controls.forEach((control , index) => {
+        this.userApplicationRole.controls.forEach((control, index) => {
+          control.get('id').setValue(appRoleValue[index].id);
           control.get('applicationId').setValue(appRoleValue[index].applicationId);
           this.getRolesForApplication(appRoleValue[index].applicationId, index);
           control.get('roleId').setValue(appRoleValue[index].roleId);
+          control.get('objectState').setValue(ObjectState.Unchanged);
         });
         this.cd.detectChanges();
       },
-      (error) => {
-        console.log('Error' + error);
-      });
-      this.subscriptions.push(subscription);
+        (error) => {
+          console.log('Error' + error);
+        });
+    this.subscriptions.push(subscription);
   }
 
   get userApplicationRole(): FormArray {
@@ -198,8 +180,10 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   buildAppRole(): FormGroup {
     let appRoleFormGroup: FormGroup;
     appRoleFormGroup = new FormGroup({
-      applicationId: new FormControl({ value: null , disabled : this.operation.toLowerCase().trim() === this.read } , Validators.required),
-      roleId: new FormControl({value: null, disabled : this.operation.toLowerCase().trim() === this.read }, Validators.required)
+      id: new FormControl(null),
+      applicationId: new FormControl({ value: null, disabled: this.operation.toLowerCase().trim() === this.read }, Validators.required),
+      roleId: new FormControl({ value: null, disabled: this.operation.toLowerCase().trim() === this.read }, Validators.required),
+      objectState: new FormControl(ObjectState.Added)
     });
     return appRoleFormGroup;
   }
@@ -220,8 +204,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
   hasErrors(controlName: string) {
     return (this.supportUserForm.get(controlName).dirty ||
-     this.supportUserForm.get(controlName).touched) &&
-     this.supportUserForm.get(controlName).errors !== null;
+      this.supportUserForm.get(controlName).touched) &&
+      this.supportUserForm.get(controlName).errors !== null;
   }
 
   getValidationMessage(controlName: string): string {
@@ -237,45 +221,73 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-
     Object.keys(this.supportUserForm.controls).forEach(
       ctrl => {
         this.supportUserForm.get(ctrl).markAsTouched();
 
       });
-      // For each element of Form Array
-       this.userApplicationRole.controls.forEach((control, index) => {
-        control.get('applicationId').markAsTouched();
-        control.get('roleId').markAsTouched();
-      });
+    // For each element of Form Array
+    this.userApplicationRole.controls.forEach((control, index) => {
+      control.get('applicationId').markAsTouched();
+      control.get('roleId').markAsTouched();
+    });
     if (this.supportUserForm.valid) {
       this.updateSaveObjectState();
 
       if (this.operation === this.create) {
         const subscription = this.userDataService.createSupportUser(this.supportUserSaveViewModel)
-        .subscribe(data => {
+          .subscribe(data => {
 
-        });
+          });
+      } else if (this.operation === this.edit) {
+        console.log('edit user model = ' + JSON.stringify(this.supportUserSaveViewModel));
+        const subscription = this.userDataService.updateSupportUser(this.supportUserSaveViewModel)
+          .subscribe(data => {
 
+          });
       }
-
-      console.log('user= ' + JSON.stringify(this.supportUserSaveViewModel));
     }
   }
 
   updateSaveObjectState() {
     this.supportUserSaveViewModel = Object.assign({}, this.supportUserViewModel, this.supportUserForm.value);
-      this.supportUserSaveViewModel.userName = this.supportUserSaveViewModel.email;
-      this.supportUserSaveViewModel.userType = CONSTANTS.userTypeId.supportUser;
-      // Todo :Do we need to Add updated by updated by?
-      // Password for new users needs to be generated at API side using custom
-      if (this.operation === this.create) {
-          this.supportUserSaveViewModel.objectState = ObjectState.Added;
-        this.supportUserSaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().userName;
-        this.supportUserSaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().userName;
-        this.supportUserSaveViewModel.userApplicationRole.forEach(item =>
+    this.supportUserSaveViewModel.userName = this.supportUserSaveViewModel.email;
+    this.supportUserSaveViewModel.userType = CONSTANTS.userTypeId.supportUser;
+    // Todo :Do we need to Add updated by updated by?
+    // Password for new users needs to be generated at API side using custom
+    if (this.operation === this.create) {
+      this.supportUserSaveViewModel.objectState = ObjectState.Added;
+      this.supportUserSaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().userName;
+      this.supportUserSaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().userName;
+      this.supportUserSaveViewModel.userApplicationRole.forEach(item =>
         item.objectState = ObjectState.Added);
+    } else if (this.operation === this.edit) {
+      // Info : See whether the Top Support User VM is changed from the Form Model
+      if (this.supportUserForm.get('firstName').value !== this.supportUserViewModel.firstName ||
+        this.supportUserForm.get('lastName').value !== this.supportUserViewModel.lastName ||
+        this.supportUserForm.get('phoneNumber').value !== this.supportUserViewModel.phoneNumber ||
+        this.supportUserForm.get('isActive').value !== this.supportUserViewModel.isActive) {
+        this.supportUserSaveViewModel.objectState = ObjectState.Modified;
       }
+      // Info: Check the onject state for App Role array
+      // Iterate through the save model - If the object State is not Added then get the id and corr
+      // app and role ids , check the original model for that id if the app or role id has changed
+      // If either has changed then set the object state to changed .
+      this.supportUserSaveViewModel.userApplicationRole.forEach((savedAppRole, index) => {
+        if (savedAppRole.objectState !== ObjectState.Added) {
+         const originalAppRole =  this.supportUserViewModel.userApplicationRole.find(uap =>
+              uap.id === savedAppRole.id);
+          if (originalAppRole.applicationId !== savedAppRole.applicationId ||
+            originalAppRole.roleId !== savedAppRole.roleId ) {
+              savedAppRole.objectState = ObjectState.Modified;
+            }
+        }
+        // Todo:  Just for testing adding default id'
+        /* if (savedAppRole.objectState === ObjectState.Added) {
+        savedAppRole.id = CONSTANTS.create.id;
+        } */
+      });
+    }
   }
 
   ngOnDestroy(): void {

@@ -24,6 +24,11 @@ export class UserDataService {
       + 'api/supportuser/create/', user);
   }
 
+  updateSupportUser(user: SupportUserViewModel) {
+    return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.userMgmtApi
+      + 'api/supportuser/update/', user);
+  }
+
   getSupportUserById(userId: string): Observable<SupportUserViewModel> {
     return this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi
       + 'api/supportuser/getbyid?userId=' + userId);

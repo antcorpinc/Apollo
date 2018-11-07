@@ -13,6 +13,7 @@ namespace Apollo.Data.DataRepository
 {
     public class UserRepository : IUserRepository
     {
+        
         private readonly ApolloContext _context;
         private readonly UserManager<ApolloUser> _userManager;
         public UserRepository(ApolloContext context, UserManager<ApolloUser> userManager)
@@ -79,9 +80,28 @@ namespace Apollo.Data.DataRepository
             return (_context.SaveChanges() >= 0);
         }
 
-        public async Task<IdentityResult> Update(ApolloUser user)
+        public ApolloUser Update(ApolloUser user)
         {
-            return await _userManager.UpdateAsync(user).ConfigureAwait(false);
+            _context.User.Attach(user);
+            _context.ApplyStateChanges();
+            
+            try {
+                _context.SaveChanges();
+            }
+           
+            catch(Exception){
+
+            }
+
+            return user;
         }
+
+        /* public async Task<IdentityResult> Update(ApolloUser user)
+        {
+
+            return await _userManager.UpdateAsync(user).ConfigureAwait(false);
+        } */
+
+
     }
 }

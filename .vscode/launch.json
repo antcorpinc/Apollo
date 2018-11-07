@@ -10,9 +10,10 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Apollo.Web/bin/Debug/netcoreapp2.1/Apollo.Web.dll",
+          //  "program": "${workspaceFolder}/Apollo.Web/bin/Debug/netcoreapp2.1/Apollo.Web.dll",
+          "program": "${workspaceFolder}/Apollo.Api.UserManagement/bin/Debug/netcoreapp2.1/Apollo.Api.UserManagement.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Apollo.Web",
+            "cwd": "${workspaceFolder}/Apollo.Api.UserManagement",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {

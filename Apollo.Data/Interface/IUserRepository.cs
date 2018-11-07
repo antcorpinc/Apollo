@@ -15,7 +15,8 @@ namespace Apollo.Data.Interface
         // Add User Specific Methods
         Task<IdentityResult> Add(ApolloUser user, string password);
 
-        Task<IdentityResult> Update(ApolloUser user);
+        // Task<IdentityResult> Update(ApolloUser user);
+        ApolloUser Update(ApolloUser user);
 
         List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate);
 

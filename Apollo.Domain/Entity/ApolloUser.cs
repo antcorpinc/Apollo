@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Apollo.Domain.Entity
 {
-    public partial class ApolloUser : IdentityUser<Guid>, IIdentifiableModel<Guid>
+    public partial class ApolloUser : IdentityUser<Guid>, IIdentifiableModel<Guid>, IObjectWithState
     {
         public ApolloUser()
         {
@@ -34,7 +34,7 @@ namespace Apollo.Domain.Entity
         public DateTime? UpdatedDate { get; set; }
        
         [NotMapped]
-        public ObjectState? ObjectState { get; set; }
+        public ObjectState ObjectState { get; set; }
 
         [ForeignKey("UserTypeId")]
         public UserType UserType { get; set; }

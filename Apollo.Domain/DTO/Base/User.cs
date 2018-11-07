@@ -1,3 +1,4 @@
+using Apollo.Core.Interface;
 using Apollo.Domain.Enum;
 using System;
 using System.Collections.Generic;
@@ -6,12 +7,13 @@ using System.Text;
 
 namespace Apollo.Domain.DTO.Base
 {
-    public class User : BaseModelWithActive , IObjectWithState
+    public class User : BaseModelWithActive , IObjectWithState , IIdentifiableModel<Guid>
     {
         public User()
         {
            
         }
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

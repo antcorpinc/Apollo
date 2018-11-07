@@ -36,6 +36,17 @@ namespace Apollo.Api.UserManagement.Controllers
             return Ok(this._userService.CreateUser(user));
         }
 
+        [Route("update")]
+        [HttpPost]
+        public IActionResult Update([FromBody]SupportUser user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return Ok(this._userService.UpdateUser(user));
+        }
+
         [HttpGet]
         public IActionResult GetSupportUsers()
         {
@@ -47,7 +58,7 @@ namespace Apollo.Api.UserManagement.Controllers
 
         [Route("getbyid")]
         [HttpGet]
-        public new IActionResult GetById(Guid userId)
+        public IActionResult GetById(Guid userId)
         {
             if (userId == Guid.Empty)
             {
