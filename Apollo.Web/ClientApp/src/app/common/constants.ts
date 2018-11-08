@@ -36,4 +36,8 @@ export let CONSTANTS = {
     Support: 1041
   },
 
+  snackbar: {
+    timeout: 1500
+  }
+
 };

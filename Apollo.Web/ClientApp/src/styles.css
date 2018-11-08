@@ -8,5 +8,13 @@ body {
   text-align: center;
 }
 
+.showSnackBar.mat-snack-bar-container {
+  background: gold;
+  border: 1px solid #b1e593;
+  color: purple;
+  min-width: auto;
+  max-width: 100%;
+  padding-top: 1px;
+}
 
 

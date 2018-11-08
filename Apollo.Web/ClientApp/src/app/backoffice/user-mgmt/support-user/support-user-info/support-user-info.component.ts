@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ApplicationViewModel } from '../../../../backoffice/viewmodel/user-mgmt-vm/applicationviewmodel';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { CONSTANTS } from '../../../../common/constants';
 import { RoleViewModel } from '../../../viewmodel/user-mgmt-vm/roleviewmodel';
 import { Subscription } from 'rxjs';
 import { BackOfficeLookupService } from '../../../common/backoffice-shared/services/lookup.service';
 import { InfoMessages, ErrorMessages } from 'src/app/common/messages';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 import { UserMgmtSupportUserSyncValidators } from './support-user-info.validator';
 import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
@@ -49,7 +49,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef,
     private backOfficeLookUpService: BackOfficeLookupService,
     private dialog: MatDialog, private userProfileService: UserProfileService,
-    private userDataService: UserDataService
+    private userDataService: UserDataService, private router: Router,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -244,6 +245,12 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
         const subscription = this.userDataService.updateSupportUser(this.supportUserSaveViewModel)
           .subscribe(data => {
 
+            this.snackBar.open(InfoMessages.userCreationMessage, '', {
+              duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+              politeness: 'polite', panelClass: 'showSnackBar'
+            });
+            this.router.navigate(['/auth/bo/usermgmt/supportusers'],
+                                  {relativeTo: this.activatedRoute });
           });
       }
     }

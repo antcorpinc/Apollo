@@ -13,7 +13,7 @@ namespace Apollo.Data.DataRepository
 {
     public class UserRepository : IUserRepository
     {
-        
+
         private readonly ApolloContext _context;
         private readonly UserManager<ApolloUser> _userManager;
         public UserRepository(ApolloContext context, UserManager<ApolloUser> userManager)
@@ -40,14 +40,14 @@ namespace Apollo.Data.DataRepository
 
         public List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate)
         {
-           return  this.Find(predicate)
-                       .Include(user => user.UserAppRoleMappings)
-                        .ThenInclude(role => role.Application)
-                        .ThenInclude(role => role.ApplicationRole)
-                        .ThenInclude(role => role.Role).ToList()
-            ;
+            return this.Find(predicate)
+                        .Include(user => user.UserAppRoleMappings)
+                         .ThenInclude(role => role.Application)
+                         .ThenInclude(role => role.ApplicationRole)
+                         .ThenInclude(role => role.Role).ToList()
+             ;
 
-            
+
         }
 
 
@@ -74,13 +74,12 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
-
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
         }
 
-        public ApolloUser Update(ApolloUser user)
+        /* public ApolloUser Update(ApolloUser user)
         {
             _context.User.Attach(user);
             _context.ApplyStateChanges();
@@ -94,14 +93,16 @@ namespace Apollo.Data.DataRepository
             }
 
             return user;
-        }
-
-        /* public async Task<IdentityResult> Update(ApolloUser user)
-        {
-
-            return await _userManager.UpdateAsync(user).ConfigureAwait(false);
         } */
 
+        public async Task<IdentityResult> Update(ApolloUser user)
+        {
+            return await _userManager.UpdateAsync(user).ConfigureAwait(false);
+        }
 
+        public async Task<ApolloUser> FindById(Guid id)
+        {
+            return await _userManager.FindByIdAsync(id.ToString());
+        }
     }
 }

@@ -15,6 +15,6 @@ namespace Apollo.Service.UserManagement.Interface
 
         ApolloUser GetById(Guid id);
 
-         ApolloUser UpdateUser(SupportUser user );
+         Task<IdentityResult> UpdateUser(SupportUser user );
     }
 }

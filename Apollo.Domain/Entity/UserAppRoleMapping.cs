@@ -1,4 +1,5 @@
-﻿using Apollo.Domain.Enum;
+﻿using Apollo.Core.Interface;
+using Apollo.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Apollo.Domain.Entity
 {
     [Table("UserAppRoleMapping", Schema = "Security")]
-    public partial class UserAppRoleMapping : IObjectWithState
+    public partial class UserAppRoleMapping : IIdentifiableModel<Guid>,IObjectWithState
     {
         public Guid Id { get; set; }
         public Guid RoleId { get; set; }
