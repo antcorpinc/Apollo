@@ -80,12 +80,12 @@
             </div>
             <div class="col">
               <ng-container *ngIf="i > 0">
-                <button mat-fab type="button" (click)="confirmDeleteAppRole(i)">
+                <button mat-fab type="button" (click)="confirmDeleteAppRole(i)" [disabled]="operation===read">
                   <mat-icon>remove</mat-icon>
                 </button>
               </ng-container>
               <ng-container *ngIf='!isMaxLength'>
-                <button type="button" mat-fab (click)="addAppRole()">
+                <button type="button" mat-fab (click)="addAppRole()" [disabled]="operation===read">
                   <mat-icon>add</mat-icon>
                 </button>
               </ng-container>
