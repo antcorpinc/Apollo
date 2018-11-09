@@ -13,50 +13,38 @@ namespace Apollo.Data.DataRepository
 {
     public class UserRepository : IUserRepository
     {
-
         private readonly ApolloContext _context;
         private readonly UserManager<ApolloUser> _userManager;
         public UserRepository(ApolloContext context, UserManager<ApolloUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-
         }
-
         public Guid Add(ApolloUser newEntity)
         {
             throw new NotImplementedException();
         }
-
         public async Task<IdentityResult> Add(ApolloUser user, string password)
         {
             return await _userManager.CreateAsync(user, password).ConfigureAwait(false); ;
         }
-
         public IQueryable<ApolloUser> Find(Expression<Func<ApolloUser, bool>> predicate)
         {
             return _context.User.Where(predicate);
         }
-
         public List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate)
         {
             return this.Find(predicate)
                         .Include(user => user.UserAppRoleMappings)
                          .ThenInclude(role => role.Application)
                          .ThenInclude(role => role.ApplicationRole)
-                         .ThenInclude(role => role.Role).ToList()
-             ;
-
-
+                         .ThenInclude(role => role.Role).ToList();
         }
-
-
         public List<ApolloUser> GetSupportUsers()
         {
             return _context.User.Where(user => user.UserTypeId == 1)
                      .Include(userRole => userRole.UserAppRoleMappings)
                     .ToList();
-
         }
         public ApolloUser Get(Guid id)
         {
@@ -64,12 +52,10 @@ namespace Apollo.Data.DataRepository
                 .Include(user => user.UserAppRoleMappings)
                 .FirstOrDefault();
         }
-
         public void Remove(ApolloUser entity)
         {
             throw new NotImplementedException();
         }
-
         public void Remove(Guid id)
         {
             throw new NotImplementedException();
@@ -94,15 +80,18 @@ namespace Apollo.Data.DataRepository
 
             return user;
         } */
-
         public async Task<IdentityResult> Update(ApolloUser user)
         {
             return await _userManager.UpdateAsync(user).ConfigureAwait(false);
         }
-
         public async Task<ApolloUser> FindById(Guid id)
         {
             return await _userManager.FindByIdAsync(id.ToString());
+        }
+
+        public IQueryable<ApolloUser> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

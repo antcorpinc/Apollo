@@ -71,7 +71,8 @@ namespace Apollo.Domain.Enum
             // Child Level Menu Features  for Apollo Dashboard Assign 1011 - 1020
 
             // Child Level Menus For SocietyManagement -- 1021 - 1030
-            SocietyProfile = 1021,
+            BackOfficeSocietyDashboard= 1021,
+            BackOfficeSocietyProfile = 1022,
 
             // Child Level menus for FinanceManagement -- 1031 - 1040
 

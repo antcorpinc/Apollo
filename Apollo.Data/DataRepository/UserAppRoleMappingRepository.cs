@@ -19,13 +19,16 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
-
         public IQueryable<UserAppRoleMapping> Find(Expression<Func<UserAppRoleMapping, bool>> predicate)
         {
             throw new NotImplementedException();
         }
-
         public UserAppRoleMapping Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<UserAppRoleMapping> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -34,19 +37,15 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
-
         public void Remove(Guid id)
         {
             throw new NotImplementedException();
         }
-
         public void RemoveAll(UserAppRoleMapping[] items)
         {
             _context.RemoveRange(items);
             bool result = Save();
-
         }
-
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);

@@ -21,17 +21,15 @@ namespace Apollo.Domain.Entity
         public string LastName { get; set; }
 
         public int UserTypeId { get; set; }
-
+         [StringLength(256)]
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         [StringLength(256)]
-
-        public bool? IsActive { get; set; }
-        [StringLength(256)]
-        public string PhotoUrl { get; set; }
-        [StringLength(256)]
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool? IsActive { get; set; }
+        [StringLength(256)]
+        public string PhotoUrl { get; set; }        
        
         [NotMapped]
         public ObjectState ObjectState { get; set; }

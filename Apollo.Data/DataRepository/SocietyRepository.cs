@@ -1,5 +1,6 @@
 ﻿using Apollo.Data.Interface;
-using Apollo.Domain.Entity;
+using Apollo.Domain.Entity.Society;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,41 +9,36 @@ using System.Text;
 
 namespace Apollo.Data.DataRepository
 {
-    public class ApplicationRepository : IApplicationRepository
+    public class SocietyRepository : ISocietyRepository
     {
         private readonly ApolloContext _context;
-
-        public ApplicationRepository(ApolloContext context)
+        public SocietyRepository(ApolloContext context)
         {
             _context = context;
         }
-        public Guid Add(Application newEntity)
+        public Guid Add(Society newEntity)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Application> Find(Expression<Func<Application, bool>> predicate)
+        public IQueryable<Society> Find(Expression<Func<Society, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Application Get(Guid id)
+        public Society Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Application> GetAll()
+        public IQueryable<Society> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Society
+                    .Include(s => s.Area)
+                    .Include(s => s.City)
+                    .Include(s => s.State);                
         }
-
-        public List<Application> GetApplications()
-        {
-            return _context.Application.ToList();
-
-        }
-
-        public void Remove(Application entity)
+        public void Remove(Society entity)
         {
             throw new NotImplementedException();
         }

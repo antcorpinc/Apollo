@@ -1,5 +1,5 @@
 ﻿using Apollo.Data.Interface;
-using Apollo.Domain.Entity;
+using Apollo.Domain.Entity.MasterData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,46 +8,39 @@ using System.Text;
 
 namespace Apollo.Data.DataRepository
 {
-    public class ApplicationRepository : IApplicationRepository
+    public class StateRepository : IStateRepository
     {
         private readonly ApolloContext _context;
-
-        public ApplicationRepository(ApolloContext context)
+        public StateRepository(ApolloContext context)
         {
-            _context = context;
+             _context = context;
         }
-        public Guid Add(Application newEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Application> Find(Expression<Func<Application, bool>> predicate)
+        public int Add(State newEntity)
         {
             throw new NotImplementedException();
         }
 
-        public Application Get(Guid id)
+        public IQueryable<State> Find(Expression<Func<State, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Application> GetAll()
+        public State Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Application> GetApplications()
+        public IQueryable<State> GetAll()
         {
-            return _context.Application.ToList();
-
+            return _context.State;
         }
 
-        public void Remove(Application entity)
+        public void Remove(State entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Guid id)
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }

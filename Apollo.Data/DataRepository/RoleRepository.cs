@@ -36,6 +36,11 @@ namespace Apollo.Data.DataRepository
                .Where(role => role.Id == id).FirstOrDefault();
         }
 
+        public IQueryable<ApolloRole> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<RolePrivilege> GetRelatedPrivilegesForRoleAndApp(Guid roleId, Guid appId)
         {
             List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();

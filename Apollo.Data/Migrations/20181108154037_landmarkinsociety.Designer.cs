@@ -4,14 +4,16 @@ using Apollo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Apollo.Data.Migrations
 {
     [DbContext(typeof(ApolloContext))]
-    partial class ApolloContextModelSnapshot : ModelSnapshot
+    [Migration("20181108154037_landmarkinsociety")]
+    partial class landmarkinsociety
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,8 +75,7 @@ namespace Apollo.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256);
+                    b.Property<string>("CreatedBy");
 
                     b.Property<DateTime?>("CreatedDate");
 
@@ -85,7 +86,8 @@ namespace Apollo.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool?>("IsActive");
+                    b.Property<bool?>("IsActive")
+                        .HasMaxLength(256);
 
                     b.Property<string>("LastName");
 
@@ -401,25 +403,12 @@ namespace Apollo.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreatedDate");
-
                     b.Property<string>("Description");
-
-                    b.Property<bool?>("IsActive");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<Guid>("SocietyId");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
@@ -435,23 +424,10 @@ namespace Apollo.Data.Migrations
 
                     b.Property<Guid>("BuildingId");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreatedDate");
-
-                    b.Property<bool?>("IsActive");
-
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<Guid>("SocietyId");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
@@ -476,14 +452,7 @@ namespace Apollo.Data.Migrations
 
                     b.Property<int>("CityId");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreatedDate");
-
                     b.Property<string>("Description");
-
-                    b.Property<bool?>("IsActive");
 
                     b.Property<string>("Landmark");
 
@@ -498,12 +467,6 @@ namespace Apollo.Data.Migrations
                         .IsRequired();
 
                     b.Property<int>("StateId");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 

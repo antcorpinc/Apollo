@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Apollo.Core.Interface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ using System.Text;
 namespace Apollo.Domain.Entity.MasterData
 {
     [Table("State", Schema = "MasterData")]
-    public partial class State
+    public partial class State: IIdentifiableModel<int>
     {
         public int Id { get; set; }
         [StringLength(100)]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Apollo.Domain.Enum;
 namespace Apollo.Data
 {
-   public class ApolloContextSeedData
+    public class ApolloContextSeedData
     {
         private ApolloContext _context;
         private UserManager<ApolloUser> _userManager;
@@ -26,7 +26,8 @@ namespace Apollo.Data
         {
 
             // Add UserTypes 
-            if (_context.UserType.Find((int)Domain.Enum.UserType.SupportUser) == null) {
+            if (_context.UserType.Find((int)Domain.Enum.UserType.SupportUser) == null)
+            {
                 Domain.Entity.UserType userType = new Domain.Entity.UserType()
                 {
                     Id = (int)Domain.Enum.UserType.SupportUser,
@@ -64,7 +65,7 @@ namespace Apollo.Data
                     Id = new Guid("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     Name = "SuperAdmin",
                     UserTypeId = (int)Domain.Enum.UserType.SupportUser,
-                    Description="This role has access to all features in application",
+                    Description = "This role has access to all features in application",
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -74,7 +75,7 @@ namespace Apollo.Data
 
                 var result = await _roleManager.CreateAsync(role);
 
-                    if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+                if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
             }
 
             if (await _roleManager.FindByNameAsync("SocietyAdmin") == null)
@@ -113,9 +114,9 @@ namespace Apollo.Data
                     CreatedBy = "SystemAdmin",
                     UpdatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
-                    UpdatedDate = DateTime.UtcNow,                  
-                    
-                   
+                    UpdatedDate = DateTime.UtcNow,
+
+
                 };
                 await _userManager.CreateAsync(user, "DDdd@1234");
             }
@@ -132,7 +133,7 @@ namespace Apollo.Data
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
-                    UpdatedDate = DateTime.UtcNow,                  
+                    UpdatedDate = DateTime.UtcNow,
 
                 };
 
@@ -144,7 +145,7 @@ namespace Apollo.Data
                 Application backoffice = new Application()
                 {
                     Id = new Guid("664EAA01-3C48-42BE-9194-86879AD0A712"),
-              //      Name = "Apollo",
+                    //      Name = "Apollo",
                     Name = "Society",
                     Description = "Application for managing Society features",
                     IsActive = true,
@@ -273,7 +274,7 @@ namespace Apollo.Data
 
             // ~Add Apollo Features
             // Add BackOffice Features - Top Level 1001 - 1010
-              if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeDashboard) == null)
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeDashboard) == null)
             {
                 Feature feature = new Feature()
                 {
@@ -291,7 +292,7 @@ namespace Apollo.Data
                 _context.Add(feature);
             }
 
-             if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.SocietyManagement) == null)
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.SocietyManagement) == null)
             {
                 Feature feature = new Feature()
                 {
@@ -327,7 +328,7 @@ namespace Apollo.Data
                 _context.Add(feature);
             }
 
-             if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.UserManagement) == null)
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.UserManagement) == null)
             {
                 Feature feature = new Feature()
                 {
@@ -363,7 +364,7 @@ namespace Apollo.Data
                 _context.Add(feature);
             }
 
-             if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.Tools) == null)
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.Tools) == null)
             {
                 Feature feature = new Feature()
                 {
@@ -381,7 +382,7 @@ namespace Apollo.Data
                 _context.Add(feature);
             }
 
-              if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.Reports) == null)
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.Reports) == null)
             {
                 Feature feature = new Feature()
                 {
@@ -400,7 +401,7 @@ namespace Apollo.Data
             }
 
             // Add BackOffice 1st Level Sub Menu 
-             if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.SupportUser) == null)
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.SupportUser) == null)
             {
                 Feature feature = new Feature()
                 {
@@ -418,13 +419,51 @@ namespace Apollo.Data
                 };
                 _context.Add(feature);
             }
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyDashboard) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyDashboard,
+                    Name = "BackOfficeSocietyDashboard",
+                    Description = "Dashboard",
+                    Order = 1,
+                    ParentFeatureId = 1002,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyProfile) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyProfile,
+                    Name = "BackOfficeSocietyProfile",
+                    Description = "SocietyProfile",
+                    Order = 2,
+                    ParentFeatureId = 1002,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+
             // ~Add BackOffice 1st Level Sub Menu 
 
             // ~Add BackOffice Features
             // ~Add Features 
 
             // Add Application Feature
-                // Add BackOffice Features
+            // Add BackOffice Features
             if (_context.ApplicationFeature.Find(Guid.Parse("D4B09152-429C-46DA-A90D-9216069DE7E5")) == null)
             {
                 ApplicationFeature boFeature = new ApplicationFeature()
@@ -432,7 +471,7 @@ namespace Apollo.Data
                     Id = new Guid("D4B09152-429C-46DA-A90D-9216069DE7E5"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1001,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -444,7 +483,7 @@ namespace Apollo.Data
                     Id = new Guid("E9249D50-6268-479A-805F-A4C2CD1B31F5"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1002,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -456,7 +495,7 @@ namespace Apollo.Data
                     Id = new Guid("AB7C2E07-F0C2-4F19-80BE-43AD71A199FF"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1003,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -468,7 +507,7 @@ namespace Apollo.Data
                     Id = new Guid("1C0EECBB-0A32-4CB4-B16D-10BFABDBF39E"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1004,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -480,7 +519,7 @@ namespace Apollo.Data
                     Id = new Guid("3167BACB-DA24-4962-9131-5EAC935D5163"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1005,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -492,7 +531,7 @@ namespace Apollo.Data
                     Id = new Guid("9BE3D5A9-9223-49E4-A157-C8408DB50FE7"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1006,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -504,7 +543,7 @@ namespace Apollo.Data
                     Id = new Guid("142EF676-E430-41F4-BBE2-98EC30515C73"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1007,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
@@ -516,14 +555,38 @@ namespace Apollo.Data
                     Id = new Guid("686BD99B-C3DD-4934-B342-5B18AE23E02A"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1041,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(boFeature);
             }
 
-                // ~Add BackOffice Features
+            if (_context.ApplicationFeature.Find(Guid.Parse("D12045E9-FD10-420C-806F-E0DEF0CBEBE9")) == null)
+            {
+                ApplicationFeature boFeature = new ApplicationFeature()
+                {
+                    Id = new Guid("D12045E9-FD10-420C-806F-E0DEF0CBEBE9"),
+                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
+                    FeatureId = 1021,
+                    IsActive = true
+                };
+                _context.Add(boFeature);
+            }
 
-                // Todo : Add Society Features
+            if (_context.ApplicationFeature.Find(Guid.Parse("935BB9C3-A147-4CE0-BA9D-6CBB52C1D01F")) == null)
+            {
+                ApplicationFeature boFeature = new ApplicationFeature()
+                {
+                    Id = new Guid("935BB9C3-A147-4CE0-BA9D-6CBB52C1D01F"),
+                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
+                    FeatureId = 1022,
+                    IsActive = true
+                };
+                _context.Add(boFeature);
+            }
+
+            // ~Add BackOffice Features
+
+            // Todo : Add Society Features
             if (_context.ApplicationFeature.Find(Guid.Parse("EEC18F0F-7BA0-4AD1-BCD2-D2594FA2C84D")) == null)
             {
                 ApplicationFeature soFeature = new ApplicationFeature()
@@ -531,13 +594,13 @@ namespace Apollo.Data
                     Id = new Guid("EEC18F0F-7BA0-4AD1-BCD2-D2594FA2C84D"),
                     ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
                     FeatureId = 1,
-                    IsActive=true
+                    IsActive = true
                 };
                 _context.Add(soFeature);
             }
-                // For now added only Dashboard - Need to add the others.
+            // For now added only Dashboard - Need to add the others.
 
-                // ~Todo : Add Society Features
+            // ~Todo : Add Society Features
             // ~Add Application Feature
 
             // Add Application Role
@@ -550,7 +613,7 @@ namespace Apollo.Data
                     Id = new Guid("6F6146CF-D4AF-4761-8D80-80F891B53244"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -570,7 +633,7 @@ namespace Apollo.Data
                     Id = new Guid("8C604013-E830-46C9-A4A3-769E1D3D39FB"),
                     ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
                     RoleId = Guid.Parse("A5BE6F05-7D89-4532-A275-85F6919A637F"),
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -587,7 +650,7 @@ namespace Apollo.Data
                     Id = new Guid("0039C5EE-609C-4D2D-A74B-C09BB63C64A8"),
                     ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -616,7 +679,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -634,7 +697,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -652,7 +715,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -661,7 +724,7 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
-             if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("736B1469-9067-4791-8FEC-927A09A9D854")) == null)
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("736B1469-9067-4791-8FEC-927A09A9D854")) == null)
             {
                 FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
                 {
@@ -670,7 +733,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -679,7 +742,7 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
-             if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("1CFCA5A8-E32F-4696-9987-9FB95D683A8A")) == null)
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("1CFCA5A8-E32F-4696-9987-9FB95D683A8A")) == null)
             {
                 FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
                 {
@@ -688,7 +751,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -697,7 +760,7 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
-             if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("FF5022DB-ADCE-433E-8ED2-54BD5205C674")) == null)
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("FF5022DB-ADCE-433E-8ED2-54BD5205C674")) == null)
             {
                 FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
                 {
@@ -706,7 +769,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -715,7 +778,7 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
-             if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("29D89942-FF57-4FBB-B25A-D624C22BF5C5")) == null)
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("29D89942-FF57-4FBB-B25A-D624C22BF5C5")) == null)
             {
                 FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
                 {
@@ -724,7 +787,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -742,7 +805,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -751,9 +814,44 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
-             // ~Add FeatureTypeRolePrivilege for BO
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("6DA14B0F-ABED-43C6-ACF8-2261E9F8DFCE")) == null)
+            {
+                FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
+                {
+                    Id = new Guid("6DA14B0F-ABED-43C6-ACF8-2261E9F8DFCE"),
+                    FeatureId = 1021,
+                    Privileges = "VW|CR|DE|AP",
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    SocietyId = null,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(boFeaturePriv);
+            }
 
-              // Add FeatureTypeRolePrivilege for Society
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("756BCF1C-23BC-40D1-9025-75AA46285079")) == null)
+            {
+                FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
+                {
+                    Id = new Guid("756BCF1C-23BC-40D1-9025-75AA46285079"),
+                    FeatureId = 1022,
+                    Privileges = "VW|CR|DE|AP",
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    SocietyId = null,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(boFeaturePriv);
+            }
+            // ~Add FeatureTypeRolePrivilege for BO
+
+            // Add FeatureTypeRolePrivilege for Society
             if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("4EEABE04-2F5E-4684-B9D5-27D934F8D5DA")) == null)
             {
                 FeatureTypeRolePrivilege soFeaturePriv = new FeatureTypeRolePrivilege()
@@ -763,7 +861,7 @@ namespace Apollo.Data
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,
-                    IsActive=true,
+                    IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
@@ -771,7 +869,7 @@ namespace Apollo.Data
                 };
                 _context.Add(soFeaturePriv);
             }
-              // ~Add FeatureTypeRolePrivilege for Society
+            // ~Add FeatureTypeRolePrivilege for Society
             // ~Add FeatureTypeRoleProvilege
 
             // Add UserAppRoleMapping
@@ -779,15 +877,15 @@ namespace Apollo.Data
             {
                 UserAppRoleMapping usrAppRoleMapping = new UserAppRoleMapping()
                 {
-                   Id = new Guid("8D70132B-60B2-4D36-9189-46A0A4FAD627"),
-                   RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
-                   UserId = Guid.Parse("7430DD69-3F53-4471-A621-E1E3BB582D45"),
-                   ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
-                   IsActive=true,
-                   CreatedBy = "SystemAdmin",
-                   CreatedDate = DateTime.UtcNow,
-                   UpdatedBy = "SystemAdmin",
-                   UpdatedDate = DateTime.UtcNow
+                    Id = new Guid("8D70132B-60B2-4D36-9189-46A0A4FAD627"),
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    UserId = Guid.Parse("7430DD69-3F53-4471-A621-E1E3BB582D45"),
+                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
                 };
                 _context.Add(usrAppRoleMapping);
             }
@@ -796,15 +894,15 @@ namespace Apollo.Data
             {
                 UserAppRoleMapping usrAppRoleMapping = new UserAppRoleMapping()
                 {
-                   Id = new Guid("68601373-6F1F-468F-B59F-DD61B10D6B66"),
-                   RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
-                   UserId = Guid.Parse("7430DD69-3F53-4471-A621-E1E3BB582D45"),
-                   ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
-                   IsActive=true,
-                   CreatedBy = "SystemAdmin",
-                   CreatedDate = DateTime.UtcNow,
-                   UpdatedBy = "SystemAdmin",
-                   UpdatedDate = DateTime.UtcNow
+                    Id = new Guid("68601373-6F1F-468F-B59F-DD61B10D6B66"),
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    UserId = Guid.Parse("7430DD69-3F53-4471-A621-E1E3BB582D45"),
+                    ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
                 };
                 _context.Add(usrAppRoleMapping);
             }
@@ -819,8 +917,8 @@ namespace Apollo.Data
                 Domain.Entity.MasterData.State state = new Domain.Entity.MasterData.State()
                 {
                     Id = (int)States.Maharashtra,
-                    Name= "Maharashtra",
-                    DisplayName= "Maharashtra",
+                    Name = "Maharashtra",
+                    DisplayName = "Maharashtra",
                     IsActive = true,
                     CreatedBy = "SystemAdmin",
                     CreatedDate = DateTime.UtcNow,
@@ -851,7 +949,7 @@ namespace Apollo.Data
 
             if (_context.Area.Find((int)Areas.AundhRoad) == null)
             {
-                Domain.Entity.MasterData.Area area= new Domain.Entity.MasterData.Area()
+                Domain.Entity.MasterData.Area area = new Domain.Entity.MasterData.Area()
                 {
                     Id = (int)Areas.AundhRoad,
                     Name = "AundhRoad",

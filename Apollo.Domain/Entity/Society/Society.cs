@@ -1,4 +1,6 @@
-﻿using Apollo.Domain.Entity.MasterData;
+﻿using Apollo.Core.Interface;
+using Apollo.Domain.Entity.MasterData;
+using Apollo.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +10,7 @@ using System.Text;
 namespace Apollo.Domain.Entity.Society
 {
     [Table("Society", Schema = "Society")]
-    public partial class Society
+    public partial class Society:  IIdentifiableModel<Guid>, IObjectWithState
     {
         public Society()
         {
@@ -31,13 +33,27 @@ namespace Apollo.Domain.Entity.Society
         public int CityId { get; set; }
 
         public int AreaId{ get; set; }
+        public string Landmark {get;set;}
         
         [Required]
         public string PinCode { get; set; }
         public string PhoneNumber { get; set; }
         public string AdditionalPhoneNumber { get; set; }
 
+        [NotMapped]
+        public ObjectState ObjectState { get; set; }
+         public bool? IsActive { get; set; }
+
         public Guid? ParentSocietyId { get; set; }
+
+        [StringLength(128)]
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        [Required]
+        [StringLength(128)]
+        public string UpdatedBy { get; set; }
+        public DateTime UpdatedDate { get; set; }
+
 
         [ForeignKey("StateId")]
         public State State { get; set; }
@@ -55,5 +71,6 @@ namespace Apollo.Domain.Entity.Society
 
         public ICollection<SocietyUser> SocietyUsers { get; set; }
 
+        
     }
 }

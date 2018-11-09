@@ -12,25 +12,32 @@ import { SocietyDashboardComponent } from './society/common/society-shared/socie
 
 export const routes: Routes = [
   // { path: 'dashboard', component: DashboardComponent},
-  { path: 'default', component: DefaultComponent},
-  { path: 'home' , component: HomeComponent},
-  { path: 'test', component: TestComponent}, // Todo - Need to remove this
+  { path: 'default', component: DefaultComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'test', component: TestComponent }, // Todo - Need to remove this
   { path: 'unauthorized', component: UnauthorizedComponent },
 
   // Authenticated Routes
-  { path: 'auth', component: AuthenticatedUserComponent,
-        children: [
-          // All Authenticated BackOffice Routes
-          { path : 'backofficedashboard' , component: BackofficeDashboardComponent},
-          { path: 'bo/usermgmt', loadChildren:
-              './backoffice/user-mgmt/user-mgmt.module#UserMgmtModule' } ,
-          // ~ All Authenticated BackOffice Routes
+  {
+    path: 'auth', component: AuthenticatedUserComponent,
+    children: [
+      // All Authenticated BackOffice Routes
+      { path: 'backofficedashboard', component: BackofficeDashboardComponent },
+      {
+        path: 'bo/usermgmt', loadChildren:
+          './backoffice/user-mgmt/user-mgmt.module#UserMgmtModule'
+      },
+      {
+        path: 'bo/societymgmt', loadChildren:
+          './backoffice/society-mgmt/society-mgmt.module#SocietyMgmtModule'
+      },
+      // ~ All Authenticated BackOffice Routes
 
-          // All Authenticated Society Routes
-          { path : 'societydashboard' , component: SocietyDashboardComponent},
-          // ~ All Authenticated Society Routes
-        ]
-},
+      // All Authenticated Society Routes
+      { path: 'societydashboard', component: SocietyDashboardComponent },
+      // ~ All Authenticated Society Routes
+    ]
+  },
   // ~ Authenticated Routes
   { path: '', component: DefaultComponent },
   { path: '**', component: DefaultComponent },

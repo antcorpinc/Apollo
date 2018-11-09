@@ -126,8 +126,24 @@ namespace Apollo.Api.UserManagement
                    .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Role.Name))
                    .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.Role.IsActive))
                    .ForMember(des => des.Description, opt => opt.MapFrom(s => s.Role.Description));
-                //   .ForMember(des => des.ApplicationList, opt => opt.MapFrom(s => s.Role.ApplicationRole));
+
+                cfg.CreateMap<Apollo.Domain.Entity.Society.Society, Apollo.Domain.DTO.SocietyList>()
+                    .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Id))
+                    .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
+                    .ForMember(des => des.Area, opt => opt.MapFrom(s => s.Area.Name))
+                    .ForMember(des => des.City, opt => opt.MapFrom(s => s.City.Name))
+                    .ForMember(des => des.State, opt => opt.MapFrom(s => s.State.Name))
+                    .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
+                    .ForMember(des => des.UpdatedBy, opt => opt.MapFrom(s => s.UpdatedBy))
+                    .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s => s.UpdatedDate));
+
+                cfg.CreateMap<Domain.Entity.MasterData.State, Domain.DTO.MasterData.State>()
+                .ForMember(des => des.Id , opt => opt.MapFrom(s => s.Id))
+                .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name));
             });
+
+           
+             
             // Do it in the last Seed Data only in Development
             if (env.IsDevelopment())
             {

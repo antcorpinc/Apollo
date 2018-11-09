@@ -110,10 +110,10 @@ private getRouteforMenuFeature(feature: string): string {
     return 'auth/backofficedashboard';
   } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.supportuser.toUpperCase()) {
        return 'auth/bo/usermgmt/supportusers';
-  } else if (feature.toUpperCase() === 'VIEWBOOKINGS') {
+  } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.societyprofile.toLocaleUpperCase()) {
     // Todo Change these
-    return 'authenticated/bookingmgmt/reservationList';
-  } else {
+    return 'auth/bo/societymgmt/societies';
+  }  else {
     return null;
   }
 }

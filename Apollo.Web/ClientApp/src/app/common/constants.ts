@@ -14,7 +14,9 @@ export let CONSTANTS = {
       feature: {
         backoffice: {
           dashboard: 'BackOfficeDashboard',
-          supportuser: 'SupportUser'
+          supportuser: 'SupportUser',
+          societydashboard: 'BackOfficeSocietyDashboard',
+          societyprofile: 'BackOfficeSocietyProfile'
         },
         society: {
 

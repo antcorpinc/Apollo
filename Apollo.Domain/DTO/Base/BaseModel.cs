@@ -37,7 +37,7 @@ namespace Apollo.Domain.DTO.Base
             }
         }
 
-        internal DateTime UpdatedDate
+        public DateTime UpdatedDate
         {
             get
             {
