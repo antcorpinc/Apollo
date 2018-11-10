@@ -71,9 +71,7 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
     this.supportUserForm = new FormGroup({
       firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      email: new FormControl('', [Validators.required, Validators.maxLength(50),
-      // Validators.pattern('^[\\w+]+(\\.[\\w+]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0-9]{2,4})$')
-      Validators.email
+      email: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.email
       ]),
       phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       isActive: new FormControl(true),
@@ -93,11 +91,8 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
 
   getSupportUser(userId: string) {
     const subscription = this.userDataService.getSupportUserById(userId)
-          .subscribe(data => {
+      .subscribe(data => {
         this.supportUserViewModel = data;
-        // Info :  Set the initial obejct state to Unchanged
-        // this.supportUserViewModel.objectState = ObjectState.Unchanged;
-        // Info: Set the Form Model based on returned values
         this.supportUserForm.get('firstName').setValue(this.supportUserViewModel.firstName);
         this.supportUserForm.get('lastName').setValue(this.supportUserViewModel.lastName);
         this.supportUserForm.get('email').setValue(this.supportUserViewModel.email);
@@ -107,9 +102,7 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
         const appRoleValue = data.userApplicationRole;
         for (let i = 0; i < appRoleValue.length; i++) {
           this.addAppRole();
-          // Info :  Set the initial obejct state to Unchanged
-          //  data.userApplicationRole[i].objectState = ObjectState.Unchanged;
-        }
+          }
         this.userApplicationRole.controls.forEach((control, index) => {
           control.get('id').setValue(appRoleValue[index].id);
           control.get('applicationId').setValue(appRoleValue[index].applicationId);
@@ -243,12 +236,12 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
               politeness: 'polite', panelClass: 'showSnackBar'
             });
             this.router.navigate(['/auth/bo/usermgmt/supportusers'],
-                                  {relativeTo: this.activatedRoute });
+              { relativeTo: this.activatedRoute });
           },
-          (error) => {
-            console.log('Error' + error);
-          });
-          this.subscriptions.push(subscription);
+            (error) => {
+              console.log('Error' + error);
+            });
+        this.subscriptions.push(subscription);
       } else if (this.operation === this.edit) {
         console.log('edit user model = ' + JSON.stringify(this.supportUserSaveViewModel));
         const subscription = this.userDataService.updateSupportUser(this.supportUserSaveViewModel)
@@ -259,13 +252,13 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
               politeness: 'polite', panelClass: 'showSnackBar'
             });
             this.router.navigate(['/auth/bo/usermgmt/supportusers'],
-                                  {relativeTo: this.activatedRoute });
+              { relativeTo: this.activatedRoute });
           },
-          (error) => {
-            console.log('Error' + error);
-          });
-          this.subscriptions.push(subscription);
-              }
+            (error) => {
+              console.log('Error' + error);
+            });
+        this.subscriptions.push(subscription);
+      }
     }
   }
 
@@ -295,21 +288,16 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       // If either has changed then set the object state to changed .
       this.supportUserSaveViewModel.userApplicationRole.forEach((savedAppRole, index) => {
         if (savedAppRole.objectState !== ObjectState.Added) {
-         const originalAppRole =  this.supportUserViewModel.userApplicationRole.find(uap =>
-              uap.id === savedAppRole.id);
+          const originalAppRole = this.supportUserViewModel.userApplicationRole.find(uap =>
+            uap.id === savedAppRole.id);
           if (originalAppRole.applicationId !== savedAppRole.applicationId ||
-            originalAppRole.roleId !== savedAppRole.roleId ) {
-              savedAppRole.objectState = ObjectState.Modified;
-            }
+            originalAppRole.roleId !== savedAppRole.roleId) {
+            savedAppRole.objectState = ObjectState.Modified;
+          }
         }
-        // Todo:  Just for testing adding default id'
-        /* if (savedAppRole.objectState === ObjectState.Added) {
-        savedAppRole.id = CONSTANTS.create.id;
-        } */
       });
     }
   }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
