@@ -238,21 +238,34 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
       if (this.operation === this.create) {
         const subscription = this.userDataService.createSupportUser(this.supportUserSaveViewModel)
           .subscribe(data => {
-
-          });
-      } else if (this.operation === this.edit) {
-        console.log('edit user model = ' + JSON.stringify(this.supportUserSaveViewModel));
-        const subscription = this.userDataService.updateSupportUser(this.supportUserSaveViewModel)
-          .subscribe(data => {
-
             this.snackBar.open(InfoMessages.userCreationMessage, '', {
               duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
               politeness: 'polite', panelClass: 'showSnackBar'
             });
             this.router.navigate(['/auth/bo/usermgmt/supportusers'],
                                   {relativeTo: this.activatedRoute });
+          },
+          (error) => {
+            console.log('Error' + error);
           });
-      }
+          this.subscriptions.push(subscription);
+      } else if (this.operation === this.edit) {
+        console.log('edit user model = ' + JSON.stringify(this.supportUserSaveViewModel));
+        const subscription = this.userDataService.updateSupportUser(this.supportUserSaveViewModel)
+          .subscribe(data => {
+
+            this.snackBar.open(InfoMessages.userUpdationMessage, '', {
+              duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+              politeness: 'polite', panelClass: 'showSnackBar'
+            });
+            this.router.navigate(['/auth/bo/usermgmt/supportusers'],
+                                  {relativeTo: this.activatedRoute });
+          },
+          (error) => {
+            console.log('Error' + error);
+          });
+          this.subscriptions.push(subscription);
+              }
     }
   }
 

@@ -1,14 +1,15 @@
-﻿using Apollo.Service.UserManagement.Interface;
+﻿
+using Apollo.Service.SocietyManagement.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Apollo.Api.UserManagement.Controllers
+namespace Apollo.Api.Society.Controllers
 {
     [Route("api/society")]
-    public class SocietyController: BaseUserController
+    public class SocietyController: BaseSocietyController
     {
         private readonly ISocietyService _societyService;
 

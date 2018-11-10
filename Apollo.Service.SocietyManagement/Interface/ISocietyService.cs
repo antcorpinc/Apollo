@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Apollo.Service.UserManagement.Interface
+namespace Apollo.Service.SocietyManagement.Interface
 {
     public interface ISocietyService
     {

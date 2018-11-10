@@ -1,12 +1,12 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
-using Apollo.Service.UserManagement.Interface;
+using Apollo.Service.SocietyManagement.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace Apollo.Service.UserManagement
+namespace Apollo.Service.SocietyManagement
 {
     public class SocietyService : ISocietyService
     {
