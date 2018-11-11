@@ -17,7 +17,7 @@ namespace Apollo.Api.UserManagement.Controllers
         private readonly IMapper _mapper;
         public SupportUserController(ISupportUserService userService, IMapper mapper)
         {
-            _userService = userService;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _mapper = mapper;
         }
 
@@ -51,13 +51,13 @@ namespace Apollo.Api.UserManagement.Controllers
         public async Task<IActionResult> GetSupportUsers()
         {
             // Todo First check that the logged in user is of support user type if yes then only let him call the below
-            // var supportUserList = this._userService.GetAllUsers();
             var supportUserList = await this._userService.GetAllUsersAsync();
             if(supportUserList == null)
             {
                 return NotFound();
             }
-            return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
+            // return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
+            return Ok(supportUserList);
         }
 
         [Route("getbyid")]

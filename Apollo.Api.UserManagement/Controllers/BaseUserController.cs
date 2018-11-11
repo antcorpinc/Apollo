@@ -10,7 +10,8 @@ namespace Apollo.Api.UserManagement.Controllers
 {
     [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public abstract  class BaseUserController: Controller
+    [ApiController]
+    public abstract  class BaseUserController: ControllerBase
     {
 
         protected string LoggedInUserId

@@ -2,6 +2,7 @@
 using Apollo.Domain.DTO;
 using Apollo.Domain.Entity;
 using Apollo.Service.UserManagement.Interface;
+using Apollo.Service.UserManagement.Mappers;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -123,10 +124,16 @@ namespace Apollo.Service.UserManagement
                 (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser).ToList();
         }
 
-        public async Task<List<ApolloUser>> GetAllUsersAsync()
+        //public async Task<List<ApolloUser>> GetAllUsersAsync()
+        //{
+        //    return await _userRepository.FindSupportUsersAsync
+        //        (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser);          
+        //}
+        public async Task<List<Domain.DTO.SupportUserList>> GetAllUsersAsync()
         {
-            return await _userRepository.FindSupportUsersAsync
-                (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser);          
+            var users =  await _userRepository.FindSupportUsersAsync
+                (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser);
+            return SupportUserMapper.MapSupportUserList(users);
         }
 
         public ApolloUser GetById(Guid id)
