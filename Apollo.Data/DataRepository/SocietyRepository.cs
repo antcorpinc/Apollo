@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
@@ -21,11 +22,16 @@ namespace Apollo.Data.DataRepository
             throw new NotImplementedException();
         }
 
-        public IQueryable<Society> Find(Expression<Func<Society, bool>> predicate)
+        public List<Society> Find(Expression<Func<Society, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
+        public Task<List<Society>> FindAsync(Expression<Func<Society, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+        
         public Society Get(Guid id)
         {
             throw new NotImplementedException();

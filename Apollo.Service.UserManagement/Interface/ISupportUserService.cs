@@ -11,6 +11,8 @@ namespace Apollo.Service.UserManagement.Interface
     public interface ISupportUserService
     {
         List<ApolloUser> GetAllUsers();
+        Task<List<ApolloUser>> GetAllUsersAsync();
+
         Task<IdentityResult> CreateUser(SupportUser user);
 
         ApolloUser GetById(Guid id);

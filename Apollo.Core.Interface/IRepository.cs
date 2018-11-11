@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Apollo.Core.Interface
 {
@@ -15,7 +16,9 @@ namespace Apollo.Core.Interface
         void Remove(T entity);
         void Remove(U id);
         T Get(U id);
-        IQueryable<T> Find(Expression<Func<T, bool>> predicate);
+        List<T> Find(Expression<Func<T, bool>> predicate);
+
+        Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
         IQueryable<T> GetAll();
 

@@ -119,7 +119,14 @@ namespace Apollo.Service.UserManagement
 
         public List<ApolloUser> GetAllUsers()
         {
-            return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser).ToList();
+            return _userRepository.FindSupportUsers
+                (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser).ToList();
+        }
+
+        public async Task<List<ApolloUser>> GetAllUsersAsync()
+        {
+            return await _userRepository.FindSupportUsersAsync
+                (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser);          
         }
 
         public ApolloUser GetById(Guid id)
@@ -127,6 +134,6 @@ namespace Apollo.Service.UserManagement
             return _userRepository.FindSupportUsers(
                 user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser &&
                      user.Id == id).FirstOrDefault();
-        }
+        }        
     }
 }

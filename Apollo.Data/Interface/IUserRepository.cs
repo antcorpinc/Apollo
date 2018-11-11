@@ -19,8 +19,11 @@ namespace Apollo.Data.Interface
         //ApolloUser Update(ApolloUser user);
 
         List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate);
+        Task<List<ApolloUser>> FindSupportUsersAsync(Expression<Func<ApolloUser, bool>> predicate);
 
-        List<ApolloUser> GetSupportUsers();
+       // List<ApolloUser> GetSupportUsers();
+
+       // Task<List<ApolloUser>> GetSupportUsersAsync();
 
         Task<ApolloUser> FindById(Guid id);
 

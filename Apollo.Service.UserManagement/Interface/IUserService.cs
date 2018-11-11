@@ -13,6 +13,6 @@ namespace Apollo.Service.UserManagement.Interface
         UserDetails GetUserDetails(Guid id);
         void CreateSupportUser(SupportUserVm user);
 
-        List<ApolloUser> GetAllUsersBasedOnUserType(Apollo.Domain.Enum.UserType userType);
+       // List<ApolloUser> GetAllUsersBasedOnUserType(Apollo.Domain.Enum.UserType userType);
     }
 }

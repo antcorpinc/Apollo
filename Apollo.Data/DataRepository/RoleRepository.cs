@@ -1,4 +1,5 @@
-﻿using Apollo.Data.Interface;
+﻿using Apollo.Core.Interface;
+using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
 using Apollo.Domain.Entity;
 using Apollo.Domain.Enum;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using ApplicationRole = Apollo.Domain.Entity.ApplicationRole;
 
 namespace Apollo.Data.DataRepository
@@ -20,15 +22,28 @@ namespace Apollo.Data.DataRepository
             _context = context;
         }
         public Guid Add(ApolloRole newEntity)
+        {           
+            throw new NotImplementedException();
+        }
+        public List<ApolloRole> Find(Expression<Func<ApolloRole, bool>> predicate)
         {
-           
+            return _context.Role.Where(predicate).ToList();
+        }
+
+        public Task<List<ApolloRole>> FindAsync(Expression<Func<ApolloRole, bool>> predicate)
+        {
             throw new NotImplementedException();
         }
 
-        public IQueryable<ApolloRole> Find(Expression<Func<ApolloRole, bool>> predicate)
+        /* public IQueryable<ApolloRole> Find(Expression<Func<ApolloRole, bool>> predicate)
         {
             return _context.Role.Where(predicate);
         }
+
+        public Task<IQueryable<ApolloRole>> FindAsync(Expression<Func<ApolloRole, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        } */
 
         public ApolloRole Get(Guid id)
         {

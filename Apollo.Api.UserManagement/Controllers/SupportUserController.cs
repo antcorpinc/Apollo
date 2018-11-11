@@ -48,12 +48,16 @@ namespace Apollo.Api.UserManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSupportUsers()
+        public async Task<IActionResult> GetSupportUsers()
         {
             // Todo First check that the logged in user is of support user type if yes then only let him call the below
-            var supportUserList = this._userService.GetAllUsers();
+            // var supportUserList = this._userService.GetAllUsers();
+            var supportUserList = await this._userService.GetAllUsersAsync();
+            if(supportUserList == null)
+            {
+                return NotFound();
+            }
             return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
-
         }
 
         [Route("getbyid")]

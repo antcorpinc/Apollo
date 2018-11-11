@@ -28,12 +28,12 @@ namespace Apollo.Service.UserManagement
             throw new NotImplementedException();
         }
 
-        public List<ApolloUser> GetAllUsersBasedOnUserType(Domain.Enum.UserType userType)
+       /*  public List<ApolloUser> GetAllUsersBasedOnUserType(Domain.Enum.UserType userType)
         {
             return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)userType).ToList();
            // return _userRepository.GetSupportUsers();
         }
-
+ */
         public UserDetails GetUserDetails(Guid id)
         {
             var user = _userRepository.Get(id);

@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IDisposable
     {
-        private readonly ApolloContext _context;
+        private ApolloContext _context;
         private readonly UserManager<ApolloUser> _userManager;
         public UserRepository(ApolloContext context, UserManager<ApolloUser> userManager)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentException(nameof(context));
             _userManager = userManager;
         }
         public Guid Add(ApolloUser newEntity)
@@ -28,24 +28,50 @@ namespace Apollo.Data.DataRepository
         {
             return await _userManager.CreateAsync(user, password).ConfigureAwait(false); ;
         }
-        public IQueryable<ApolloUser> Find(Expression<Func<ApolloUser, bool>> predicate)
+        /*  public IQueryable<ApolloUser> Find(Expression<Func<ApolloUser, bool>> predicate)
+         {
+             return _context.User.Where(predicate);
+         } */
+        public List<ApolloUser> Find(Expression<Func<ApolloUser, bool>> predicate)
         {
-            return _context.User.Where(predicate);
+            return _context.User.Where(predicate).ToList();
         }
+
+        public async Task<List<ApolloUser>> FindAsync(Expression<Func<ApolloUser, bool>> predicate)
+        {
+            return await _context.User.Where(predicate).ToListAsync();
+        }
+
         public List<ApolloUser> FindSupportUsers(Expression<Func<ApolloUser, bool>> predicate)
         {
-            return this.Find(predicate)
+          //  return this.Find(predicate).AsQueryable()
+              return  _context.User.Where(predicate)
                         .Include(user => user.UserAppRoleMappings)
                          .ThenInclude(role => role.Application)
                          .ThenInclude(role => role.ApplicationRole)
                          .ThenInclude(role => role.Role).ToList();
         }
-        public List<ApolloUser> GetSupportUsers()
-        {
-            return _context.User.Where(user => user.UserTypeId == 1)
-                     .Include(userRole => userRole.UserAppRoleMappings)
-                    .ToList();
+        public async Task<List<ApolloUser>> FindSupportUsersAsync(Expression<Func<ApolloUser, bool>> predicate)
+        {  
+            return await _context.User.Where(predicate)
+                .Include(user => user.UserAppRoleMappings)
+                         .ThenInclude(role => role.Application)
+                         .ThenInclude(role => role.ApplicationRole)
+                         .ThenInclude(role => role.Role).ToListAsync();
         }
+        /*   public List<ApolloUser> GetSupportUsers()
+          {
+              return _context.User.Where(user => user.UserTypeId == 1)
+                       .Include(userRole => userRole.UserAppRoleMappings)
+                      .ToList();
+          }
+          public async Task<List<ApolloUser>> GetSupportUsersAsync()
+          {
+                 return await  _context.User.Where(user => user.UserTypeId == 1)
+                       .Include(userRole => userRole.UserAppRoleMappings)
+                      .ToListAsync();
+          }
+   */
         public ApolloUser Get(Guid id)
         {
             return _context.User.Where(users => users.Id == id)
@@ -92,6 +118,23 @@ namespace Apollo.Data.DataRepository
         public IQueryable<ApolloUser> GetAll()
         {
             throw new NotImplementedException();
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
         }
     }
 }

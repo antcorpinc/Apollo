@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
@@ -19,7 +20,12 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
-        public IQueryable<UserAppRoleMapping> Find(Expression<Func<UserAppRoleMapping, bool>> predicate)
+
+        public List<UserAppRoleMapping> Find(Expression<Func<UserAppRoleMapping, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<List<UserAppRoleMapping>> FindAsync(Expression<Func<UserAppRoleMapping, bool>> predicate)
         {
             throw new NotImplementedException();
         }

@@ -1,10 +1,12 @@
-﻿using Apollo.Data.Interface;
+﻿using Apollo.Core.Interface;
+using Apollo.Data.Interface;
 using Apollo.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
@@ -21,7 +23,12 @@ namespace Apollo.Data.DataRepository
             throw new NotImplementedException();
         }
 
-        public IQueryable<Application> Find(Expression<Func<Application, bool>> predicate)
+        public List<Application> Find(Expression<Func<Application, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Application>> FindAsync(Expression<Func<Application, bool>> predicate)
         {
             throw new NotImplementedException();
         }
@@ -56,5 +63,7 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

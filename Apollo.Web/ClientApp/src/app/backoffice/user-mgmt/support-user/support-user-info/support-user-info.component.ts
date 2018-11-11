@@ -71,8 +71,7 @@ export class SupportUserInfoComponent implements OnInit, OnDestroy {
     this.supportUserForm = new FormGroup({
       firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      email: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.email
-      ]),
+      email: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.email]),
       phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       isActive: new FormControl(true),
       objectState: new FormControl(ObjectState.Unchanged),
