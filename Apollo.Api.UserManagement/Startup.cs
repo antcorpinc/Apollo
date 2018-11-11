@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Apollo.Api.UserManagement.MappingConfig;
 using Apollo.Data;
 using Apollo.Data.DataRepository;
 using Apollo.Data.Interface;
@@ -110,40 +111,11 @@ namespace Apollo.Api.UserManagement
             // Todo: Need to add the content security policy (CSP) - Refer PS of Brian Noyes 
             app.UseAuthentication();
             app.UseMvc();
-
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<ApolloUser, SupportUserList>()
-                .ForMember(des=> des.UserApplicationRole , opt => opt.MapFrom(s => s.UserAppRoleMappings)).ReverseMap();
-
-                cfg.CreateMap<ApolloUser, SupportUser>()
-                .ForMember(des => des.UserApplicationRole, opt => opt.MapFrom(s => s.UserAppRoleMappings)).ReverseMap();
-
-                cfg.CreateMap<Domain.Entity.Application, Domain.DTO.Application>();
-
-                cfg.CreateMap<Domain.Entity.ApplicationRole, Role>()
-                   .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Role.Id))
-                   .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Role.Name))
-                   .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.Role.IsActive))
-                   .ForMember(des => des.Description, opt => opt.MapFrom(s => s.Role.Description));
-
-                cfg.CreateMap<Apollo.Domain.Entity.Society.Society, Apollo.Domain.DTO.SocietyList>()
-                    .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Id))
-                    .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
-                    .ForMember(des => des.Area, opt => opt.MapFrom(s => s.Area.Name))
-                    .ForMember(des => des.City, opt => opt.MapFrom(s => s.City.Name))
-                    .ForMember(des => des.State, opt => opt.MapFrom(s => s.State.Name))
-                    .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
-                    .ForMember(des => des.UpdatedBy, opt => opt.MapFrom(s => s.UpdatedBy))
-                    .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s => s.UpdatedDate));
-
-                cfg.CreateMap<Domain.Entity.MasterData.State, Domain.DTO.MasterData.State>()
-                .ForMember(des => des.Id , opt => opt.MapFrom(s => s.Id))
-                .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name));
+                cfg.AddProfile(new UserMgmtMappingProfile());
             });
-
-           
-             
+            
             // Do it in the last Seed Data only in Development
             if (env.IsDevelopment())
             {
@@ -154,7 +126,6 @@ namespace Apollo.Api.UserManagement
                     seeder.SeedAsync().Wait();                   
                 }
             }
-
         }
     }
 }
