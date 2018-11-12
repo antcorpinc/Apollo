@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apollo.Service.Common", "Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apollo.Api.BackOffice", "Apollo.Api.BackOffice\Apollo.Api.BackOffice.csproj", "{37697F9E-0D80-4D6E-8646-9FDCEE40BCC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo.Api.Society", "Apollo.Api.Society\Apollo.Api.Society.csproj", "{E977EB4D-A796-4ED1-838D-2553416C9A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apollo.Api.Society", "Apollo.Api.Society\Apollo.Api.Society.csproj", "{E977EB4D-A796-4ED1-838D-2553416C9A9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo.Service.SocietyManagement", "Apollo.Service.SocietyManagement\Apollo.Service.SocietyManagement.csproj", "{D2F17966-8FCC-4A9A-B170-AA907FCA2999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apollo.Service.SocietyManagement", "Apollo.Service.SocietyManagement\Apollo.Service.SocietyManagement.csproj", "{D2F17966-8FCC-4A9A-B170-AA907FCA2999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo.Service.BackOfficeManagement", "Apollo.Service.BackOfficeManagement\Apollo.Service.BackOfficeManagement.csproj", "{06B02EE6-6145-4F87-BEAF-15C1F0B8B414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{D2F17966-8FCC-4A9A-B170-AA907FCA2999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2F17966-8FCC-4A9A-B170-AA907FCA2999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2F17966-8FCC-4A9A-B170-AA907FCA2999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B02EE6-6145-4F87-BEAF-15C1F0B8B414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B02EE6-6145-4F87-BEAF-15C1F0B8B414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B02EE6-6145-4F87-BEAF-15C1F0B8B414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B02EE6-6145-4F87-BEAF-15C1F0B8B414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

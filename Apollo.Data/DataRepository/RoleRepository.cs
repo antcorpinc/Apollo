@@ -14,12 +14,12 @@ using ApplicationRole = Apollo.Domain.Entity.ApplicationRole;
 
 namespace Apollo.Data.DataRepository
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository : IRoleRepository, IDisposable
     {
-        private readonly ApolloContext _context;
+        private  ApolloContext _context;
         public RoleRepository(ApolloContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public Guid Add(ApolloRole newEntity)
         {           
@@ -138,6 +138,24 @@ namespace Apollo.Data.DataRepository
             }
 
             return roles;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
         }
     }
 }

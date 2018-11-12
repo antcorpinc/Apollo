@@ -9,18 +9,17 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class UserAppRoleMappingRepository : IUserAppRoleMappingRepository
+    public class UserAppRoleMappingRepository : IUserAppRoleMappingRepository, IDisposable
     {
-        private readonly ApolloContext _context;
+        private ApolloContext _context;
         public UserAppRoleMappingRepository(ApolloContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public Guid Add(UserAppRoleMapping newEntity)
         {
             throw new NotImplementedException();
         }
-
         public List<UserAppRoleMapping> Find(Expression<Func<UserAppRoleMapping, bool>> predicate)
         {
             throw new NotImplementedException();
@@ -55,6 +54,23 @@ namespace Apollo.Data.DataRepository
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
         }
     }
 }

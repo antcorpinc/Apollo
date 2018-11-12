@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class StateRepository : IStateRepository
+    public class StateRepository : IStateRepository, IDisposable
     {
-        private readonly ApolloContext _context;
+        private  ApolloContext _context;
         public StateRepository(ApolloContext context)
         {
-             _context = context;
+             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public int Add(State newEntity)
         {
@@ -53,6 +53,24 @@ namespace Apollo.Data.DataRepository
         public bool Save()
         {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
         }
     }
 }

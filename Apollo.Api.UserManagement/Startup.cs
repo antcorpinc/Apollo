@@ -84,17 +84,7 @@ namespace Apollo.Api.UserManagement
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler(appbuilder =>
-                {
-                    appbuilder.Run(async context =>
-                    {
-                        context.Response.StatusCode = 500;
-                        await context.Response.WriteAsync("An unexpected fault happened . Try again later");
-                    });
-                });
-            }
+           
             // Todo: Need to be more specific for the CORS policy - Refer PS of Brian Noyes 
 
             app.UseCors(policy =>

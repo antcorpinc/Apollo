@@ -18,7 +18,7 @@ namespace Apollo.Data.DataRepository
         public UserRepository(ApolloContext context, UserManager<ApolloUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _userManager = userManager;
+            _userManager = userManager?? throw new ArgumentNullException(nameof(userManager)); ;
         }
         public Guid Add(ApolloUser newEntity)
         {

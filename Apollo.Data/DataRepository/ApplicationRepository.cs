@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class ApplicationRepository : IApplicationRepository
+    public class ApplicationRepository : IApplicationRepository, IDisposable
     {
-        private readonly ApolloContext _context;
+        private  ApolloContext _context;
 
         public ApplicationRepository(ApolloContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public Guid Add(Application newEntity)
         {
@@ -63,7 +63,23 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-        
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
+        }
+
     }
 }

@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class SocietyRepository : ISocietyRepository
+    public class SocietyRepository : ISocietyRepository, IDisposable
     {
-        private readonly ApolloContext _context;
+        private  ApolloContext _context;
         public SocietyRepository(ApolloContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public Guid Add(Society newEntity)
         {
@@ -57,6 +57,24 @@ namespace Apollo.Data.DataRepository
         public bool Save()
         {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
         }
     }
 }

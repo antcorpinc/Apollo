@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Apollo.Data\Apollo.Data.csproj" />
+    <ProjectReference Include="..\Apollo.Domain\Apollo.Domain.csproj" />
     <ProjectReference Include="..\Apollo.Service.SocietyManagement\Apollo.Service.SocietyManagement.csproj" />
   </ItemGroup>
 
