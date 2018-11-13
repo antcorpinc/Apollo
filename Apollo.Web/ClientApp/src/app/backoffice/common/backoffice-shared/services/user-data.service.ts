@@ -29,8 +29,14 @@ export class UserDataService {
       + 'api/supportuser/update/', user);
   }
 
-  getSupportUserById(userId: string): Observable<SupportUserViewModel> {
+  /* getSupportUserById(userId: string): Observable<SupportUserViewModel> {
     return this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi
       + 'api/supportuser/getbyid?userId=' + userId);
+   // + 'api/supportuser?id=' + userId);
+  } */
+
+  getSupportUserById(userId: string): Observable<SupportUserViewModel> {
+    return this.authenticatedHttpService.get(
+    `${this.configurationService.config.baseUrls.userMgmtApi}api/supportuser/${userId}`);
   }
 }
