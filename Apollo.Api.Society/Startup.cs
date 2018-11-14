@@ -50,7 +50,7 @@ namespace Apollo.Api.Society
                   {
                       options.Authority = Configuration["BaseUrls:Sts"];
                       options.RequireHttpsMetadata = false;
-                      options.ApiName = "apollo.api.societymanagement";
+                      options.ApiName = "apollo.api.society";
                   });
 
             services.AddSwaggerGen(c =>

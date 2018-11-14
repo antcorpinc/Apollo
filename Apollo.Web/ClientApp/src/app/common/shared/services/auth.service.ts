@@ -13,7 +13,7 @@ export class AuthService {
       client_id: this.configurationService.config.identityClient.clientId,
       redirect_uri: `${this.configurationService.config.baseUrls.web}assets/oidc-login-redirect.html`,
       // TODO: Update the Scope as required
-      scope: 'openid profile apollo.api.usermanagement',
+      scope: 'openid profile apollo.api.usermanagement apollo.api.society apollo.api.backoffice',
       response_type: 'id_token token',
       post_logout_redirect_uri: `${this.configurationService.config.baseUrls.web}?postLogout=true`,
       userStore: new WebStorageStateStore({ store: window.localStorage}),

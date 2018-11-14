@@ -141,6 +141,11 @@ namespace Apollo.Service.UserManagement
             return _userRepository.FindSupportUsers(
                 user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser &&
                      user.Id == id).FirstOrDefault();
-        }        
+        }
+
+        public async Task<ApolloUser> GetByIdAsync(Guid id)
+        {
+            return await _userRepository.GetAsync(id);
+        }
     }
 }

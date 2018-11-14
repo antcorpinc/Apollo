@@ -78,6 +78,16 @@ namespace Apollo.Data.DataRepository
                 .Include(user => user.UserAppRoleMappings)
                 .FirstOrDefault();
         }
+
+        public async Task<ApolloUser> GetAsync(Guid id)
+        {
+            return await _context.User.Where(users => users.Id == id)
+               .Include(user => user.UserAppRoleMappings)
+               .ThenInclude(role => role.Application)
+               .ThenInclude(role => role.ApplicationRole)
+               .ThenInclude(role => role.Role)
+               .FirstOrDefaultAsync();
+        }
         public void Remove(ApolloUser entity)
         {
             throw new NotImplementedException();
@@ -135,6 +145,6 @@ namespace Apollo.Data.DataRepository
                     _context = null;
                 }
             }
-        }
+        }       
     }
 }

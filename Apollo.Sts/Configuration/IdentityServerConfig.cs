@@ -32,7 +32,25 @@ namespace Apollo.Sts.Configuration
                        {
                            new Scope("apollo.api.usermanagement")
                        }
-                   },                    
+                   },  
+                   new ApiResource
+                   {
+                       Name="apollo.api.society",
+                       DisplayName="Society Api",
+                       Scopes = new List<Scope>()
+                       {
+                           new Scope("apollo.api.society")
+                       }
+                   },   
+                   new ApiResource
+                   {
+                       Name="apollo.api.backoffice",
+                       DisplayName="BackOffice Api",
+                       Scopes = new List<Scope>()
+                       {
+                           new Scope("apollo.api.backoffice")
+                       }
+                   },                 
                 };
         }
     }   

@@ -47,7 +47,8 @@ namespace Apollo.Sts.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "apollo.api.usermanagement",
-                        // Todo : Add Other Api's as needed
+                        "apollo.api.society",
+                        "apollo.api.backoffice"
                     }, 
                     //IdentityTokenLifetime = 120,
                     //AccessTokenLifetime = 120                   

@@ -74,15 +74,27 @@ namespace Apollo.Api.UserManagement.Controllers
             return Ok(Mapper.Map<Apollo.Domain.DTO.SupportUser>(user));
         }
 
+        //[HttpGet("{id}")]
+        //public IActionResult GetSupportUser(Guid id)
+        //{
+        //    if (id == Guid.Empty)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var user = this._userService.GetById(id);
+        //    if (user is null || user.Id == Guid.Empty)
+        //        return NoContent();
+        //    return Ok(Mapper.Map<Apollo.Domain.DTO.SupportUser>(user));
+        //}
         [HttpGet("{id}")]
-        public IActionResult GetSupportUser(Guid id)
+        public async Task<IActionResult> GetSupportUser(Guid id)
         {
             if (id == Guid.Empty)
             {
                 return BadRequest();
             }
-            var user = this._userService.GetById(id);
-            if (user is null || user.Id == Guid.Empty)
+            var user = await  this._userService.GetByIdAsync(id);
+            if (user is null)
                 return NoContent();
             return Ok(Mapper.Map<Apollo.Domain.DTO.SupportUser>(user));
         }

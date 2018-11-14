@@ -45,7 +45,7 @@ namespace Apollo.Api.BackOffice
                   {
                       options.Authority = Configuration["BaseUrls:Sts"];
                       options.RequireHttpsMetadata = false;
-                      options.ApiName = "apollo.api.backofficemanagement";
+                      options.ApiName = "apollo.api.backoffice";
                   });
 
             services.AddSwaggerGen(c =>

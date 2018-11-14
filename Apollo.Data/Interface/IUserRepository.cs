@@ -27,6 +27,8 @@ namespace Apollo.Data.Interface
 
         Task<ApolloUser> FindById(Guid id);
 
+        Task<ApolloUser> GetAsync(Guid id);
+
        
     }
 }
