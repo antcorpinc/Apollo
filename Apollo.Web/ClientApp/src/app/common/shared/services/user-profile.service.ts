@@ -74,7 +74,7 @@ export class UserProfileService {
     return this.basicUserInfo;
   }
 
-  GetUserPermissionsForFeature(applicationName: string, featureTypeId: number) {
+  getUserPermissionsForFeature(applicationName: string, featureTypeId: number) {
     let priviligesArray = Array<string>();
     if (this.userDetailsDto.applicationPermissions !== null) {
       const apps = this.userDetailsDto.applicationPermissions
@@ -93,4 +93,24 @@ export class UserProfileService {
     return null;
   }
 
+  getRoleForApplication(applicationName) {
+    let role = '';
+    const apps = this.userDetailsDto.applicationPermissions
+    .filter(app => app.name.toUpperCase() === applicationName.toUpperCase());
+    if ( apps != null && apps.length > 0) {
+      role =  apps[0].role;
+    }
+    return role ;
+   }
+
+  getRoleUserTypeForRoleAndApplication(applicationName, roleName) {
+   const application  =  this.userDetailsDto.applicationPermissions.
+    filter(app => (app.name.toUpperCase() === applicationName.toUpperCase()) &&
+    (app.role.toUpperCase() === roleName.toUpperCase()));
+    if ( application != null && application.length > 0) {
+      return   application[0].roleUserType;
+    } else {
+      return 0;
+    }
+  }
 }

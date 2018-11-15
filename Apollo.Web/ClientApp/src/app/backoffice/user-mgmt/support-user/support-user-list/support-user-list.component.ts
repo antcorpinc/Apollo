@@ -71,7 +71,7 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
   }
 
   getPrivileges() {
-    this.privileges = this.userProfileService.GetUserPermissionsForFeature(
+    this.privileges = this.userProfileService.getUserPermissionsForFeature(
       CONSTANTS.application.backoffice,
       CONSTANTS.featuretypeid.Support
     );

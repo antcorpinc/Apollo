@@ -17,7 +17,7 @@ namespace Apollo.Service.UserManagement.Interface
         Task<IdentityResult> CreateUser(SupportUser user);
 
         ApolloUser GetById(Guid id);
-        Task<ApolloUser> GetByIdAsync(Guid id);
+        Task<Domain.DTO.SupportUser> GetByIdAsync(Guid id);
 
          Task<IdentityResult> UpdateUser(SupportUser user );
     }

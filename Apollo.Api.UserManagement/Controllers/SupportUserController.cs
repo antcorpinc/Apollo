@@ -70,7 +70,7 @@ namespace Apollo.Api.UserManagement.Controllers
             }
             var user = this._userService.GetById(userId);
             if (user is null || user.Id == Guid.Empty)
-                return NoContent();
+                return NotFound();
             return Ok(Mapper.Map<Apollo.Domain.DTO.SupportUser>(user));
         }
 
@@ -96,7 +96,7 @@ namespace Apollo.Api.UserManagement.Controllers
             var user = await  this._userService.GetByIdAsync(id);
             if (user is null)
                 return NoContent();
-            return Ok(Mapper.Map<Apollo.Domain.DTO.SupportUser>(user));
+            return Ok(user);
         }
     }
 }

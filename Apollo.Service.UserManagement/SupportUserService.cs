@@ -16,7 +16,7 @@ namespace Apollo.Service.UserManagement
     {
         private IUserRepository _userRepository;
         private IUserAppRoleMappingRepository _userAppRoleMappingRepository;
-        public SupportUserService(IUserRepository userRepository, 
+        public SupportUserService(IUserRepository userRepository,
             IUserAppRoleMappingRepository userAppRoleMappingRepository)
         {
             _userRepository = userRepository;
@@ -38,7 +38,7 @@ namespace Apollo.Service.UserManagement
         ApolloUser MapToUpdateEntity(SupportUser user)
         {
             var apolloUser = this._userRepository.Get(user.Id);
-           // ApolloUser apolloUser = this._userRepository.FindById(user.Id).Result;
+            // ApolloUser apolloUser = this._userRepository.FindById(user.Id).Result;
             //var apolloUser = new ApolloUser();
             // apolloUser.Id = user.Id;
             apolloUser.FirstName = user.FirstName;
@@ -57,13 +57,13 @@ namespace Apollo.Service.UserManagement
 
             this._userAppRoleMappingRepository.RemoveAll(apolloUser.UserAppRoleMappings.ToArray());
             apolloUser.UserAppRoleMappings.Clear();
-            
+
             foreach (var item in user.UserApplicationRole)
             {
                 apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
                 {
-                   // Id = item.Id == null ? Guid.NewGuid() : item.Id.Value,
-                    Id =  Guid.NewGuid() ,
+                    // Id = item.Id == null ? Guid.NewGuid() : item.Id.Value,
+                    Id = Guid.NewGuid(),
                     ApplicationId = item.ApplicationId,
                     RoleId = item.RoleId,
                     IsActive = true,
@@ -131,9 +131,9 @@ namespace Apollo.Service.UserManagement
         //}
         public async Task<List<Domain.DTO.SupportUserList>> GetAllUsersAsync()
         {
-            var users =  await _userRepository.FindSupportUsersAsync
+            var users = await _userRepository.FindSupportUsersAsync
                 (user => user.UserTypeId == (int)Domain.Enum.UserType.SupportUser);
-            return SupportUserMapper.MapSupportUserList(users);
+            return SupportUserMapper.MapToSupportUserList(users);
         }
 
         public ApolloUser GetById(Guid id)
@@ -143,9 +143,10 @@ namespace Apollo.Service.UserManagement
                      user.Id == id).FirstOrDefault();
         }
 
-        public async Task<ApolloUser> GetByIdAsync(Guid id)
+        public async Task<Domain.DTO.SupportUser> GetByIdAsync(Guid id)
         {
-            return await _userRepository.GetAsync(id);
+            var user = await _userRepository.GetAsync(id);
+            return SupportUserMapper.MapToSupportUser(user);
         }
     }
 }
