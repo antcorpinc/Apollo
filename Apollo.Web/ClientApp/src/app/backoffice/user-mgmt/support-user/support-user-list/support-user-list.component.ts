@@ -46,6 +46,7 @@ export class SupportUserListComponent implements OnInit, OnDestroy {
         console.log('Users are ' + JSON.stringify(data));
         this.userList = data;
         this.dataSource = new MatTableDataSource<SupportUserListViewModel>(this.userList);
+        this.dataSource.sort = this.sort;
         this.totalRecords = this.userList.length;
       },
         (error) => {
