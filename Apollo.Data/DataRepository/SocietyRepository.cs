@@ -44,6 +44,14 @@ namespace Apollo.Data.DataRepository
                     .Include(s => s.City)
                     .Include(s => s.State);                
         }
+
+        public async Task<List<Society>> GetAllAsync()
+        {
+            return await _context.Society
+                   .Include(s => s.Area)
+                   .Include(s => s.City)
+                   .Include(s => s.State).ToListAsync();
+        }
         public void Remove(Society entity)
         {
             throw new NotImplementedException();
@@ -76,5 +84,7 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
+
+        
     }
 }

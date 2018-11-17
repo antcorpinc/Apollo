@@ -55,6 +55,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+        public Task<List<ApolloRole>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         public List<RolePrivilege> GetRelatedPrivilegesForRoleAndApp(Guid roleId, Guid appId)
         {
@@ -157,5 +161,6 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
+       
     }
 }

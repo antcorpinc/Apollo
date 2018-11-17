@@ -39,7 +39,10 @@ namespace Apollo.Data.DataRepository
         {
             return _context.State;
         }
-
+        public Task<List<State>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
         public void Remove(State entity)
         {
             throw new NotImplementedException();
@@ -72,5 +75,7 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
+
+       
     }
 }

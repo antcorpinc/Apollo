@@ -104,15 +104,14 @@ private getIconforMenuFeature(feature: string): string {
     return null;
   }
 }
-// Todo : Change This
+
 private getRouteforMenuFeature(feature: string): string {
   if (feature.toUpperCase() === CONSTANTS.feature.backoffice.dashboard.toUpperCase()) {
     return 'auth/backofficedashboard';
   } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.supportuser.toUpperCase()) {
        return 'auth/bo/usermgmt/supportusers';
   } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.societyprofile.toLocaleUpperCase()) {
-    // Todo Change these
-    return 'auth/bo/societymgmt/societies';
+      return 'auth/bo/societymgmt/societies';
   }  else {
     return null;
   }

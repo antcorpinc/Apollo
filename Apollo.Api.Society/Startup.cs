@@ -99,7 +99,6 @@ namespace Apollo.Api.Society
             {
                  cfg.AddProfile(new SocietyMappingProfile());
             });
-
         }
     }
 }

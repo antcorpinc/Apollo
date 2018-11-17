@@ -19,9 +19,14 @@ namespace Apollo.Api.Society.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetSocieties()
+        public async Task<IActionResult> GetSocieties()
         {
-            return Ok(this._societyService.GetAll());            
+            var societies = await this._societyService.GetAllAsync();
+            if(societies == null)
+            {
+                return NotFound();
+            }
+            return Ok(societies);            
         }
     }
 }

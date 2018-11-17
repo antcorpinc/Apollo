@@ -21,7 +21,7 @@ namespace Apollo.Core.Interface
         Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
         IQueryable<T> GetAll();
-
+        Task<List<T>> GetAllAsync(); 
         bool Save();
 
     }

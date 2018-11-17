@@ -42,6 +42,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+        public Task<List<Application>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         public List<Application> GetApplications()
         {
@@ -81,5 +85,6 @@ namespace Apollo.Data.DataRepository
             }
         }
 
+       
     }
 }

@@ -129,6 +129,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+        public Task<List<ApolloUser>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
         public void Dispose()
         {
             Dispose(true);
@@ -145,6 +149,8 @@ namespace Apollo.Data.DataRepository
                     _context = null;
                 }
             }
-        }       
+        }
+
+        
     }
 }

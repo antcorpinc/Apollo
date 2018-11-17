@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
+using Apollo.Service.SocietyManagement.Mappers;
 
 namespace Apollo.Service.SocietyManagement
 {
@@ -13,7 +15,8 @@ namespace Apollo.Service.SocietyManagement
         private ISocietyRepository _societyRepository;
         public SocietyService(ISocietyRepository societyRepository)
         {
-            _societyRepository = societyRepository;
+            _societyRepository = societyRepository ??
+                throw new ArgumentNullException(nameof(societyRepository)); ;
         }
         public List<SocietyList> GetAll()
         {
@@ -25,8 +28,12 @@ namespace Apollo.Service.SocietyManagement
             else
             {
                 return null;
-            }
-            
+            }            
+        }
+        public async Task<List<SocietyList>> GetAllAsync()
+        {
+            var societies = await this._societyRepository.GetAllAsync();
+            return SocietyMapper.MapToSociety(societies);
         }
     }
 }

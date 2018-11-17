@@ -20,11 +20,15 @@ namespace Apollo.Domain.Entity.Society
         public Guid Id { get; set; }
        
         [Required]
+        [StringLength(200)]
         public string Name { get; set; }
+        [StringLength(500)]
         public string Description { get; set; }
 
         [Required]
+        [StringLength(500)]
         public string AddressLine1 { get; set; }
+        [StringLength(500)]
         public string AddressLine2 { get; set; }
 
         [Required]
@@ -33,11 +37,15 @@ namespace Apollo.Domain.Entity.Society
         public int CityId { get; set; }
 
         public int AreaId{ get; set; }
+        [StringLength(500)]
         public string Landmark {get;set;}
         
         [Required]
+        [StringLength(50)]
         public string PinCode { get; set; }
+        [StringLength(20)]
         public string PhoneNumber { get; set; }
+        [StringLength(20)]
         public string AdditionalPhoneNumber { get; set; }
 
         [NotMapped]
@@ -53,8 +61,7 @@ namespace Apollo.Domain.Entity.Society
         [StringLength(128)]
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-
-
+        
         [ForeignKey("StateId")]
         public State State { get; set; }
 

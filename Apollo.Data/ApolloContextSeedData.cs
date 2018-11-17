@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Apollo.Domain.Enum;
+using Apollo.Domain.Entity.Society;
+
 namespace Apollo.Data
 {
     public class ApolloContextSeedData
@@ -980,6 +982,30 @@ namespace Apollo.Data
                 };
                 _context.Add(area);
             }
+
+            // Add Society
+            if (_context.Society.Find(Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82")) == null)
+            {
+                Society soc = new Society()
+                {
+                    Id = new Guid("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    Name = "Chetan Apartments",
+                    AddressLine1= "47 Aundh Road",
+                    StateId = (int)States.Maharashtra,
+                    CityId = (int)Cities.Pune,
+                    AreaId = (int)Areas.AundhRoad,
+                    PinCode = "411020",
+                    PhoneNumber= "1234567890",
+                    Landmark="Behind Ram Complex",
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(soc);
+            }
+            //~ Add Society
 
             _context.SaveChanges();
         }

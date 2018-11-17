@@ -17,7 +17,7 @@ namespace Apollo.Api.UserManagement.Controllers
         private readonly IMapper _mapper;
         public SupportUserController(ISupportUserService userService, IMapper mapper)
         {
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _userService = userService;
             _mapper = mapper;
         }
 

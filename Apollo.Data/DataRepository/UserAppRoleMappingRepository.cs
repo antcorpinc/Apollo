@@ -37,7 +37,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
-
+        public Task<List<UserAppRoleMapping>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
         public void Remove(UserAppRoleMapping entity)
         {
             throw new NotImplementedException();
@@ -72,5 +75,7 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
+
+        
     }
 }
