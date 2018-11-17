@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { CONSTANTS } from 'src/app/common/constants';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserProfileService } from 'src/app/common/shared/services/user-profile.service';
 
 @Component({
   selector: 'app-society-list',
@@ -16,7 +17,7 @@ export class SocietyListComponent implements OnInit , OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<SocietyListViewModel>;
-  displayedColumns = ['name', 'area', 'city', 'state', 'isActive'];
+  displayedColumns = ['name', 'area', 'city', 'state', 'isActive', 'actions'];
   totalRecords: number;
 
   subscriptions: Subscription[] = [];
@@ -33,10 +34,11 @@ export class SocietyListComponent implements OnInit , OnDestroy {
   readAction = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-    private societyDataService: SocietyDataService) { }
+    private societyDataService: SocietyDataService, private userProfileService: UserProfileService) { }
 
   ngOnInit() {
     this.getSocietyList();
+    this.getPrivileges();
   }
 
   getSocietyList() {
@@ -58,6 +60,34 @@ export class SocietyListComponent implements OnInit , OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  goToSociety(value) {
+    const val = value.split(':');
+    const societyId = val[0];
+    this.operation = val[1];
+    this.router.navigate(['../society', societyId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
+  }
+  getPrivileges() {
+    this.privileges = this.userProfileService.getUserPermissionsForFeature(
+      CONSTANTS.application.backoffice,
+      CONSTANTS.featuretypeid.SocietyProfile
+    );
+    if (this.privileges !== null) {
+      for (const privilege of this.privileges) {
+        if (privilege === 'VW') {
+          this.readAction = true;
+        } else if (privilege === 'CR') {
+          this.createAction = true;
+          this.readAction = true;
+        } else if (privilege === 'DE') {
+          this.deleteAction = true;
+        }
+      }
+    }
+  }
+
+    createSociety() {
+
+    }
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
