@@ -7,6 +7,7 @@ export class BaseUrls {
    sts: string;
    web: string;
    userMgmtApi: string;
+   societyApi: string;
 }
 
 export class IdentityClient {

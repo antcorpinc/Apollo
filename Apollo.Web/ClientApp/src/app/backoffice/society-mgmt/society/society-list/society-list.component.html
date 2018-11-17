@@ -1,3 +1,71 @@
-<p>
-  society-list works!
-</p>
+<h1>Society</h1>
+<!-- <div class="row">
+  <div *ngIf='createAction'>
+    <button title="Create New MG User" type="button" mat-raised-button (click)="createSupportUser()">
+      <span>Create New Support User</span>
+    </button>
+  </div>
+</div>
+ -->
+<div class="mat-elevation-z8">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+
+    <!-- Area Column -->
+    <ng-container matColumnDef="area">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Area</th>
+      <td mat-cell *matCellDef="let row">{{row.area}}</td>
+    </ng-container>
+
+    <!-- City Column -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+      <td mat-cell *matCellDef="let row">{{row.city}}</td>
+    </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+          <td mat-cell *matCellDef="let row">{{row.state}}</td>
+        </ng-container>
+
+    <!-- IsActive Column -->
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row.isActive">
+          <span class="fa fa-circle active-status" aria-hidden="true"></span> Active
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <!-- <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-select placeholder="Actions" name="Actions">
+          <ng-container *ngIf='readAction'>
+            <mat-option value="{{row.id}}:read" #read (click)="goToUser(read.value)">View</mat-option>
+          </ng-container>
+          <ng-container *ngIf='createAction'>
+            <mat-option value="{{row.id}}:edit" #edit (click)="goToUser(edit.value)">Edit</mat-option>
+          </ng-container>
+        </mat-select>
+      </td>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="totalRecords" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>

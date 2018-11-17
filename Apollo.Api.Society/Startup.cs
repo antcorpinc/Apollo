@@ -9,6 +9,8 @@ using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
 using Apollo.Domain.DTO.Base;
 using Apollo.Domain.Entity;
+using Apollo.Service.SocietyManagement;
+using Apollo.Service.SocietyManagement.Interface;
 using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
 
@@ -52,6 +54,9 @@ namespace Apollo.Api.Society
                       options.RequireHttpsMetadata = false;
                       options.ApiName = "apollo.api.society";
                   });
+
+            services.AddScoped<ISocietyService, SocietyService>();
+            services.AddScoped<ISocietyRepository, SocietyRepository>();
 
             services.AddSwaggerGen(c =>
             {

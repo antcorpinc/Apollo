@@ -14,6 +14,7 @@ namespace Apollo.Web.Settings
         public string Sts {get;set;}
         public string Web {get;set;}
         public string UserMgmtApi {get; set;}
+        public string SocietyApi {get;set;}
     }
 
     public class IdentityClient {
