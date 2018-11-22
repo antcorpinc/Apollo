@@ -27,6 +27,11 @@ export class AuthService {
         this._user = user;
         //  console.log('User is ' + JSON.stringify(this._user.profile.sub));
        // Todo: Call User Profile to get user details again?. May be not
+      } else if (user && user.expired)  {
+        // Todo: May be log out the user and redirect to the home page for login or do we
+        // handle the way it is by ben cull - If 401 then logoout using the auth service and
+        // redirect to home page.
+        console.log('user has expired');
       }
     });
     this._userManager.events.addUserLoaded(args => {

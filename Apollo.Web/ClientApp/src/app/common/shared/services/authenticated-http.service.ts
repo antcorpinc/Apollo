@@ -40,6 +40,7 @@ export class AuthenticatedHttpService {
     }
 
     private handleError(error: HttpErrorResponse) {
+      // Todo: If 401 then authservice.logoff and then redirect to home page only if 401 is due to token expiry??? .
        const dataError = new ApolloError();
       dataError.errorNumber = error.status;
       dataError.message = error.message;

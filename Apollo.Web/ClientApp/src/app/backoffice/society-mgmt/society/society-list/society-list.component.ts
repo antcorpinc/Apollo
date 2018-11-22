@@ -86,7 +86,8 @@ export class SocietyListComponent implements OnInit , OnDestroy {
   }
 
     createSociety() {
-
+      this.router.navigate(['../society', CONSTANTS.create.id, this.create],
+       { relativeTo: this.activatedRoute });
     }
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

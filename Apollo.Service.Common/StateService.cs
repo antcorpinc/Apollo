@@ -1,10 +1,12 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.DTO.MasterData;
 using Apollo.Service.Common.Interface;
+using Apollo.Service.Common.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Apollo.Service.Common
 {
@@ -26,6 +28,13 @@ namespace Apollo.Service.Common
             {
                 return null;
             }
+        }
+
+        public async Task<List<State>> GetAllAsync()
+        {
+            var states = await this._stateRepository.GetAllAsync();
+
+            return CommonMapper.MaptoState(states);
         }
     }
 }

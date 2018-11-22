@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Apollo.Api.BackOffice.MappingConfig;
 using Apollo.Data;
+using Apollo.Data.DataRepository;
+using Apollo.Data.Interface;
+using Apollo.Service.Common;
+using Apollo.Service.Common.Interface;
 using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
 
@@ -47,6 +51,9 @@ namespace Apollo.Api.BackOffice
                       options.RequireHttpsMetadata = false;
                       options.ApiName = "apollo.api.backoffice";
                   });
+            services.AddScoped<IStateRepository, StateRepository>();
+
+            services.AddScoped<IStateService, StateService>();
 
             services.AddSwaggerGen(c =>
             {

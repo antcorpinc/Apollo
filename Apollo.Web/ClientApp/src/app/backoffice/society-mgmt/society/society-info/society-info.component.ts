@@ -12,4 +12,7 @@ export class SocietyInfoComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() {
+  }
+
 }

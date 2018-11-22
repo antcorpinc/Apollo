@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Apollo.Data\Apollo.Data.csproj" />
     <ProjectReference Include="..\Apollo.Domain\Apollo.Domain.csproj" />
     <ProjectReference Include="..\Apollo.Service.BackOfficeManagement\Apollo.Service.BackOfficeManagement.csproj" />
+    <ProjectReference Include="..\Apollo.Service.Common\Apollo.Service.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.Entity.MasterData;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,9 @@ namespace Apollo.Data.DataRepository
         {
             return _context.State;
         }
-        public Task<List<State>> GetAllAsync()
+        public async Task<List<State>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.State.ToListAsync();
         }
         public void Remove(State entity)
         {
