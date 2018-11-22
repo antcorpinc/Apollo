@@ -8,6 +8,7 @@ export class BaseUrls {
    web: string;
    userMgmtApi: string;
    societyApi: string;
+   backOfficeApi: string;
 }
 
 export class IdentityClient {
