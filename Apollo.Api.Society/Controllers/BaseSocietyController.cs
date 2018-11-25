@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Apollo.Api.Society.Controllers
 {
     [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-    [Route("api/[controller]")]
+    [ApiController]
     public abstract class BaseSocietyController : Controller
     {
         protected string LoggedInUserId

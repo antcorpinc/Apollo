@@ -24,5 +24,29 @@ namespace Apollo.Api.BackOffice.Controllers
             }
             return Ok(states);
         }
+
+        [Route("getcitiesforstate")]
+        [HttpGet]
+        public async Task<IActionResult> GetCitiesForState(int stateId)
+        {
+            var cities = await this._stateService.GetCitiesForStateAsync(stateId);
+            if (cities == null)
+            {
+                return NotFound();
+            }
+            return Ok(cities);
+        }
+
+        [Route("getareasforcitystate")]
+        [HttpGet]
+        public async Task<IActionResult> GetAreasForCityState(int stateId, int cityId)
+        {
+            var areas = await this._stateService.GetAreasForCityStateAsync(stateId, cityId);
+            if (areas == null)
+            {
+                return NotFound();
+            }
+            return Ok(areas);
+        }
     }
 }

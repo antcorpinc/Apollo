@@ -2,11 +2,15 @@ import { SocietyInfoComponent } from './society/society-info/society-info.compon
 import { SocietyListComponent } from './society/society-list/society-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { StateResolverService } from 'src/app/common/shared/services/resolver/state-resolver.service';
 
 
 export const societyRoutes: Routes = [
   { path: 'societies', component: SocietyListComponent },
-  { path: 'society/:id/:operation', component: SocietyInfoComponent },
+  { path: 'society/:id/:operation', component: SocietyInfoComponent ,
+    resolve: {
+      states: StateResolverService
+    }},
 ];
 
 @NgModule({

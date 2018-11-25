@@ -12,5 +12,17 @@ namespace Apollo.Service.Common.Mappers
         {
             return Mapper.Map<List<Domain.DTO.MasterData.State>>(fromStates);
         }
+
+        public static List<Domain.DTO.MasterData.City> MaptoCity(
+            List<Domain.Entity.MasterData.City> fromCities)
+        {
+            return Mapper.Map<List<Domain.DTO.MasterData.City>>(fromCities);
+        }
+
+        public static List<Domain.DTO.MasterData.Area> MaptoArea(
+            List<Domain.Entity.MasterData.Area> fromCityStates)
+        {
+            return Mapper.Map<List<Domain.DTO.MasterData.Area>>(fromCityStates);
+        }
     }
 }

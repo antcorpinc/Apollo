@@ -36,6 +36,7 @@ export class ConfigurationService {
 
 // A helper property to return the config object
 get config(): AppSettingsViewModel {
+ //  console.log('Config Data' + JSON.stringify(this.configData));
   return this.configData;
 }
 }

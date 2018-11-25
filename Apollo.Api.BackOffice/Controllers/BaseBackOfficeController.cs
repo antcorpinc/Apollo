@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Apollo.Api.BackOffice.Controllers
 {
     [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-    [Route("api/[controller]")]
     public abstract class BaseBackOfficeController : Controller
     {
         protected string LoggedInUserId

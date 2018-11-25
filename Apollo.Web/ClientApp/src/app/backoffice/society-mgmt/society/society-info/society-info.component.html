@@ -1,3 +1,106 @@
-<p>
-  society-info works!
-</p>
+<form [formGroup]="societyForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="society-card">
+    <mat-card-header>
+      <mat-card-title>Society</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <span>Society Status </span>
+          <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput #name placeholder="Name" formControlName="name" required>
+            <mat-hint align="end">{{name.value.length}} / 200</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Description" formControlName="description">
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="AddressLine1" formControlName="addressLine1" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="AddressLine2" formControlName="addressLine2">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Landmark" formControlName="landmark">
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Pincode" formControlName="pincode">
+            </mat-form-field>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select #selectedStateId formControlName="stateId" placeholder="State" (selectionChange)="getCitiesForSelectedState($event.value)"
+             required>
+              <mat-option [value]="null">Select</mat-option>
+              <ng-container *ngFor="let state of states">
+                <mat-option [value]="state.id">{{state.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="full-width">
+              <mat-select formControlName="cityId" placeholder="City"
+               (selectionChange)="getAreasForSelectedCityState(selectedStateId.value,$event.value )" required>
+                <mat-option [value]="null">Select</mat-option>
+                <ng-container *ngFor="let city of cities">
+                  <mat-option [value]="city.id">{{city.name}}</mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+              <mat-form-field class="full-width">
+                <mat-select formControlName="areaId" placeholder="Area" required>
+                  <mat-option [value]="null">Select</mat-option>
+                  <ng-container *ngFor="let area of areas">
+                    <mat-option [value]="area.id">{{area.name}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+            </div>
+      </div>
+      <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+            </mat-form-field>
+          </div>
+          <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Additional Phone Number" formControlName="additionalPhoneNumber">
+              </mat-form-field>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </mat-card-actions>
+  </mat-card>
+</form>

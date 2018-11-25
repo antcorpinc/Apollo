@@ -15,7 +15,8 @@ namespace Apollo.Service.Common
         private IStateRepository _stateRepository;
         public StateService(IStateRepository stateRepository)
         {
-            _stateRepository = stateRepository;
+            _stateRepository = stateRepository ??
+                throw new ArgumentNullException(nameof(stateRepository));
         }
         public List<State> GetAll()
         {
@@ -35,6 +36,18 @@ namespace Apollo.Service.Common
             var states = await this._stateRepository.GetAllAsync();
 
             return CommonMapper.MaptoState(states);
+        }
+
+        public async Task<List<Area>> GetAreasForCityStateAsync(int stateId, int cityId)
+        {
+            var areas = await this._stateRepository.GetAreasForCityState(stateId, cityId);
+            return CommonMapper.MaptoArea(areas);
+        }
+
+        public async Task<List<City>> GetCitiesForStateAsync(int stateId)
+        {
+            var cities = await this._stateRepository.GetCitiesForState(stateId);
+            return CommonMapper.MaptoCity(cities);
         }
     }
 }

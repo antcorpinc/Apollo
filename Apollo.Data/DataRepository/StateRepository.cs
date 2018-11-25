@@ -58,6 +58,15 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+        public async Task<List<City>> GetCitiesForState(int stateId)
+        {
+            return await _context.City.Where(city => city.StateId == stateId).ToListAsync();
+        }
+        public async Task<List<Area>> GetAreasForCityState(int stateId, int cityId)
+        {
+            return await _context.Area.Where(area=> (area.StateId == stateId) 
+            && area.CityId == cityId ).ToListAsync();
+        }
 
         public void Dispose()
         {
@@ -77,6 +86,6 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-       
+        
     }
 }
