@@ -7,6 +7,8 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using Apollo.Service.SocietyManagement.Mappers;
+using Apollo.Core.Common;
+using Apollo.Domain.DTO.Society;
 
 namespace Apollo.Service.SocietyManagement
 {
@@ -18,6 +20,20 @@ namespace Apollo.Service.SocietyManagement
             _societyRepository = societyRepository ??
                 throw new ArgumentNullException(nameof(societyRepository)); ;
         }
+
+        public async Task<ServiceResponse<Society>> CreateSociety(Society society)
+        {
+            var validator = new SocietyValidator();
+            var results = validator.Validate(society);
+            var response = new ServiceResponse<Society>();
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            throw new NotImplementedException();
+        }
+
         public List<SocietyList> GetAll()
         {
             var societies =  this._societyRepository.GetAll();

@@ -86,6 +86,14 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        
+        public Task<int> AddAsync(State newEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

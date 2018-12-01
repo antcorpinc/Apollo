@@ -12,6 +12,7 @@ namespace Apollo.Core.Interface
         where T:class,IIdentifiableModel<U>
     {        
         U Add(T newEntity);
+        Task<U> AddAsync(T newEntity);
         
         void Remove(T entity);
         void Remove(U id);
@@ -23,6 +24,6 @@ namespace Apollo.Core.Interface
         IQueryable<T> GetAll();
         Task<List<T>> GetAllAsync(); 
         bool Save();
-
+        Task<bool> SaveAsync();
     }
 }

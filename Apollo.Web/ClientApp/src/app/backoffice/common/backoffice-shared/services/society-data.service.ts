@@ -4,6 +4,7 @@ import { SocietyListViewModel } from 'src/app/backoffice/viewmodel/society-vm/so
 import { ConfigurationService } from 'src/app/common/shared/services/configuration.service';
 import { AuthenticatedHttpService } from 'src/app/common/shared/services/authenticated-http.service';
 import { map } from 'rxjs/operators';
+import { SocietyViewModel } from 'src/app/backoffice/viewmodel/society-vm/societyviewmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,10 @@ export class SocietyDataService {
         });
         return data;
       }));
+  }
+
+  createSociety(society: SocietyViewModel) {
+    return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.societyApi
+      + 'api/society/create/', society);
   }
 }

@@ -76,6 +76,14 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        
+        public Task<Guid> AddAsync(UserAppRoleMapping newEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

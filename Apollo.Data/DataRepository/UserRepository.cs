@@ -151,6 +151,14 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        
+        public Task<Guid> AddAsync(ApolloUser newEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> SaveAsync()
+        {
+            return (await _context.SaveChangesAsync()) >=0 ;           
+        }
     }
 }

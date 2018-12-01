@@ -85,6 +85,17 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        
+        public async Task<Guid> AddAsync(Society newEntity)
+        {
+            _context.Society.Attach(newEntity);
+            _context.ApplyStateChanges();
+            await _context.SaveChangesAsync();
+            return newEntity.Id;           
+        }
+
+        public  async Task<bool> SaveAsync()
+        {
+            return (await _context.SaveChangesAsync()) >= 0;
+        }
     }
 }

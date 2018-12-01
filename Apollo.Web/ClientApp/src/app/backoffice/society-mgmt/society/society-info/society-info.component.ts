@@ -9,6 +9,7 @@ import { ObjectState } from 'src/app/common/enums';
 import { LookupMasterService } from 'src/app/common/shared/services/lookup-master.service';
 import { CityViewModel } from 'src/app/common/viewmodels/cityviewmodel';
 import { AreaViewModel } from 'src/app/common/viewmodels/areaviewmodel';
+import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/services/society-data.service';
 
 @Component({
   selector: 'app-society-info',
@@ -33,7 +34,8 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
-     private lookupMasterService: LookupMasterService) { }
+     private lookupMasterService: LookupMasterService,
+     private societyDataService: SocietyDataService) { }
 
   ngOnInit() {
     // Get Master Data
@@ -86,6 +88,18 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       this.subscriptions.push(subscription);
   }
   onSubmit() {
+    if (this.societyForm.valid) {
+      this.updateSaveObjectState();
+      if (this.operation === this.create) {
+        const subscription = this.societyDataService.createSociety(this.societySaveViewModel);
+      }
+    }
+  }
+  updateSaveObjectState() {
+    this.societySaveViewModel = Object.assign({}, this.societyViewModel, this.societyForm.value);
+    if (this.operation === this.create) {
+      this.societySaveViewModel.objectState = ObjectState.Added;
+    }
   }
 
   ngOnDestroy(): void {

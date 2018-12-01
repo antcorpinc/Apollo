@@ -28,5 +28,17 @@ namespace Apollo.Api.Society.Controllers
             }
             return Ok(societies);            
         }
+
+        [Route("create")]
+        [HttpPost]
+        public IActionResult Create([FromBody]Domain.DTO.Society.Society society)
+        {
+            if (society == null)
+            {
+                return BadRequest();
+            }
+            // TODO: Need to add Created BY & Updated by and the Dates
+            return Ok(this._societyService.CreateSociety(society));
+        }
     }
 }

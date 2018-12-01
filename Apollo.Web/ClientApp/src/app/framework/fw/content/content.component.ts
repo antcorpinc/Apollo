@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { ScreenService } from '../services/screen.service';
+import { trigger, transition, query, style, group, animate, animateChild } from '@angular/animations';
+import { fadeAnimation } from '../../../common/animations';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'fw-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  styleUrls: ['./content.component.css'],
+  animations: [fadeAnimation]
 })
 export class ContentComponent implements OnInit {
 
@@ -16,4 +19,7 @@ export class ContentComponent implements OnInit {
   ngOnInit() {
   }
 
+  prepareRoute(r) {
+    return r.activateRoute ?  r.activateRoute.config.animation : '';
+  }
 }

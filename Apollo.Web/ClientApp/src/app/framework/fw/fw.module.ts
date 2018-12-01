@@ -13,10 +13,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './menus/side-nav/side-nav.component';
 import { SideNavItemComponent } from './menus/side-nav-item/side-nav-item.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     MaterialModule,
     RouterModule,
     ReactiveFormsModule

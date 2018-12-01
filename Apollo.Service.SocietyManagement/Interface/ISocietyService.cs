@@ -1,4 +1,6 @@
-﻿using Apollo.Domain.DTO;
+﻿using Apollo.Core.Common;
+using Apollo.Domain.DTO;
+using Apollo.Domain.DTO.Society;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +12,7 @@ namespace Apollo.Service.SocietyManagement.Interface
     {
         List<SocietyList> GetAll();
         Task<List<Domain.DTO.SocietyList>> GetAllAsync();
+        Task<ServiceResponse<Society>>CreateSociety(Society society);
+
     }
 }
