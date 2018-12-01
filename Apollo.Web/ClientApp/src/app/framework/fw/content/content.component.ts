@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { ScreenService } from '../services/screen.service';
-import { trigger, transition, query, style, group, animate, animateChild } from '@angular/animations';
 import { fadeAnimation } from '../../../common/animations';
 
 @Component({
@@ -17,9 +16,5 @@ export class ContentComponent implements OnInit {
     public screenService: ScreenService) { }
 
   ngOnInit() {
-  }
-
-  prepareRoute(r) {
-    return r.activateRoute ?  r.activateRoute.config.animation : '';
   }
 }
