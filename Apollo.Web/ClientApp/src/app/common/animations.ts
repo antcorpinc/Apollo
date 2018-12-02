@@ -21,7 +21,7 @@ export const fadeAnimation = trigger('fadeAnimation', [
     ),
     query(
       ':leave',
-      // here we apply a style and use the animate function to apply the style over 0.3 seconds
+      // here we apply a style and use the animate function to apply the style over 0.7 seconds
       [style({ opacity: 1 }), animate('0.7s', style({ opacity: 0 }))],
       { optional: true }
     ),

@@ -5,12 +5,14 @@ import { HomeComponent } from './home/home.component';
 import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    RouterModule
+    RouterModule,
+    MaterialModule
   ],
   declarations: [DefaultComponent, HomeComponent, AuthenticatedUserComponent]
 })
