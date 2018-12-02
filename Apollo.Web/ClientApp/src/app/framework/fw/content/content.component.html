@@ -1,8 +1,10 @@
 <!-- For Small Screens show Side Nav-->
-<fw-side-nav  *ngIf=" menuService.showingLeftSideMenu && !screenService.isLarge()" >
+<fw-side-nav *ngIf=" menuService.showingLeftSideMenu && !screenService.isLarge()">
 </fw-side-nav>
 
+<span *ngIf="showSpinner">
+  <mat-spinner></mat-spinner>
+</span>
 <div class="body-style" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
 </div>
-

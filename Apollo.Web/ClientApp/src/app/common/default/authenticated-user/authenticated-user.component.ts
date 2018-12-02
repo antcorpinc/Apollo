@@ -11,15 +11,15 @@ import { NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Rout
 export class AuthenticatedUserComponent implements OnInit {
   showSpinner = true;
   constructor(private router: Router) {
-    router.events.subscribe((routerEvent: Event) => {
+    /* router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
-    });
+    }); */
    }
 
   ngOnInit() {
   }
 
-  checkRouterEvent(routerEvent: Event): void {
+  /* checkRouterEvent(routerEvent: Event): void {
     if (routerEvent instanceof NavigationStart) {
       this.showSpinner = true;
     }
@@ -29,5 +29,5 @@ export class AuthenticatedUserComponent implements OnInit {
       routerEvent instanceof NavigationError) {
       this.showSpinner = false;
     }
-  }
+  } */
 }
