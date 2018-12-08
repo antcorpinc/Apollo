@@ -26,13 +26,16 @@ namespace Apollo.Service.SocietyManagement
             var validator = new SocietyValidator();
             var results = validator.Validate(society);
             var response = new ServiceResponse<Society>();
+            response.Data = society;
             response.ErrorMessages = results.Errors.ToList();
             if (!response.Successful)
             {
                 return response;
             }
-            throw new NotImplementedException();
-        }
+            var result = await this._societyRepository.AddAsync
+                (AutoMapper.Mapper.Map<Apollo.Domain.Entity.Society.Society>(society));
+            return response;
+        }   
 
         public List<SocietyList> GetAll()
         {
@@ -49,7 +52,7 @@ namespace Apollo.Service.SocietyManagement
         public async Task<List<SocietyList>> GetAllAsync()
         {
             var societies = await this._societyRepository.GetAllAsync();
-            return SocietyMapper.MapToSociety(societies);
+            return SocietyMapper.MapToSocietyList(societies);
         }
     }
 }

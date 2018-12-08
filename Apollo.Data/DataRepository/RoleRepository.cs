@@ -162,7 +162,7 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        public Task<Guid> AddAsync(ApolloRole newEntity)
+        public Task<ApolloRole> AddAsync(ApolloRole newEntity)
         {
             throw new NotImplementedException();
         }

@@ -17,9 +17,11 @@ body {
   padding-top: 1px;
 }
 
-router-outlet ~ * {
+/* ToDO: Commented for now - W/o this animation doesn't work */
+/*  router-outlet ~ * {
   position: absolute;
   height: 100%;
   width: 100%;
 }
+ */
 

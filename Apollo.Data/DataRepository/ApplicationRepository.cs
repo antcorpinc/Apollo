@@ -85,7 +85,7 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        public Task<Guid> AddAsync(Application newEntity)
+        public Task<Application> AddAsync(Application newEntity)
         {
             throw new NotImplementedException();
         }

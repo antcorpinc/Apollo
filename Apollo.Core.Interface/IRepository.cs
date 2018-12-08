@@ -12,7 +12,7 @@ namespace Apollo.Core.Interface
         where T:class,IIdentifiableModel<U>
     {        
         U Add(T newEntity);
-        Task<U> AddAsync(T newEntity);
+        Task<T> AddAsync(T newEntity);
         
         void Remove(T entity);
         void Remove(U id);

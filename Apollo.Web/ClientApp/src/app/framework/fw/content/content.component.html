@@ -5,6 +5,9 @@
 <span *ngIf="showSpinner">
   <mat-spinner></mat-spinner>
 </span>
-<div class="body-style" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+<!-- <div class="body-style" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
+</div> -->
+<div class="body-style">
+  <router-outlet></router-outlet>
 </div>

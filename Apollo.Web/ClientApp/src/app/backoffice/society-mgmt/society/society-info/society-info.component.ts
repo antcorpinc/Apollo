@@ -4,12 +4,15 @@ import { CONSTANTS } from 'src/app/common/constants';
 import { StateViewModel } from 'src/app/common/viewmodels/stateviewmodel';
 import { SocietyViewModel } from 'src/app/backoffice/viewmodel/society-vm/societyviewmodel';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ObjectState } from 'src/app/common/enums';
 import { LookupMasterService } from 'src/app/common/shared/services/lookup-master.service';
 import { CityViewModel } from 'src/app/common/viewmodels/cityviewmodel';
 import { AreaViewModel } from 'src/app/common/viewmodels/areaviewmodel';
 import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/services/society-data.service';
+import { InfoMessages } from 'src/app/common/messages';
+import { MatSnackBar } from '@angular/material';
+import { UserProfileService } from 'src/app/common/shared/services/user-profile.service';
 
 @Component({
   selector: 'app-society-info',
@@ -34,10 +37,14 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
-     private lookupMasterService: LookupMasterService,
-     private societyDataService: SocietyDataService) { }
+    private lookupMasterService: LookupMasterService,
+    private societyDataService: SocietyDataService, private router: Router,
+    private snackBar: MatSnackBar, private userProfileService: UserProfileService, ) { }
 
   ngOnInit() {
+    // Read Route parameters
+    this.societyId = this.activatedRoute.snapshot.params['id'];
+    this.operation = this.activatedRoute.snapshot.params['operation'];
     // Get Master Data
     this.getStates();
     this.createFormModel();
@@ -73,11 +80,11 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       (error) => {
         console.log('Error' + error);
       });
-      this.subscriptions.push(subscription);
+    this.subscriptions.push(subscription);
   }
   getAreasForSelectedCityState(stateId, cityId) {
     console.log(`StateId is ${stateId} and cityId is ${cityId}`);
-     const subscription = this.lookupMasterService.getAreasForCityState(stateId, cityId).subscribe(
+    const subscription = this.lookupMasterService.getAreasForCityState(stateId, cityId).subscribe(
       (data) => {
         this.areas = data;
         console.log(`Areas are = ${this.areas}`);
@@ -85,13 +92,21 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       (error) => {
         console.log('Error' + error);
       });
-      this.subscriptions.push(subscription);
+    this.subscriptions.push(subscription);
   }
   onSubmit() {
     if (this.societyForm.valid) {
       this.updateSaveObjectState();
       if (this.operation === this.create) {
-        const subscription = this.societyDataService.createSociety(this.societySaveViewModel);
+        console.log(JSON.stringify(this.societySaveViewModel));
+        const subscription = this.societyDataService.createSociety(this.societySaveViewModel)
+          .subscribe(data => {
+            this.snackBar.open(InfoMessages.userCreationMessage, '', {
+              duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+              politeness: 'polite', panelClass: 'showSnackBar'
+            });
+            this.router.navigate(['../societies'], { relativeTo: this.activatedRoute });
+          });
       }
     }
   }
@@ -99,6 +114,9 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
     this.societySaveViewModel = Object.assign({}, this.societyViewModel, this.societyForm.value);
     if (this.operation === this.create) {
       this.societySaveViewModel.objectState = ObjectState.Added;
+      this.societySaveViewModel.id = this.societyId;
+      this.societySaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().userName;
+      this.societySaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().userName;
     }
   }
 

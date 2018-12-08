@@ -151,7 +151,7 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        public Task<Guid> AddAsync(ApolloUser newEntity)
+        public Task<ApolloUser> AddAsync(ApolloUser newEntity)
         {
             throw new NotImplementedException();
         }

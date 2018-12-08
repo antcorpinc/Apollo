@@ -6,7 +6,7 @@ import { NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Rout
   selector: 'app-authenticated-user',
   templateUrl: './authenticated-user.component.html',
   styleUrls: ['./authenticated-user.component.css'],
-  animations: [fadeAnimation]
+ // animations: [fadeAnimation]
 })
 export class AuthenticatedUserComponent implements OnInit {
   showSpinner = true;

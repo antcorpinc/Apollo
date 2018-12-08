@@ -1,6 +1,11 @@
 <!-- <span *ngIf="showSpinner">
   <mat-spinner></mat-spinner>
 </span> -->
-<div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+<!-- <div  [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
+</div>
+ -->
+
+ <div >
+  <router-outlet></router-outlet>
 </div>

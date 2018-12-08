@@ -9,7 +9,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
   selector: 'fw-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css'],
-  animations: [fadeAnimation]
+ //  animations: [fadeAnimation]
 })
 export class ContentComponent implements OnInit {
 

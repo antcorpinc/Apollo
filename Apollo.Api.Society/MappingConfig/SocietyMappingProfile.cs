@@ -33,7 +33,10 @@ namespace Apollo.Api.Society.MappingConfig
                 .ForMember(des => des.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(des => des.PhoneNumber, opt => opt.MapFrom(s => s.PhoneNumber))
                 .ForMember(des => des.PinCode, opt => opt.MapFrom(s => s.PinCode))
-                // Todo ?? Add updates & dates 
+                .ForMember(des => des.CreatedBy, opt => opt.MapFrom(s =>s.CreatedBy) ) 
+                .ForMember(des => des.CreatedDate, opt => opt.MapFrom(s =>s.CreatedDate) ) 
+                .ForMember(des => des.UpdatedBy, opt => opt.MapFrom(s =>s.UpdatedBy) ) 
+                .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s =>s.UpdatedDate) ) 
                 .ReverseMap();
                 
 

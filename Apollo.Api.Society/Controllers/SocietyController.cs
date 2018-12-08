@@ -37,7 +37,11 @@ namespace Apollo.Api.Society.Controllers
             {
                 return BadRequest();
             }
-            // TODO: Need to add Created BY & Updated by and the Dates
+            society.CreatedBy = this.LoggedInUserId;
+            society.CreatedDate =  DateTime.UtcNow;
+            society.UpdatedBy = this.LoggedInUserId;
+            society.UpdatedDate =  DateTime.UtcNow;
+            society.Id = Guid.NewGuid();
             return Ok(this._societyService.CreateSociety(society));
         }
     }

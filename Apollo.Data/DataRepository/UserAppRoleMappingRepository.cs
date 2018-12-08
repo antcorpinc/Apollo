@@ -76,7 +76,7 @@ namespace Apollo.Data.DataRepository
             }
         }
 
-        public Task<Guid> AddAsync(UserAppRoleMapping newEntity)
+        public Task<UserAppRoleMapping> AddAsync(UserAppRoleMapping newEntity)
         {
             throw new NotImplementedException();
         }
