@@ -105,7 +105,7 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
               duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
               politeness: 'polite', panelClass: 'showSnackBar'
             });
-            this.router.navigate(['../societies'], { relativeTo: this.activatedRoute });
+            this.router.navigate(['/auth/bo/societymgmt/societies'], { relativeTo: this.activatedRoute });
           });
       }
     }

@@ -31,7 +31,7 @@ namespace Apollo.Api.Society.Controllers
 
         [Route("create")]
         [HttpPost]
-        public IActionResult Create([FromBody]Domain.DTO.Society.Society society)
+        public async Task<IActionResult> Create([FromBody]Domain.DTO.Society.Society society)
         {
             if (society == null)
             {
@@ -42,7 +42,13 @@ namespace Apollo.Api.Society.Controllers
             society.UpdatedBy = this.LoggedInUserId;
             society.UpdatedDate =  DateTime.UtcNow;
             society.Id = Guid.NewGuid();
-            return Ok(this._societyService.CreateSociety(society));
+            var response = await this._societyService.CreateSociety(society);
+            if (response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+           // return Ok(this._societyService.CreateSociety(society));
         }
     }
 }
