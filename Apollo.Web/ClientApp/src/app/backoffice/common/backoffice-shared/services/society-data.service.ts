@@ -29,4 +29,10 @@ export class SocietyDataService {
     return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.societyApi
       + 'api/society/create/', society);
   }
+
+  getSocietyById(societyId: string): Observable<SocietyViewModel> {
+    return this.authenticatedHttpService.get(
+      `${this.configurationService.config.baseUrls.societyApi}api/society/${societyId}`);
+  }
+
 }

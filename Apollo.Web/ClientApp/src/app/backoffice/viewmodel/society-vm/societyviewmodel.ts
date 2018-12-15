@@ -13,7 +13,7 @@ export class SocietyViewModel implements IObjectWithState {
   stateId: number;
   cityId: number;
   areaId: number;
-  pincode: string;
+  pinCode: string;
   phoneNumber: string;
   additionalPhoneNumber: string;
   createdBy: string;

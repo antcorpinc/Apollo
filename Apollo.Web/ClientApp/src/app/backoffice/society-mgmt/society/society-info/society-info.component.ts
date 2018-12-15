@@ -66,10 +66,15 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       stateId: new FormControl(null, [Validators.required]),
       cityId: new FormControl(null, [Validators.required]),
       areaId: new FormControl(null, [Validators.required]),
-      pincode: new FormControl('', [Validators.maxLength(20)]),
+      pinCode: new FormControl('', [Validators.maxLength(20)]),
       phoneNumber: new FormControl('', [Validators.maxLength(20)]),
       additionalPhoneNumber: new FormControl('', [Validators.maxLength(20)]),
     });
+
+    if (this.operation.toLowerCase().trim() === this.read) {
+      this.getSociety(this.societyId);
+      this.societyForm.disable();
+    }
   }
   getCitiesForSelectedState(stateId) {
     const subscription = this.lookupMasterService.getCitiesForState(stateId).subscribe(
@@ -92,6 +97,33 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       (error) => {
         console.log('Error' + error);
       });
+    this.subscriptions.push(subscription);
+  }
+
+  getSociety(societyId: string) {
+    const subscription = this.societyDataService.getSocietyById(societyId)
+            .subscribe(data => {
+              console.log('Society Data =>' + JSON.stringify(data));
+              this.societyViewModel = data;
+              this.societyForm.get('isActive').setValue(this.societyViewModel.isActive);
+              this.societyForm.get('objectState').setValue(ObjectState.Unchanged);
+              this.societyForm.get('name').setValue(this.societyViewModel.name);
+              this.societyForm.get('description').setValue(this.societyViewModel.description);
+              this.societyForm.get('addressLine1').setValue(this.societyViewModel.addressLine1);
+              this.societyForm.get('addressLine2').setValue(this.societyViewModel.addressLine2);
+              this.societyForm.get('landmark').setValue(this.societyViewModel.landmark);
+              this.societyForm.get('stateId').setValue(this.societyViewModel.stateId);
+              // Get Cities for State
+              this.getCitiesForSelectedState(this.societyViewModel.stateId);
+              this.societyForm.get('cityId').setValue(this.societyViewModel.cityId);
+              // Get Areas for State and City
+              this.getAreasForSelectedCityState(this.societyViewModel.stateId,
+                this.societyViewModel.cityId);
+              this.societyForm.get('areaId').setValue(this.societyViewModel.areaId);
+              this.societyForm.get('pinCode').setValue(this.societyViewModel.pinCode);
+              this.societyForm.get('phoneNumber').setValue(this.societyViewModel.phoneNumber);
+              this.societyForm.get('additionalPhoneNumber').setValue(this.societyViewModel.additionalPhoneNumber);
+            });
     this.subscriptions.push(subscription);
   }
   onSubmit() {
