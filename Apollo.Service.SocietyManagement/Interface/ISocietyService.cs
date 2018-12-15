@@ -14,5 +14,6 @@ namespace Apollo.Service.SocietyManagement.Interface
         Task<List<Domain.DTO.SocietyList>> GetAllAsync();
         Task<ServiceResponse<Society>>CreateSociety(Society society);
 
+        Task<ServiceResponse<Society>> GetAsync(Guid id);
     }
 }

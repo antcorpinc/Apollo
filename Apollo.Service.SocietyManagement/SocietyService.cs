@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Apollo.Service.SocietyManagement.Mappers;
 using Apollo.Core.Common;
 using Apollo.Domain.DTO.Society;
+using FluentValidation.Results;
 
 namespace Apollo.Service.SocietyManagement
 {
@@ -53,6 +54,20 @@ namespace Apollo.Service.SocietyManagement
         {
             var societies = await this._societyRepository.GetAllAsync();
             return SocietyMapper.MapToSocietyList(societies);
+        }
+
+        public async Task<ServiceResponse<Society>> GetAsync(Guid id)
+        {
+            var response = new ServiceResponse<Society>();
+            var society = await this._societyRepository.GetAsync(id);
+            if(society == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("","Search did not yield any society"));
+                return response;
+            }
+            Domain.DTO.Society.Society societyDto = AutoMapper.Mapper.Map<Society>(society);
+            response.Data = societyDto;
+            return response;
         }
     }
 }

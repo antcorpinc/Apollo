@@ -28,6 +28,16 @@ namespace Apollo.Api.Society.Controllers
             }
             return Ok(societies);            
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSociety(Guid id)
+        {
+            var response = await this._societyService.GetAsync(id);
+            if(response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+        }
 
         [Route("create")]
         [HttpPost]
