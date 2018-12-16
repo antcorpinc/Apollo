@@ -171,5 +171,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+
+        public Task<ApolloRole> UpdateAsync(ApolloRole updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

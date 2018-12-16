@@ -94,5 +94,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+
+        public Task<Application> UpdateAsync(Application updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

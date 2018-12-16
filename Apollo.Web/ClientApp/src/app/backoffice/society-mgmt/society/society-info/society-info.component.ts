@@ -74,6 +74,8 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
     if (this.operation.toLowerCase().trim() === this.read) {
       this.getSociety(this.societyId);
       this.societyForm.disable();
+    } else if (this.operation.toLowerCase().trim() === this.edit) {
+      this.getSociety(this.societyId);
     }
   }
   getCitiesForSelectedState(stateId) {

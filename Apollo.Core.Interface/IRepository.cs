@@ -13,6 +13,7 @@ namespace Apollo.Core.Interface
     {        
         U Add(T newEntity);
         Task<T> AddAsync(T newEntity);
+        Task<T> UpdateAsync(T updatedEntity);
         
         void Remove(T entity);
         void Remove(U id);

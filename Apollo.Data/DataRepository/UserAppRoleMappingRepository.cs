@@ -85,5 +85,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+
+        public Task<UserAppRoleMapping> UpdateAsync(UserAppRoleMapping updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

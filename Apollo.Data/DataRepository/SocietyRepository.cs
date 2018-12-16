@@ -102,5 +102,10 @@ namespace Apollo.Data.DataRepository
         {
             return await _context.Society.Where(soc => soc.Id == id).FirstOrDefaultAsync();
         }
+
+        public Task<Society> UpdateAsync(Society updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

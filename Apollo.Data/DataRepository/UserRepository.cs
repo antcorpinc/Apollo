@@ -160,5 +160,10 @@ namespace Apollo.Data.DataRepository
         {
             return (await _context.SaveChangesAsync()) >=0 ;           
         }
+
+        public Task<ApolloUser> UpdateAsync(ApolloUser updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
