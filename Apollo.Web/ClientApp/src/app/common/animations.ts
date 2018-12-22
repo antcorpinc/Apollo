@@ -3,33 +3,34 @@ import {
   animate,
   transition,
   style,
-  query
+  query,
+  group
 } from '@angular/animations';
 
-export const fadeAnimation = trigger('fadeAnimation', [
-  // The '* => *' will trigger the animation to change between any two states
-  transition('* => *', [
-    // The query function has three params.
-    // First is the event, so this will apply on entering or when the element is added to the DOM.
-    // Second is a list of styles or animations to apply.
-    // Third we add a config object with optional set to true, this is to signal
-    // angular that the animation may not apply as it may or may not be in the DOM.
-    query(
-      ':enter',
-      [style({ opacity: 0 })],
-      { optional: true }
-    ),
-    query(
-      ':leave',
-      // here we apply a style and use the animate function to apply the style over 0.7 seconds
-      [style({ opacity: 1 }), animate('0.7s', style({ opacity: 0 }))],
-      { optional: true }
-    ),
-    query(
-      ':enter',
-      [style({ opacity: 0 }), animate('0.7s', style({ opacity: 1 }))],
-      { optional: true }
-    )
+export const slideInAnimation = trigger('slideInAnimation', [
+  // Transition between any two states
+  transition('* <=> *', [
+    // The query function has three params -
+    // Events to apply , so this will apply on entering or when the element is added to the DOM.
+    // Defined style and animation function to apply
+    // Config object with optional set to true to handle when element not yet added to the DOM
+    query(':enter, :leave', style({ position: 'fixed', width: '100%', zIndex: 2 }), { optional: true }),
+    // group block executes in parallel
+    group([
+      query(':enter', [
+         // here we apply a style and use the animate function to apply the style over 0.5 seconds
+        style({ transform: 'translateX(100%)' }),
+        animate('0.5s ease-out', style({ transform: 'translateX(0%)' }))
+      ], { optional: true }),
+      query(':leave', [
+        style({ transform: 'translateX(0%)' }),
+        animate('0.5s ease-out', style({ transform: 'translateX(-100%)' }))
+      ], { optional: true })
+    ])
   ])
 ]);
+
+
+
+
 

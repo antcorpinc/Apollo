@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { ScreenService } from '../services/screen.service';
-import { fadeAnimation } from '../../../common/animations';
+import {slideInAnimation } from '../../../common/animations';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Event } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
   selector: 'fw-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css'],
- //  animations: [fadeAnimation]
+  animations: [slideInAnimation]
 })
 export class ContentComponent implements OnInit {
 

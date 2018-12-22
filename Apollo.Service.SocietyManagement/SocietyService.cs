@@ -69,5 +69,22 @@ namespace Apollo.Service.SocietyManagement
             response.Data = societyDto;
             return response;
         }
+
+        public async Task<ServiceResponse<Society>> UpdateAsync(Society society)
+        {
+            var validator = new SocietyValidator();
+            var results = validator.Validate(society);
+            var response = new ServiceResponse<Society>();
+            
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            var result = await this._societyRepository.UpdateAsync
+                (AutoMapper.Mapper.Map<Apollo.Domain.Entity.Society.Society>(society));
+            
+            return response;
+        }
     }
 }
