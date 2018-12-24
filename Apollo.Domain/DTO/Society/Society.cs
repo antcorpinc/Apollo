@@ -41,4 +41,18 @@ namespace Apollo.Domain.DTO.Society
         }
     }
 
+    public class SocietyUpdateValidator : AbstractValidator<Society>
+    {
+        public SocietyUpdateValidator()
+        {
+            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.IsActive).NotEmpty();
+            RuleFor(x => x.PhoneNumber).NotEmpty();
+            RuleFor(x => x.StateId).NotEmpty();
+            RuleFor(x => x.CityId).NotEmpty();
+            RuleFor(x => x.AreaId).NotEmpty();
+        }
+    }
+
 }

@@ -110,5 +110,10 @@ namespace Apollo.Data.DataRepository
             await _context.SaveChangesAsync();
             return updatedEntity;
         }
+
+        public async Task<bool> IsExistsAsync(Guid id)
+        {
+            return await _context.Society.AnyAsync(s => s.Id == id);
+        }
     }
 }

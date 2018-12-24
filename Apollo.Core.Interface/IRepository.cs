@@ -26,5 +26,7 @@ namespace Apollo.Core.Interface
         Task<List<T>> GetAllAsync(); 
         bool Save();
         Task<bool> SaveAsync();
+
+        Task<bool> IsExistsAsync(U id);
     }
 }

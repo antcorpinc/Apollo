@@ -70,9 +70,14 @@ namespace Apollo.Service.SocietyManagement
             return response;
         }
 
+        public async Task<bool> IsExistsAsync(Guid id)
+        {
+            return await this._societyRepository.IsExistsAsync(id);
+        }
+
         public async Task<ServiceResponse<Society>> UpdateAsync(Society society)
         {
-            var validator = new SocietyValidator();
+            var validator = new SocietyUpdateValidator();
             var results = validator.Validate(society);
             var response = new ServiceResponse<Society>();
             

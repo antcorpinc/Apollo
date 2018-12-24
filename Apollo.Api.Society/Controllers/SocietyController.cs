@@ -60,5 +60,28 @@ namespace Apollo.Api.Society.Controllers
             return BadRequest(response.ErrorMessages);
            // return Ok(this._societyService.CreateSociety(society));
         }
+
+        [Route("update")]
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody]Domain.DTO.Society.Society society)
+        {
+            if (society == null || society.Id == null)
+            {
+                return BadRequest();
+            }
+            var exists = await this._societyService.IsExistsAsync(society.Id);
+            if(!exists)
+            {
+                return NotFound();
+            }
+            society.UpdatedBy = this.LoggedInUserId;
+            society.UpdatedDate = DateTime.UtcNow;
+            var response = await this._societyService.UpdateAsync(society);
+            if (response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);            
+        }
     }
 }

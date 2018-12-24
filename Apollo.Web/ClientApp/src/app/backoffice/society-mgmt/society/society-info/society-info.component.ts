@@ -104,28 +104,28 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
 
   getSociety(societyId: string) {
     const subscription = this.societyDataService.getSocietyById(societyId)
-            .subscribe(data => {
-              console.log('Society Data =>' + JSON.stringify(data));
-              this.societyViewModel = data;
-              this.societyForm.get('isActive').setValue(this.societyViewModel.isActive);
-              this.societyForm.get('objectState').setValue(ObjectState.Unchanged);
-              this.societyForm.get('name').setValue(this.societyViewModel.name);
-              this.societyForm.get('description').setValue(this.societyViewModel.description);
-              this.societyForm.get('addressLine1').setValue(this.societyViewModel.addressLine1);
-              this.societyForm.get('addressLine2').setValue(this.societyViewModel.addressLine2);
-              this.societyForm.get('landmark').setValue(this.societyViewModel.landmark);
-              this.societyForm.get('stateId').setValue(this.societyViewModel.stateId);
-              // Get Cities for State
-              this.getCitiesForSelectedState(this.societyViewModel.stateId);
-              this.societyForm.get('cityId').setValue(this.societyViewModel.cityId);
-              // Get Areas for State and City
-              this.getAreasForSelectedCityState(this.societyViewModel.stateId,
-                this.societyViewModel.cityId);
-              this.societyForm.get('areaId').setValue(this.societyViewModel.areaId);
-              this.societyForm.get('pinCode').setValue(this.societyViewModel.pinCode);
-              this.societyForm.get('phoneNumber').setValue(this.societyViewModel.phoneNumber);
-              this.societyForm.get('additionalPhoneNumber').setValue(this.societyViewModel.additionalPhoneNumber);
-            });
+      .subscribe(data => {
+        console.log('Society Data =>' + JSON.stringify(data));
+        this.societyViewModel = data;
+        this.societyForm.get('isActive').setValue(this.societyViewModel.isActive);
+        this.societyForm.get('objectState').setValue(ObjectState.Unchanged);
+        this.societyForm.get('name').setValue(this.societyViewModel.name);
+        this.societyForm.get('description').setValue(this.societyViewModel.description);
+        this.societyForm.get('addressLine1').setValue(this.societyViewModel.addressLine1);
+        this.societyForm.get('addressLine2').setValue(this.societyViewModel.addressLine2);
+        this.societyForm.get('landmark').setValue(this.societyViewModel.landmark);
+        this.societyForm.get('stateId').setValue(this.societyViewModel.stateId);
+        // Get Cities for State
+        this.getCitiesForSelectedState(this.societyViewModel.stateId);
+        this.societyForm.get('cityId').setValue(this.societyViewModel.cityId);
+        // Get Areas for State and City
+        this.getAreasForSelectedCityState(this.societyViewModel.stateId,
+          this.societyViewModel.cityId);
+        this.societyForm.get('areaId').setValue(this.societyViewModel.areaId);
+        this.societyForm.get('pinCode').setValue(this.societyViewModel.pinCode);
+        this.societyForm.get('phoneNumber').setValue(this.societyViewModel.phoneNumber);
+        this.societyForm.get('additionalPhoneNumber').setValue(this.societyViewModel.additionalPhoneNumber);
+      });
     this.subscriptions.push(subscription);
   }
   onSubmit() {
@@ -141,6 +141,22 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
             });
             this.router.navigate(['/auth/bo/societymgmt/societies'], { relativeTo: this.activatedRoute });
           });
+      } else if (this.operation === this.edit) {
+        console.log('edit society model = ' + JSON.stringify(this.societySaveViewModel));
+        const subscription = this.societyDataService.updateSociety(this.societySaveViewModel)
+          .subscribe(data => {
+
+            this.snackBar.open(InfoMessages.userUpdationMessage, '', {
+              duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+              politeness: 'polite', panelClass: 'showSnackBar'
+            });
+            this.router.navigate(['/auth/bo/societymgmt/societies'],
+              { relativeTo: this.activatedRoute });
+          },
+            (error) => {
+              console.log('Error' + error);
+            });
+        this.subscriptions.push(subscription);
       }
     }
   }
@@ -149,8 +165,28 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
     if (this.operation === this.create) {
       this.societySaveViewModel.objectState = ObjectState.Added;
       this.societySaveViewModel.id = this.societyId;
-      this.societySaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().userName;
-      this.societySaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().userName;
+      this.societySaveViewModel.createdBy = this.userProfileService.getBasicUserInfo().id;
+      this.societySaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().id;
+    } else if (this.operation === this.edit) {
+      this.societySaveViewModel.createdBy = this.societyViewModel.createdBy;
+
+      this.societySaveViewModel.updatedBy = this.userProfileService.getBasicUserInfo().id;
+      if (this.societyForm.get('isActive').value !== this.societyViewModel.isActive ||
+        this.societyForm.get('name').value !== this.societyViewModel.name ||
+        this.societyForm.get('description').value !== this.societyViewModel.description ||
+        this.societyForm.get('addressLine1').value !== this.societyViewModel.addressLine1 ||
+        this.societyForm.get('addressLine1').value !== this.societyViewModel.addressLine1 ||
+        this.societyForm.get('addressLine2').value !== this.societyViewModel.addressLine2 ||
+        this.societyForm.get('landmark').value !== this.societyViewModel.landmark ||
+        this.societyForm.get('stateId').value !== this.societyViewModel.stateId ||
+        this.societyForm.get('cityId').value !== this.societyViewModel.cityId ||
+        this.societyForm.get('areaId').value !== this.societyViewModel.areaId ||
+        this.societyForm.get('pinCode').value !== this.societyViewModel.pinCode ||
+        this.societyForm.get('phoneNumber').value !== this.societyViewModel.phoneNumber ||
+        this.societyForm.get('additionalPhoneNumber').value !== this.societyViewModel.additionalPhoneNumber
+      ) {
+        this.societySaveViewModel.objectState = ObjectState.Modified;
+      }
     }
   }
 

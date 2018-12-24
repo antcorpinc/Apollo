@@ -15,5 +15,7 @@ namespace Apollo.Service.SocietyManagement.Interface
         Task<ServiceResponse<Society>>CreateSociety(Society society);
         Task<ServiceResponse<Society>> UpdateAsync(Society society);
         Task<ServiceResponse<Society>> GetAsync(Guid id);
+
+        Task<bool> IsExistsAsync(Guid id);
     }
 }

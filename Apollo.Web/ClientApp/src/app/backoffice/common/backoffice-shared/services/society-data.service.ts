@@ -30,6 +30,15 @@ export class SocietyDataService {
       + 'api/society/create/', society);
   }
 
+  updateSociety(society: SocietyViewModel) {
+    return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.societyApi
+      + 'api/society/update/', society);
+  }
+
+
+
+
+
   getSocietyById(societyId: string): Observable<SocietyViewModel> {
     return this.authenticatedHttpService.get(
       `${this.configurationService.config.baseUrls.societyApi}api/society/${societyId}`);

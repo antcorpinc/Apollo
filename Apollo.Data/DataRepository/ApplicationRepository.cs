@@ -99,5 +99,10 @@ namespace Apollo.Data.DataRepository
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> IsExistsAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
