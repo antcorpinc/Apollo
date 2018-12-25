@@ -17,5 +17,7 @@ namespace Apollo.Service.SocietyManagement.Interface
         Task<ServiceResponse<Society>> GetAsync(Guid id);
 
         Task<bool> IsExistsAsync(Guid id);
+        Task<List<Domain.DTO.Society.Building>> GetBuildingsInSocietyAsync(Guid societyId);
+        Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId);
     }
 }

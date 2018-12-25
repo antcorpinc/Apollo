@@ -1002,10 +1002,49 @@ namespace Apollo.Data
                     CreatedDate = DateTime.UtcNow,
                     UpdatedBy = "SystemAdmin",
                     UpdatedDate = DateTime.UtcNow,
+                    
                 };
                 _context.Add(soc);
             }
             //~ Add Society
+
+            // Add Building to society
+            if (_context.Building.Find(Guid.Parse("A52586A1-62A6-43AC-AC78-9CC729B7D8F6")) == null)
+            {
+                Building build = new Building()
+                {
+                    Id = new Guid("A52586A1-62A6-43AC-AC78-9CC729B7D8F6"),
+                    Name = "B",
+                    Description = "B building",
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(build);
+            }
+
+            if (_context.Building.Find(Guid.Parse("28C51862-A67B-4AEF-B4ED-0AD66CAECC19")) == null)
+            {
+                Building build = new Building()
+                {
+                    Id = new Guid("28C51862-A67B-4AEF-B4ED-0AD66CAECC19"),
+                    Name = "C",
+                    Description = "C building",
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(build);
+            }
+
+            // ~Add Building to society
+
 
             _context.SaveChanges();
         }

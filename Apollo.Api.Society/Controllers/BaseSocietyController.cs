@@ -10,7 +10,7 @@ namespace Apollo.Api.Society.Controllers
 {
     [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [ApiController]
-    public abstract class BaseSocietyController : Controller
+    public abstract class BaseSocietyController : ControllerBase
     {
         protected string LoggedInUserId
         {

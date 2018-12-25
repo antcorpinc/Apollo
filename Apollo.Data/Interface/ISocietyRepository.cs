@@ -10,6 +10,7 @@ namespace Apollo.Data.Interface
     public interface ISocietyRepository: IRepository<Society, Guid> 
     {
          Task<Society> GetAsync(Guid id);
-        
+        Task<List<Building>> GetBuildingsInSocietyAsync(Guid societyId);
+        Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId);
     }
 }

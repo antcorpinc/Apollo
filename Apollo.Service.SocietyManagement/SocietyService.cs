@@ -70,6 +70,16 @@ namespace Apollo.Service.SocietyManagement
             return response;
         }
 
+        public Task<List<Building>> GetBuildingsInSocietyAsync(Guid societyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> IsExistsAsync(Guid id)
         {
             return await this._societyRepository.IsExistsAsync(id);

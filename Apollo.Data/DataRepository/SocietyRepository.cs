@@ -115,5 +115,16 @@ namespace Apollo.Data.DataRepository
         {
             return await _context.Society.AnyAsync(s => s.Id == id);
         }
+
+        public async Task<List<Building>> GetBuildingsInSocietyAsync(Guid societyId)
+        {
+            return await _context.Building.Where(b => b.SocietyId == societyId)
+                            .OrderBy(b => b.Name).ToListAsync();
+        }
+
+        public Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

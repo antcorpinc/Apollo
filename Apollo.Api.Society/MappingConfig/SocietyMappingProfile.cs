@@ -39,8 +39,31 @@ namespace Apollo.Api.Society.MappingConfig
                 .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s =>s.UpdatedDate) ) 
                 .ReverseMap();
                 
+            CreateMap<Domain.DTO.Society.Building,Domain.Entity.Society.Building>()
+                .ForMember(des => des.Id, opt => opt.MapFrom(s=> s.Id))
+                .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(des => des.Description, opt => opt.MapFrom(s => s.Description))
+                .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
+                .ForMember(des => des.ObjectState, opt => opt.MapFrom(s => s.ObjectState))
+                .ForMember(des => des.SocietyId, opt => opt.MapFrom(s => s.SocietyId))
+                .ForMember(des => des.CreatedBy, opt => opt.MapFrom(s => s.CreatedBy))
+                .ForMember(des => des.CreatedDate, opt => opt.MapFrom(s => s.CreatedDate))
+                .ForMember(des => des.UpdatedBy, opt => opt.MapFrom(s => s.UpdatedBy))
+                .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s => s.UpdatedDate))
+                .ReverseMap();
 
-
+            CreateMap<Domain.DTO.Society.Flat, Domain.Entity.Society.Flat>()
+                .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
+                .ForMember(des => des.ObjectState, opt => opt.MapFrom(s => s.ObjectState))
+                .ForMember(des => des.SocietyId, opt => opt.MapFrom(s => s.SocietyId))
+                .ForMember(des => des.BuildingId, opt => opt.MapFrom(s => s.BuildingId))
+                .ForMember(des => des.CreatedBy, opt => opt.MapFrom(s => s.CreatedBy))
+                .ForMember(des => des.CreatedDate, opt => opt.MapFrom(s => s.CreatedDate))
+                .ForMember(des => des.UpdatedBy, opt => opt.MapFrom(s => s.UpdatedBy))
+                .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s => s.UpdatedDate))
+                .ReverseMap();
         }
     }
 }
