@@ -98,16 +98,44 @@ namespace Apollo.Service.SocietyManagement
             return response;
         }
 
-        public Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)
+        public async Task<ServiceResponse<List<Flat>>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<List<Flat>>();
+            var flats = await this._societyRepository.
+                GetFlatsInSocietyBuildingAsync(societyId, buildingId);
+            if (flats == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any flats"));
+                return response;
+            }
+            List<Flat> flatsDto = AutoMapper.Mapper.Map<List<Flat>>(flats);
+            response.Data = flatsDto;
+            return response;
+        }
+        public async Task<ServiceResponse<Flat>> GetFlatInSocietyBuildingAsync(Guid societyId,
+            Guid buildingId, Guid flatId)
+        {
+            var response = new ServiceResponse<Flat>();
+            var flat = await this._societyRepository.GetFlatInSocietyBuildingAsync
+                (societyId, buildingId,flatId);
+            if (flat == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any flat"));
+                return response;
+            }
+            Flat flatDto = AutoMapper.Mapper.Map<Flat>(flat);
+            response.Data = flatDto;
+            return response;
         }
 
         public async Task<bool> IsExistsAsync(Guid id)
         {
             return await this._societyRepository.IsExistsAsync(id);
         }
-
+        public async Task<bool> IsBuildingExistsAsync(Guid societyId, Guid buildingId)
+        {
+            return await this._societyRepository.IsBuildingExistsAsync(societyId, buildingId);
+        }
         public async Task<ServiceResponse<Society>> UpdateAsync(Society society)
         {
             var validator = new SocietyUpdateValidator();
@@ -124,5 +152,7 @@ namespace Apollo.Service.SocietyManagement
             
             return response;
         }
+
+        
     }
 }

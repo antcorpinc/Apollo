@@ -143,5 +143,11 @@ namespace Apollo.Data.DataRepository
                                                   b.Id == flatId)
                             .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> IsBuildingExistsAsync(Guid societyId, Guid buildingId)
+        {
+            return await _context.Building.AnyAsync
+                (b => b.SocietyId== societyId && b.Id == buildingId);
+        }
     }
 }
