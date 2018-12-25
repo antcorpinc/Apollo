@@ -11,6 +11,8 @@ namespace Apollo.Data.Interface
     {
          Task<Society> GetAsync(Guid id);
         Task<List<Building>> GetBuildingsInSocietyAsync(Guid societyId);
+        Task<Building> GetBuildingInSocietyAsync(Guid societyId, Guid buildingId);
         Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId);
+        
     }
 }

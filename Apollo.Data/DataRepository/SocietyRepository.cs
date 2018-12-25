@@ -122,9 +122,26 @@ namespace Apollo.Data.DataRepository
                             .OrderBy(b => b.Name).ToListAsync();
         }
 
-        public Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)
+        public async Task<Building> GetBuildingInSocietyAsync(Guid societyId, Guid buildingId)
         {
-            throw new NotImplementedException();
+            return await _context.Building.Where(b =>
+                         b.SocietyId == societyId && b.Id == buildingId).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)
+        {
+            return await _context.Flat.Where(b => b.SocietyId == societyId && 
+                                                  b.BuildingId == buildingId)
+                           .OrderBy(b => b.Name).ToListAsync();
+        }
+
+        public async Task<Flat> GetFlatInSocietyBuildingAsync(Guid societyId,
+            Guid buildingId, Guid flatId)
+        {
+            return await _context.Flat.Where(b => b.SocietyId == societyId &&
+                                                  b.BuildingId == buildingId &&
+                                                  b.Id == flatId)
+                            .FirstOrDefaultAsync();
         }
     }
 }
