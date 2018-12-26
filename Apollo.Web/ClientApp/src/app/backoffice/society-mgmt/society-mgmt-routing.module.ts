@@ -3,6 +3,7 @@ import { SocietyListComponent } from './society/society-list/society-list.compon
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { StateResolverService } from 'src/app/common/shared/services/resolver/state-resolver.service';
+import { BuildingListComponent } from './building/building-list/building-list.component';
 
 
 export const societyRoutes: Routes = [
@@ -11,6 +12,7 @@ export const societyRoutes: Routes = [
     resolve: {
       states: StateResolverService
     }},
+  {path: 'society/:id/:operation/buildings', component: BuildingListComponent}
 ];
 
 @NgModule({

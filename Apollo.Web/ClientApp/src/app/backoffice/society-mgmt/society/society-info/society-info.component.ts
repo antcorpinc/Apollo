@@ -13,7 +13,7 @@ import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/
 import { InfoMessages } from 'src/app/common/messages';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { UserProfileService } from 'src/app/common/shared/services/user-profile.service';
-import {ConfirmDialogComponent} from '../../../common/backoffice-shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../common/backoffice-shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-society-info',
@@ -41,7 +41,7 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
     private lookupMasterService: LookupMasterService,
     private societyDataService: SocietyDataService, private router: Router,
     private snackBar: MatSnackBar, private userProfileService: UserProfileService,
-    private dialog: MatDialog ) { }
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     // Read Route parameters
@@ -204,7 +204,7 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.router.navigate(['/auth/bo/societymgmt/societies'],
-              { relativeTo: this.activatedRoute });
+            { relativeTo: this.activatedRoute });
         }
       },
         (error) => {
@@ -212,8 +212,14 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
         });
     } else {
       this.router.navigate(['/auth/bo/societymgmt/societies'],
-              { relativeTo: this.activatedRoute });
+        { relativeTo: this.activatedRoute });
     }
+  }
+  onBuildings() {
+    /* this.router.navigate(['/auth/bo/societymgmt/society', this.societyId, this.operation, 'buildings'],
+                         { relativeTo: this.activatedRoute }); */
+    this.router.navigate(['../../', this.societyId, this.operation, 'buildings'],
+      { relativeTo: this.activatedRoute });
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
