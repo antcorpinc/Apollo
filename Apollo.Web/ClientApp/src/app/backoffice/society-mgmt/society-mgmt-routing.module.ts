@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { StateResolverService } from 'src/app/common/shared/services/resolver/state-resolver.service';
 import { BuildingListComponent } from './building/building-list/building-list.component';
+import { BuildingsResolverService } from '../common/backoffice-shared/services/resolver/buildings-resolver.service';
 
 
 export const societyRoutes: Routes = [
@@ -12,7 +13,8 @@ export const societyRoutes: Routes = [
     resolve: {
       states: StateResolverService
     }},
-  {path: 'society/:id/:operation/buildings', component: BuildingListComponent}
+  {path: 'society/:id/:operation/buildings', component: BuildingListComponent,
+   resolve: {buildings: BuildingsResolverService}}
 ];
 
 @NgModule({

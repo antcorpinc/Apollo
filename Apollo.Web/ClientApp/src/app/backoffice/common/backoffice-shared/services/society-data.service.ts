@@ -5,7 +5,6 @@ import { ConfigurationService } from 'src/app/common/shared/services/configurati
 import { AuthenticatedHttpService } from 'src/app/common/shared/services/authenticated-http.service';
 import { map } from 'rxjs/operators';
 import { SocietyViewModel } from 'src/app/backoffice/viewmodel/society-vm/societyviewmodel';
-import { BuildingViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildingviewmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -39,15 +38,5 @@ export class SocietyDataService {
   getSocietyById(societyId: string): Observable<SocietyViewModel> {
     return this.authenticatedHttpService.get(
       `${this.configurationService.config.baseUrls.societyApi}api/society/${societyId}`);
-  }
-
-  getBuildingsInSociety(societyId: string): Observable<BuildingViewModel[]> {
-    return this.authenticatedHttpService.get(
-      `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings`);
-  }
-
-  getBuildingInSociety(societyId: string, buildingId: string): Observable<BuildingViewModel> {
-    return this.authenticatedHttpService.get(
-      `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings/${buildingId}`);
   }
 }
