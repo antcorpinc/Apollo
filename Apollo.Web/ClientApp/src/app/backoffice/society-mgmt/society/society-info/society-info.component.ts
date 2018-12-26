@@ -11,8 +11,9 @@ import { CityViewModel } from 'src/app/common/viewmodels/cityviewmodel';
 import { AreaViewModel } from 'src/app/common/viewmodels/areaviewmodel';
 import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/services/society-data.service';
 import { InfoMessages } from 'src/app/common/messages';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { UserProfileService } from 'src/app/common/shared/services/user-profile.service';
+import {ConfirmDialogComponent} from '../../../common/backoffice-shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-society-info',
@@ -39,7 +40,8 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
     private lookupMasterService: LookupMasterService,
     private societyDataService: SocietyDataService, private router: Router,
-    private snackBar: MatSnackBar, private userProfileService: UserProfileService, ) { }
+    private snackBar: MatSnackBar, private userProfileService: UserProfileService,
+    private dialog: MatDialog ) { }
 
   ngOnInit() {
     // Read Route parameters
@@ -189,7 +191,30 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+  onCancel() {
+    // Check if the formis dirty - then pop up message
+    if (this.societyForm.dirty) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '450px',
+        data: {
+          title: 'Confirm',
+          content: InfoMessages.confirmCancelMessage
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.router.navigate(['/auth/bo/societymgmt/societies'],
+              { relativeTo: this.activatedRoute });
+        }
+      },
+        (error) => {
+          console.log('Error' + error);
+        });
+    } else {
+      this.router.navigate(['/auth/bo/societymgmt/societies'],
+              { relativeTo: this.activatedRoute });
+    }
+  }
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

@@ -8,6 +8,6 @@ export let InfoMessages = {
   userCreationMessage: 'New user is created successfully',
   userUpdationMessage: 'User has been updated successfully',
   applicationRoleDeletionMessage: 'Are you sure you want to delete this application role?',
-
+  confirmCancelMessage: 'If you cancel, the current data will be lost'
 };
 
