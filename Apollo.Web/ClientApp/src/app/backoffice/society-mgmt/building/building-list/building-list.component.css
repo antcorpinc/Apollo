@@ -15,7 +15,7 @@
   font-size: 0.9375rem;
   vertical-align: middle;
   font-weight: 500;
-  color: #333;
+  color:whitesmoke;
 }
 
 .sub-title {
@@ -23,7 +23,12 @@
   font-size: 0.875rem;
   line-height: 20px;
   text-overflow: ellipsis;
-  color: #666666;
+  color:turquoise;
+}
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
 }
 
 
