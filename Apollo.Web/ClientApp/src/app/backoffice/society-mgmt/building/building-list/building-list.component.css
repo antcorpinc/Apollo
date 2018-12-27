@@ -10,7 +10,21 @@
   color: #03a83a;
   margin-right: 0.5rem;
 }
+.title {
 
+  font-size: 0.9375rem;
+  vertical-align: middle;
+  font-weight: 500;
+  color: #333;
+}
+
+.sub-title {
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  color: #666666;
+}
 
 
 

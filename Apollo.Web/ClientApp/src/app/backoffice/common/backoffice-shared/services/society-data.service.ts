@@ -5,11 +5,13 @@ import { ConfigurationService } from 'src/app/common/shared/services/configurati
 import { AuthenticatedHttpService } from 'src/app/common/shared/services/authenticated-http.service';
 import { map } from 'rxjs/operators';
 import { SocietyViewModel } from 'src/app/backoffice/viewmodel/society-vm/societyviewmodel';
+import { Utilities } from 'src/app/common/utilities/utilities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocietyDataService {
+  private _societyName: string;
 
   constructor(private authenticatedHttpService: AuthenticatedHttpService,
     private configurationService: ConfigurationService) { }
@@ -38,5 +40,15 @@ export class SocietyDataService {
   getSocietyById(societyId: string): Observable<SocietyViewModel> {
     return this.authenticatedHttpService.get(
       `${this.configurationService.config.baseUrls.societyApi}api/society/${societyId}`);
+  }
+
+  get SocietyName() {
+    return this._societyName;
+  }
+
+  set SocietyName(value: string) {
+    if (!Utilities.isNullOrEmpty(value) ) {
+      this._societyName = value;
+    }
   }
 }

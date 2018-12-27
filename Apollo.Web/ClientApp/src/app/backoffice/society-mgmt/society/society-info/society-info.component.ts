@@ -216,6 +216,7 @@ export class SocietyInfoComponent implements OnInit, OnDestroy {
     }
   }
   onBuildings() {
+    this.societyDataService.SocietyName = this.societyViewModel.name;
     /* this.router.navigate(['/auth/bo/societymgmt/society', this.societyId, this.operation, 'buildings'],
                          { relativeTo: this.activatedRoute }); */
     this.router.navigate(['../../', this.societyId, this.operation, 'buildings'],
