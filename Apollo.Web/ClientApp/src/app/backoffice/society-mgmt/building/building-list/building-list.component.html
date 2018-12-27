@@ -2,7 +2,7 @@
 <div class="sub-title">Building List</div>
  <div class="row">
   <div *ngIf='createAction'>
-    <button title="Create New MG User" type="button" mat-raised-button (click)="createBuilding()">
+    <button title="Create New Building" type="button" mat-raised-button (click)="createBuilding()">
       <span>Create New Society</span>
     </button>
   </div>
@@ -14,6 +14,13 @@
     <span class="example-fill-remaining-space"></span>
     <span class="title">Building List</span>
   </mat-toolbar>
+</div>
+<div class="row">
+  <div *ngIf='createAction'>
+    <button type="button" mat-raised-button (click)="createBuilding()">
+      <span>Create New Building</span>
+    </button>
+  </div>
 </div>
 <div class="mat-elevation-z8">
   <mat-form-field>
