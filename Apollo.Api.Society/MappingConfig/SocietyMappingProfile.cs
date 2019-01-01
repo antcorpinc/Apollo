@@ -52,6 +52,12 @@ namespace Apollo.Api.Society.MappingConfig
                 .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s => s.UpdatedDate))
                 .ReverseMap();
 
+            CreateMap<Domain.DTO.Society.BuildingCreate, Domain.Entity.Society.Building>()
+                .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(des => des.Description, opt => opt.MapFrom(s => s.Description))
+                .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
+                .ForMember(des => des.ObjectState, opt => opt.MapFrom(s => s.ObjectState));
+
             CreateMap<Domain.DTO.Society.Flat, Domain.Entity.Society.Flat>()
                 .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
@@ -64,6 +70,7 @@ namespace Apollo.Api.Society.MappingConfig
                 .ForMember(des => des.UpdatedBy, opt => opt.MapFrom(s => s.UpdatedBy))
                 .ForMember(des => des.UpdatedDate, opt => opt.MapFrom(s => s.UpdatedDate))
                 .ReverseMap();
+
         }
     }
 }

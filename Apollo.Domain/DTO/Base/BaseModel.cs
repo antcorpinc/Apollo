@@ -56,7 +56,64 @@ namespace Apollo.Domain.DTO.Base
         }
     }
 
+    public abstract class OptionalBaseModel
+    {
+
+        public string CreatedBy { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+        private DateTime _createdDate;
+
+        private DateTime _updatedDate;
+
+        public DateTime CreatedDate
+        {
+            get
+            {
+
+                if (_createdDate == DateTime.MinValue)
+                {
+                    return DateTime.Now.ToUniversalTime();
+                }
+                else
+                {
+                    return _createdDate;
+                }
+            }
+            set
+            {
+                _createdDate = value;
+            }
+        }
+
+        public DateTime UpdatedDate
+        {
+            get
+            {
+                if (_updatedDate == DateTime.MinValue)
+                {
+                    return DateTime.Now.ToUniversalTime();
+                }
+                else
+                {
+                    return _updatedDate;
+                }
+            }
+            set
+            {
+                _updatedDate = value;
+            }
+        }
+    }
+
     public abstract class BaseModelWithActive : BaseModel
+    {
+        [Required]
+        public bool IsActive { get; set; }
+    }
+
+    public abstract class OptionalBaseModelWithActive : OptionalBaseModel
     {
         [Required]
         public bool IsActive { get; set; }
