@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { ObjectState } from 'src/app/common/enums';
 import { BuildingViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildingviewmodel';
 import { BuildingDataService } from 'src/app/backoffice/common/backoffice-shared/services/building-data.service';
+import { MatSnackBar } from '@angular/material';
+import { InfoMessages } from 'src/app/common/messages';
 
 @Component({
   selector: 'app-building-info',
@@ -28,7 +30,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   buildingSaveViewModel: BuildingViewModel = <BuildingViewModel>{};
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
-    private buildingDataService: BuildingDataService) { }
+    private buildingDataService: BuildingDataService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.operation = this.activatedRoute.snapshot.paramMap.get('operation');
@@ -54,7 +56,10 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
         const subscription = this.buildingDataService.createBuildingInSociety(
           this.societyId, this.buildingSaveViewModel)
           .subscribe(data => {
-
+            this.snackBar.open(InfoMessages.buildingCreationMessage, '', {
+              duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+              politeness: 'polite', panelClass: 'showSnackBar'
+            });
           },
             (error) => {
               console.log('Error' + error);
