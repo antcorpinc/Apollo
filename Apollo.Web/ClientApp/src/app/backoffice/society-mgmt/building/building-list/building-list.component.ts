@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BuildingViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildingviewmodel';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { CONSTANTS } from 'src/app/common/constants';
 import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/services/society-data.service';
@@ -30,7 +30,7 @@ export class BuildingListComponent implements OnInit {
   createAction = false;
   readAction = false;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
     public societyDataService: SocietyDataService,
     private userProfileService: UserProfileService) { }
 
@@ -69,7 +69,8 @@ export class BuildingListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   createBuilding() {
-
+    this.router.navigate(['../building', CONSTANTS.create.id, this.create],
+       { relativeTo: this.activatedRoute });
   }
 
   goToBuilding(value) {

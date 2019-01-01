@@ -45,6 +45,10 @@ namespace Apollo.Api.Society.Controllers
             {
                 return NotFound();
             }
+            building.CreatedBy = this.LoggedInUserId;
+            building.CreatedDate = DateTime.UtcNow;
+            building.UpdatedBy = this.LoggedInUserId;
+            building.UpdatedDate = DateTime.UtcNow;
             var response = await this._buildingService.CreateBuilding(societyId, building);
             if(response.Successful)
             {

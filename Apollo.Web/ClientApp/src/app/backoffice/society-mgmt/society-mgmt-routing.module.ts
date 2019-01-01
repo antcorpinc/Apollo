@@ -5,23 +5,31 @@ import { NgModule } from '@angular/core';
 import { StateResolverService } from 'src/app/common/shared/services/resolver/state-resolver.service';
 import { BuildingListComponent } from './building/building-list/building-list.component';
 import { BuildingsResolverService } from '../common/backoffice-shared/services/resolver/buildings-resolver.service';
+import { BuildingInfoComponent } from './building/building-info/building-info.component';
 
 
 export const societyRoutes: Routes = [
   { path: 'societies', component: SocietyListComponent },
-  { path: 'society/:id/:operation', component: SocietyInfoComponent ,
+  {
+    path: 'society/:id/:operation', component: SocietyInfoComponent,
     resolve: {
       states: StateResolverService
-    }},
-  {path: 'society/:id/:operation/buildings', component: BuildingListComponent,
-   resolve: {buildings: BuildingsResolverService}}
+    }
+  },
+  {
+    path: 'society/:id/:operation/buildings', component: BuildingListComponent,
+    resolve: { buildings: BuildingsResolverService }
+  },
+  {
+    path: 'society/:societyid/:societyoperation/building/:id/:operation', component: BuildingInfoComponent,
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(societyRoutes)],
   exports: [RouterModule]
 })
-export class SocietyMgmtRoutingModule {}
+export class SocietyMgmtRoutingModule { }
 
 export const routedSocietyComponents = [
   SocietyListComponent,
