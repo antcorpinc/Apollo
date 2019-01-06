@@ -60,6 +60,35 @@ namespace Apollo.Api.Society.Controllers
 
             return BadRequest(response.ErrorMessages);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid societyId,Guid id,
+            [FromBody] BuildingUpdate building)
+        {
+            if (building == null)
+            {
+                return BadRequest();
+            }
+            var societyExists = await this._societyService.IsExistsAsync(societyId);
+            if (!societyExists)
+            {
+                return NotFound();
+            }
+            var buildingExists = await this._buildingService.IsBuildingInSocietyExistsAsync(societyId, id);
+            if (!buildingExists)
+            {
+                return NotFound();
+            }
+            building.UpdatedBy = this.LoggedInUserId;
+            building.UpdatedDate = DateTime.UtcNow;
+            var response = await this._buildingService.UpdateAsync(societyId, id, building);
+
+            if(response.Successful)
+            {
+                return NoContent();
+               // return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+        }
 
 
         [HttpGet("{id}", Name="GetBuildingForSociety")]

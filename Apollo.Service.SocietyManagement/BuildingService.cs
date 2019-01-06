@@ -16,7 +16,7 @@ namespace Apollo.Service.SocietyManagement
         public BuildingService(IBuildingRepository buildingRepository)
         {
             _buildingRepository = buildingRepository ??
-                throw new ArgumentNullException(nameof(buildingRepository)); ;
+                throw new ArgumentNullException(nameof(buildingRepository)) ;
         }
         public async Task<ServiceResponse<Building>> CreateBuilding(Guid societyId, BuildingCreate buildingCreate)
         {
@@ -33,6 +33,29 @@ namespace Apollo.Service.SocietyManagement
             building.Id = Guid.NewGuid();
             building.SocietyId = societyId;
             var result = await this._buildingRepository.AddAsync(building);
+            response.Data = AutoMapper.Mapper.Map<Apollo.Domain.DTO.Society.Building>(result);
+            return response;
+        }
+
+        public async Task<bool> IsBuildingInSocietyExistsAsync(Guid societyId, Guid buildingId)
+        {
+            return await this._buildingRepository.IsBuildingInSocietyExistsAsync(societyId,buildingId);
+        }
+
+        public async Task<ServiceResponse<Building>> UpdateAsync(Guid societyId, Guid buildingId, BuildingUpdate building)
+        {
+            var validator = new BuildingUpdateValidator();
+            var results = validator.Validate(building);
+            var response = new ServiceResponse<Building>();
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            var updatedEntity = AutoMapper.Mapper.Map<Apollo.Domain.Entity.Society.Building>(building);
+            updatedEntity.Id = buildingId;
+            updatedEntity.SocietyId = societyId;
+            var result = await this._buildingRepository.UpdateAsync(updatedEntity);
             response.Data = AutoMapper.Mapper.Map<Apollo.Domain.DTO.Society.Building>(result);
             return response;
         }

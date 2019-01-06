@@ -61,6 +61,9 @@ namespace Apollo.Api.Society
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
 
+            services.AddScoped<IFlatService, FlatService>();
+            services.AddScoped<IFlatRepository, FlatRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Society Management API", Version = "v1" });

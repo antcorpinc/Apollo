@@ -9,5 +9,9 @@ namespace Apollo.Service.SocietyManagement.Interface
     public interface IBuildingService
     {
         Task<ServiceResponse<Building>> CreateBuilding(Guid societyId,BuildingCreate society);
+
+        Task<ServiceResponse<Building>> UpdateAsync(Guid societyId,Guid buildingId, BuildingUpdate building);
+
+        Task<bool> IsBuildingInSocietyExistsAsync(Guid societyId , Guid buildingId);
     }
 }

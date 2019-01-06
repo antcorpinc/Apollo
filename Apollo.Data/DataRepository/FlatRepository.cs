@@ -1,7 +1,5 @@
-﻿using Apollo.Core.Interface;
-using Apollo.Data.Interface;
+﻿using Apollo.Data.Interface;
 using Apollo.Domain.Entity.Society;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class BuildingRepository : IBuildingRepository, IDisposable
+    public class FlatRepository : IFlatRepository, IDisposable
     {
         private ApolloContext _context;
-        public BuildingRepository(ApolloContext context)
+        public FlatRepository(ApolloContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public Guid Add(Building newEntity)
+        public Guid Add(Flat newEntity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Building> AddAsync(Building newEntity)
+        public async Task<Flat> AddAsync(Flat newEntity)
         {
-            _context.Building.Attach(newEntity); // Do we need this?
+            _context.Flat.Attach(newEntity); // Do we need this?
             _context.ApplyStateChanges();
             await _context.SaveChangesAsync();
             return newEntity;
@@ -47,27 +45,28 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
-        public List<Domain.Entity.Society.Building> Find(Expression<Func<Domain.Entity.Society.Building, bool>> predicate)
+
+        public List<Flat> Find(Expression<Func<Flat, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Domain.Entity.Society.Building>> FindAsync(Expression<Func<Domain.Entity.Society.Building, bool>> predicate)
+        public Task<List<Flat>> FindAsync(Expression<Func<Flat, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Domain.Entity.Society.Building Get(Guid id)
+        public Flat Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Domain.Entity.Society.Building> GetAll()
+        public IQueryable<Flat> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Domain.Entity.Society.Building>> GetAllAsync()
+        public Task<List<Flat>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -77,7 +76,7 @@ namespace Apollo.Data.DataRepository
             throw new NotImplementedException();
         }
 
-        public void Remove(Domain.Entity.Society.Building entity)
+        public void Remove(Flat entity)
         {
             throw new NotImplementedException();
         }
@@ -97,18 +96,9 @@ namespace Apollo.Data.DataRepository
             return (await _context.SaveChangesAsync()) >= 0;
         }
 
-        public async Task<Building> UpdateAsync(Building updatedEntity)
+        public Task<Flat> UpdateAsync(Flat updatedEntity)
         {
-            _context.Building.Attach(updatedEntity); // Do we need this?
-            _context.ApplyStateChanges();
-            await _context.SaveChangesAsync();
-            return updatedEntity;
-        }
-
-        public async Task<bool> IsBuildingInSocietyExistsAsync(Guid societyId, Guid buildingId)
-        {
-            return await _context.Building.AnyAsync(b =>
-                         b.SocietyId == societyId && b.Id == buildingId);
+            throw new NotImplementedException();
         }
     }
 }
