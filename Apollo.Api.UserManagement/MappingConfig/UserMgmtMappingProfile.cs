@@ -41,7 +41,7 @@ namespace Apollo.Api.UserManagement.MappingConfig
 
             CreateMap<Domain.Entity.MasterData.State, Domain.DTO.MasterData.State>()
             .ForMember(des => des.Id, opt => opt.MapFrom(s => s.Id))
-            .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name));
+            .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name));            
 
         }
     }

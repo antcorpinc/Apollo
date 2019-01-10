@@ -37,5 +37,7 @@ namespace Apollo.Domain.Entity
         [ForeignKey("UserTypeId")]
         public UserType UserType { get; set; }
         public ICollection<UserAppRoleMapping> UserAppRoleMappings { get; set; }
+
+        public SocietyUser SocietyUser { get; set; }
     }
 }

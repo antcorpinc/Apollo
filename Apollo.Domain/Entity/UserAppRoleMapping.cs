@@ -14,6 +14,7 @@ namespace Apollo.Domain.Entity
         public Guid RoleId { get; set; }
         public Guid UserId { get; set; }
         public Guid ApplicationId { get; set; }
+        // Todo: May be not needed the below ? Since available through SocietyUser
         public Guid? SocietyId { get; set; }
 
         [Required]
