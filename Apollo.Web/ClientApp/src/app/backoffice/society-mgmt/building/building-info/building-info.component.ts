@@ -22,7 +22,10 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   read = CONSTANTS.operation.read;
   operation: string;
 
+
   societyId: string;
+  buildingId: string;
+
   subscriptions: Subscription[] = [];
 
   buildingViewModel: BuildingViewModel = <BuildingViewModel>{};
@@ -34,7 +37,9 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.operation = this.activatedRoute.snapshot.paramMap.get('operation');
+
     this.societyId = this.activatedRoute.snapshot.paramMap.get('societyid');
+    this.buildingId = this.activatedRoute.snapshot.paramMap.get('id');
     this.createFormModel();
   }
 
@@ -45,6 +50,26 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
       name: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       description: new FormControl('', [Validators.maxLength(200)]),
     });
+
+    if (this.operation.toLowerCase().trim() === this.read) {
+      this.getBuildingInSociety(this.societyId, this.buildingId);
+      this.buildingForm.disable();
+    } else if (this.operation.toLowerCase().trim() === this.edit) {
+      this.getBuildingInSociety(this.societyId, this.buildingId);
+    }
+  }
+
+  getBuildingInSociety(societyId: string , buildingId: string) {
+    const subscription  = this.buildingDataService.getBuildingInSociety(societyId, buildingId)
+      .subscribe(data => {
+        console.log('Building  Data =>' + JSON.stringify(data));
+        this.buildingViewModel = data;
+        this.buildingForm.get('isActive').setValue(this.buildingViewModel.isActive);
+        this.buildingForm.get('objectState').setValue(ObjectState.Unchanged);
+        this.buildingForm.get('name').setValue(this.buildingViewModel.name);
+        this.buildingForm.get('description').setValue(this.buildingViewModel.description);
+      });
+      this.subscriptions.push(subscription);
   }
 
   onFlats() {
@@ -65,6 +90,20 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
               console.log('Error' + error);
             });
             this.subscriptions.push(subscription);
+      } else if (this.operation === this.edit) {
+        const subscription = this.buildingDataService.updateBuildingInSociety(this.societyId,
+          this.buildingId, this.buildingSaveViewModel).subscribe(data => {
+          this.snackBar.open(InfoMessages.userUpdationMessage, '', {
+            duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+            politeness: 'polite', panelClass: 'showSnackBar'
+          });
+          this.router.navigate(['/auth/bo/societymgmt/societies'],
+            { relativeTo: this.activatedRoute });
+        },
+          (error) => {
+            console.log('Error' + error);
+          });
+          this.subscriptions.push(subscription);
       }
     }
   }
@@ -73,6 +112,10 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     this.buildingSaveViewModel = Object.assign({}, this.buildingViewModel, this.buildingForm.value);
     if (this.operation === this.create) {
       this.buildingSaveViewModel.objectState = ObjectState.Added;
+    } else if (this.operation === this.edit) {
+      this.buildingSaveViewModel.objectState = ObjectState.Modified;
+     // this.buildingSaveViewModel.createdBy = this.buildingViewModel.createdBy;
+     // this.buildingSaveViewModel.createdDate = this.buildingViewModel.createdDate;
     }
   }
 

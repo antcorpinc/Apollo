@@ -1,5 +1,6 @@
 ﻿using Apollo.Data.Interface;
 using Apollo.Domain.Entity.Society;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,12 @@ namespace Apollo.Data.DataRepository
         public Task<Flat> UpdateAsync(Flat updatedEntity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> IsFlatInInSocietyBuildingExistsAsync(Guid societyId, Guid buildingId, Guid flatId)
+        {
+             return await _context.Flat.AnyAsync(f =>
+                         f.SocietyId == societyId &&  f.BuildingId == buildingId && f.Id == flatId);
         }
     }
 }

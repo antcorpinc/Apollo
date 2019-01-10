@@ -10,4 +10,5 @@ export class BuildingViewModel implements IObjectWithState {
   description: string;
   createdBy: string;
   updatedBy: string;
+  createdDate?: Date;
 }

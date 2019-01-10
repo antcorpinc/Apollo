@@ -27,4 +27,10 @@ export class BuildingDataService {
       `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings`,
        building);
   }
+  updateBuildingInSociety(societyId: string, buildingId: string, building: BuildingViewModel) {
+    return this.authenticatedHttpService.put(
+      `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings/${buildingId}`,
+       building
+    );
+  }
 }

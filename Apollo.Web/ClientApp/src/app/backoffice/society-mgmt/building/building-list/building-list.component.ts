@@ -24,6 +24,8 @@ export class BuildingListComponent implements OnInit {
   create = CONSTANTS.operation.create;
   read = CONSTANTS.operation.read;
   operation: string;
+  societyOperation: string;
+  societyId: string;
 
   privileges: string[];
   deleteAction = false;
@@ -35,6 +37,9 @@ export class BuildingListComponent implements OnInit {
     private userProfileService: UserProfileService) { }
 
   ngOnInit() {
+    this.societyOperation = this.activatedRoute.snapshot.paramMap.get('operation');
+    this.societyId = this.activatedRoute.snapshot.paramMap.get('id');
+
     this.getBuildings();
     this.getPrivileges();
   }
@@ -74,5 +79,15 @@ export class BuildingListComponent implements OnInit {
   }
 
   goToBuilding(value) {
+    const val = value.split(':');
+    const buildingId = val[0];
+    this.operation = val[1];
+ //    this.router.navigate(['../../society', this.societyId, this.societyOperation, 'building',
+ //     buildingId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
+
+    this.router.navigate(['/auth/bo/societymgmt/society', this.societyId,
+     this.societyOperation, 'building', buildingId, this.operation], { relativeTo: this.activatedRoute });
+
+
   }
 }
