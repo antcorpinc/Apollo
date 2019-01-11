@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../common/material/material.module';
 import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-shared.module';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { SocietyUserListComponent } from './society-user/society-user-list/society-user-list.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     BackofficeSharedModule,
 
   ],
-  declarations: [ routedUserComponents, ConfirmDialogComponent],
+  declarations: [ routedUserComponents, ConfirmDialogComponent, SocietyUserListComponent],
   entryComponents: [ConfirmDialogComponent]
 })
 export class UserMgmtModule { }
