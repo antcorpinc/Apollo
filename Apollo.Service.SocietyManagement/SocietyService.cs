@@ -16,10 +16,16 @@ namespace Apollo.Service.SocietyManagement
     public class SocietyService : ISocietyService
     {
         private ISocietyRepository _societyRepository;
-        public SocietyService(ISocietyRepository societyRepository)
+        private ICustomSocietyRepository _customSocietyRepository;
+        public SocietyService(ISocietyRepository societyRepository, 
+            ICustomSocietyRepository customSocietyRepository)
         {
             _societyRepository = societyRepository ??
-                throw new ArgumentNullException(nameof(societyRepository)); ;
+                throw new ArgumentNullException(nameof(societyRepository));
+
+            _customSocietyRepository = customSocietyRepository ??
+                throw new ArgumentNullException(nameof(customSocietyRepository));
+
         }
 
         public async Task<ServiceResponse<Society>> CreateSociety(Society society)
@@ -153,6 +159,22 @@ namespace Apollo.Service.SocietyManagement
             return response;
         }
 
-        
+        public async Task<ServiceResponse<List<SocietyListItem>>> GetSocietiesWithCustomSearchAsync(string customSearch)
+        {
+            var response = new ServiceResponse<List<SocietyListItem>>();
+            if(String.IsNullOrEmpty(customSearch))
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "No Search Criteria provided "));
+                return response;
+            }
+            var societies = await this._customSocietyRepository.GetSocietiesWithCustomSearchAsync(customSearch);
+            if(societies ==null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any results"));
+                return response;
+            }
+            response.Data = societies;
+            return response;
+        }
     }
 }

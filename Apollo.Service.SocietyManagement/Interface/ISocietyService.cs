@@ -23,5 +23,6 @@ namespace Apollo.Service.SocietyManagement.Interface
         Task<ServiceResponse<List<Flat>>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId);
         Task<ServiceResponse<Flat>> GetFlatInSocietyBuildingAsync
             (Guid societyId, Guid buildingId, Guid flatId);
+        Task<ServiceResponse<List<SocietyListItem>>> GetSocietiesWithCustomSearchAsync(string customSearch);
     }
 }

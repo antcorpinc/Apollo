@@ -148,6 +148,6 @@ namespace Apollo.Data.DataRepository
         {
             return await _context.Building.AnyAsync
                 (b => b.SocietyId== societyId && b.Id == buildingId);
-        }
+        }        
     }
 }

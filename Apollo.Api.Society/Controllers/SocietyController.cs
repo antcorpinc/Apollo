@@ -83,5 +83,21 @@ namespace Apollo.Api.Society.Controllers
             }
             return BadRequest(response.ErrorMessages);            
         }
+
+        [Route("custom")]
+        [HttpGet]
+        public async Task<IActionResult> GetSocietiesWithCustomSearch(string customSearch)
+        {
+            if(String.IsNullOrEmpty(customSearch))
+            {
+                return BadRequest();
+            }
+            var response = await this._societyService.GetSocietiesWithCustomSearchAsync(customSearch);
+            if(response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+        }
     }
 }

@@ -14,6 +14,6 @@ namespace Apollo.Data.Interface
         Task<Building> GetBuildingInSocietyAsync(Guid societyId, Guid buildingId);
         Task<List<Flat>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId);
         Task<Flat> GetFlatInSocietyBuildingAsync(Guid societyId, Guid buildingId, Guid flatId);
-        Task<bool> IsBuildingExistsAsync(Guid societyId, Guid buildingId);
+        Task<bool> IsBuildingExistsAsync(Guid societyId, Guid buildingId);        
     }
 }
