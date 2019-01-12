@@ -10,14 +10,14 @@ namespace Apollo.Domain.DTO.Society
 {
     // Info: This is prpjection class - Refer Ben Cull Blog for details
     // https://benjii.me/2018/01/expression-projection-magic-entity-framework-core/
-    public class SocietyListItem: BaseModelWithActive, IIdentifiableModel<Guid>
+    public class SocietyListItem: IIdentifiableModel<Guid>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Area { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-
+       
         public static Expression<Func<Domain.Entity.Society.Society, SocietyListItem>> Projection
         {
             get
@@ -29,7 +29,7 @@ namespace Apollo.Domain.DTO.Society
                     Area = x.Area.Name,
                     City = x.City.Name,
                     State = x.State.Name,
-                    IsActive = x.IsActive.Value,        
+                    
                 };
             }
         }

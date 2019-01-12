@@ -1,3 +1,22 @@
-<p>
-  society-user-list works!
-</p>
+<div>
+  <mat-toolbar color="primary">
+    <span class="title">Society: Users</span>
+  </mat-toolbar>
+</div>
+
+<div class="row">
+  <div class="col">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Society Name" [formControl]="societyName"
+       [matAutocomplete]="auto" required>
+       <mat-autocomplete #auto="matAutocomplete" >
+         <mat-option *ngFor="let society of societyList$ | async"
+         [value]="society.name" (onSelectionChange)="search($event, society)">
+          {{society.name}}, {{society.city}} , {{society.area}}
+
+        </mat-option>
+      </mat-autocomplete>
+     <!--  <pre> {{societyList$ | async | json}}</pre> -->
+    </mat-form-field>
+  </div>
+</div>

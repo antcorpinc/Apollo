@@ -36,6 +36,11 @@ export class SocietyDataService {
     return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.societyApi
       + 'api/society/update/', society);
   }
+  getSocietiesByCustomSearch(customSearch: string): Observable<SocietyListViewModel[]> {
+    return this.authenticatedHttpService.get(
+      `${this.configurationService.config.baseUrls.societyApi}api/society/custom?customSearch=${customSearch}`
+      );
+  }
 
   getSocietyById(societyId: string): Observable<SocietyViewModel> {
     return this.authenticatedHttpService.get(
