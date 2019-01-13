@@ -11,9 +11,12 @@ namespace Apollo.Api.Society.Controllers
     public class FlatController: BaseSocietyController
     {
         private readonly ISocietyService _societyService;
-        public FlatController(ISocietyService societyService)
+        private readonly IFlatService _flatService;
+
+        public FlatController(ISocietyService societyService, IFlatService flatService)
         {
             _societyService = societyService;
+            _flatService = flatService;
         }
 
         [HttpGet()]
@@ -24,7 +27,7 @@ namespace Apollo.Api.Society.Controllers
             {
                 return NotFound();
             }
-            var response = await this._societyService.GetFlatsInSocietyBuildingAsync(societyId, buildingId);
+            var response = await this._flatService.GetFlatsInSocietyBuildingAsync(societyId, buildingId);
             if (response.Successful)
             {
                 return Ok(response.Data);

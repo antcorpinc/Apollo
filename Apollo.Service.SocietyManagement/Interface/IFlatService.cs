@@ -10,5 +10,7 @@ namespace Apollo.Service.SocietyManagement.Interface
    public  interface IFlatService
     {
         Task<ServiceResponse<Flat>> CreateFlat(Guid societyId,Guid buildingId, FlatCreate flat);
+
+        Task<ServiceResponse<List<FlatListItem>>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId);
     }
 }

@@ -64,6 +64,7 @@ namespace Apollo.Api.Society
 
             services.AddScoped<IFlatService, FlatService>();
             services.AddScoped<IFlatRepository, FlatRepository>();
+            services.AddScoped<ICustomFlatRepository, CustomFlatRepository>();
 
             services.AddSwaggerGen(c =>
             {
