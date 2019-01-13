@@ -6,6 +6,7 @@ import { StateResolverService } from 'src/app/common/shared/services/resolver/st
 import { BuildingListComponent } from './building/building-list/building-list.component';
 import { BuildingsResolverService } from '../common/backoffice-shared/services/resolver/buildings-resolver.service';
 import { BuildingInfoComponent } from './building/building-info/building-info.component';
+import { FlatListComponent } from './flat/flat-list/flat-list.component';
 
 
 export const societyRoutes: Routes = [
@@ -22,6 +23,9 @@ export const societyRoutes: Routes = [
   },
   {
     path: 'society/:societyid/:societyoperation/building/:id/:operation', component: BuildingInfoComponent,
+  },
+  {
+    path: 'society/:societyid/:societyoperation/building/:id/:buildingoperation/flats', component: FlatListComponent,
   }
 ];
 

@@ -21,7 +21,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   create = CONSTANTS.operation.create;
   read = CONSTANTS.operation.read;
   operation: string;
-
+  societyOperation: string;
 
   societyId: string;
   buildingId: string;
@@ -37,7 +37,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.operation = this.activatedRoute.snapshot.paramMap.get('operation');
-
+    this.societyOperation = this.activatedRoute.snapshot.paramMap.get('societyoperation');
     this.societyId = this.activatedRoute.snapshot.paramMap.get('societyid');
     this.buildingId = this.activatedRoute.snapshot.paramMap.get('id');
     this.createFormModel();
@@ -73,6 +73,10 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   }
 
   onFlats() {
+    /* this.router.navigate(['/auth/bo/societymgmt/society', this.societyId, this.societyOperation, 'building',
+    this.buildingId, this.operation, 'flats' ],
+                         { relativeTo: this.activatedRoute }); */
+    this.router.navigate(['flats' ], { relativeTo: this.activatedRoute });
   }
   onSubmit() {
     if (this.buildingForm.valid) {
