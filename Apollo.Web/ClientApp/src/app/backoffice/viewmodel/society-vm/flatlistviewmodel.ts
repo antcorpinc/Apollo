@@ -2,6 +2,6 @@ export class FlatListViewModel  {
   id: string;
   isActive: boolean;
   name: string;
-  createdBy: string;
-  updatedBy: string;
+  createdBy?: string;
+  updatedBy?: string;
 }

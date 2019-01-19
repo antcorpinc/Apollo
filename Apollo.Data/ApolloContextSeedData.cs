@@ -1095,6 +1095,41 @@ namespace Apollo.Data
 
             // ~Add Building to society
 
+            // Add Flat to building Society
+            if (_context.Flat.Find(Guid.Parse("6CEF585D-F024-4201-8E26-4D5B0DA407FF")) == null)
+            {
+                Flat flat = new Flat()
+                {
+                    Id = new Guid("6CEF585D-F024-4201-8E26-4D5B0DA407FF"),
+                    Name = "C-1",
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    BuildingId = Guid.Parse("28C51862-A67B-4AEF-B4ED-0AD66CAECC19"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(flat);
+            }
+
+            if (_context.Flat.Find(Guid.Parse("EEEB33CF-40B9-4FA4-9277-445FB8C88FA6")) == null)
+            {
+                Flat flat = new Flat()
+                {
+                    Id = new Guid("EEEB33CF-40B9-4FA4-9277-445FB8C88FA6"),
+                    Name = "C-2",
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    BuildingId = Guid.Parse("28C51862-A67B-4AEF-B4ED-0AD66CAECC19"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(flat);
+            }
+            // ~Add Flat to building Society
 
             _context.SaveChanges();
         }

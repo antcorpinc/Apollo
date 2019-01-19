@@ -2,7 +2,7 @@
 <fw-side-nav *ngIf=" menuService.showingLeftSideMenu && !screenService.isLarge()">
 </fw-side-nav>
 
-<span *ngIf="showSpinner">
+<span class="spinner-active" *ngIf="showSpinner">
   <mat-spinner></mat-spinner>
 </span>
 
