@@ -18,7 +18,9 @@ using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using Apollo.Domain.Entity;
 using Microsoft.AspNetCore.Identity;
-
+using Apollo.Sts.Settings;
+using Microsoft.Extensions.Options;
+using Apollo.Sts.Configuration;
 
 namespace IdentityServer4.Quickstart.UI
 {
@@ -32,14 +34,15 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
-
+        private readonly AppSettings _appSettings;
         public AccountController(
             UserManager<ApolloUser> userManager,
             SignInManager<ApolloUser> signInManager,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events)
+            IEventService events,
+            IOptions<AppSettings> appSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -47,6 +50,7 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _appSettings = appSettings.Value;
         }
 
         /// <summary>
@@ -263,6 +267,11 @@ namespace IdentityServer4.Quickstart.UI
         private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            string forgotPassword = String.Empty;
+            if(context?.ClientId !=null)
+            {
+                forgotPassword = this.BuildForgotPasswordLink(context.ClientId);
+            }
             if (context?.IdP != null)
             {
                 // this is meant to short circuit the UI and only trigger the one external IdP
@@ -271,7 +280,8 @@ namespace IdentityServer4.Quickstart.UI
                     EnableLocalLogin = false,
                     ReturnUrl = returnUrl,
                     Username = context?.LoginHint,
-                    ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
+                    ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } },
+                    ForgotPasswordLink = forgotPassword
                 };
             }
 
@@ -308,7 +318,8 @@ namespace IdentityServer4.Quickstart.UI
                 EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
                 ReturnUrl = returnUrl,
                 Username = context?.LoginHint,
-                ExternalProviders = providers.ToArray()
+                ExternalProviders = providers.ToArray(),
+                ForgotPasswordLink = forgotPassword
             };
         }
 
@@ -537,6 +548,19 @@ namespace IdentityServer4.Quickstart.UI
 
         private void ProcessLoginCallbackForSaml2p(AuthenticateResult externalResult, List<Claim> localClaims, AuthenticationProperties localSignInProps)
         {
+        }
+
+        private string BuildForgotPasswordLink(string clientId)
+        {
+            if (string.Equals(clientId, Constants.ApolloClientId, StringComparison.OrdinalIgnoreCase))
+            {
+                return $"{_appSettings.BaseUrls.Web}Account/ForgotPassword";
+            }
+            else
+            {
+                return "";
+            }
+                
         }
     }
 }
