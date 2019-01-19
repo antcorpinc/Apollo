@@ -1,0 +1,35 @@
+.full-width-table {
+  width: 100%;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.active-status {
+  border-radius: 50%;
+  color: #03a83a;
+  margin-right: 0.5rem;
+}
+.title {
+
+  font-size: 0.9375rem;
+  vertical-align: middle;
+  font-weight: 500;
+  color:whitesmoke;
+}
+
+.sub-title {
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  color:turquoise;
+}
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+
+

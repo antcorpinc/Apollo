@@ -73,6 +73,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   }
 
   onFlats() {
+    this.buildingDataService.BuildingName = this.buildingViewModel.name;
     /* this.router.navigate(['/auth/bo/societymgmt/society', this.societyId, this.societyOperation, 'building',
     this.buildingId, this.operation, 'flats' ],
                          { relativeTo: this.activatedRoute }); */
