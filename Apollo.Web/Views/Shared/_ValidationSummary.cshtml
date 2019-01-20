@@ -1,0 +1,9 @@
+﻿@if (ViewContext.ModelState.IsValid == false)
+{
+    <div class="alert alert-danger">
+        <strong>Error</strong>
+        <div class="danger">
+            @Html.ValidationSummary()
+        </div>
+    </div>
+}
