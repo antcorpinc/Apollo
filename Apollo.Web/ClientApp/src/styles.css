@@ -17,6 +17,50 @@ body {
   padding-top: 1px;
 }
 
+/*** User Top Info ***/
+/* .user-container .mat-button-wrapper {
+  display: flex;
+  align-items: center;
+} */
+
+.user-dropdown {
+  position: relative;
+  top: 13px;
+  overflow: initial !important;
+  left: 47px;
+  width: 184px;
+}
+
+
+  .user-dropdown .mat-menu-item {
+    border-bottom: 1px solid #dcded9;
+    color: #004267;
+    font-size: 15px;
+    font-family: 'maven_promedium', sans-serif;
+  }
+
+  .user-dropdown .mat-menu-content:before {
+    top: -20px;
+    right: 9px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #fff;
+    border-width: 10px;
+  }
+
+  .user-dropdown .mat-menu-content {
+    margin: 0 4px;
+    padding: 6px 0;
+  }
+
+  .user-dropdown .mat-menu-item:last-child {
+    border: none;
+  }
+
 /* ToDO: Commented for now - W/o this animation doesn't work */
 /*  router-outlet ~ * {
   position: absolute;
