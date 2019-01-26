@@ -10,7 +10,7 @@
 </div>
 <div class="row">
   <div *ngIf='createAction'>
-    <button type="button" mat-raised-button >
+    <button type="button" mat-raised-button (click)="createFlat()" >
       <span>Create New Flat</span>
     </button>
   </div>

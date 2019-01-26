@@ -14,7 +14,10 @@ export class AuthenticatedHttpService {
   ) { }
 
       get(url): Observable<any> {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getAccessToken()}`);
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getAccessToken()}`)
+                                        .set('Cache-Control', 'no-store') // Related to no caching
+                                        .set('Expires', '0') // Related to no caching
+                                        .set('Pragma', 'no-cache'); // Related to no caching;
         return this._http.get(url , {headers: headers})
         .pipe(
           catchError(err => this.handleError(err))

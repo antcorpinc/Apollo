@@ -5,6 +5,7 @@ using Apollo.Service.SocietyManagement.Interface;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,24 @@ namespace Apollo.Service.SocietyManagement
                 throw new ArgumentNullException(nameof(customFlatRepository));
 
         }
-        public Task<ServiceResponse<Flat>> CreateFlat(Guid societyId, Guid buildingId, FlatCreate flat)
+        public async Task<ServiceResponse<Flat>> CreateFlat(Guid societyId, Guid buildingId, FlatCreate flat)
         {
-            throw new NotImplementedException();
+
+            var validator = new FlatCreateValidator();
+            var results = validator.Validate(flat);
+            var response = new ServiceResponse<Flat>();
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            var flatEntity = AutoMapper.Mapper.Map<Apollo.Domain.Entity.Society.Flat>(flat);
+            flatEntity.Id = Guid.NewGuid();
+            flatEntity.SocietyId = societyId;
+            flatEntity.BuildingId = buildingId;
+            var result = await this._flatRepository.AddAsync(flatEntity);
+            response.Data = AutoMapper.Mapper.Map<Apollo.Domain.DTO.Society.Flat>(result);
+            return response;           
         }
 
         public async Task<ServiceResponse<List<FlatListItem>>> GetFlatsInSocietyBuildingAsync(Guid societyId, Guid buildingId)

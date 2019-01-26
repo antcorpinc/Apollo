@@ -97,9 +97,12 @@ namespace Apollo.Data.DataRepository
             return (await _context.SaveChangesAsync()) >= 0;
         }
 
-        public Task<Flat> UpdateAsync(Flat updatedEntity)
+        public async Task<Flat> UpdateAsync(Flat updatedEntity)
         {
-            throw new NotImplementedException();
+            _context.Flat.Attach(updatedEntity); // Do we need this?
+            _context.ApplyStateChanges();
+            await _context.SaveChangesAsync();
+            return updatedEntity;
         }
 
         public async Task<bool> IsFlatInInSocietyBuildingExistsAsync(Guid societyId, Guid buildingId, Guid flatId)

@@ -1,3 +1,28 @@
-<p>
-  flat-info works!
-</p>
+<form [formGroup]="flatForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="flat-card">
+    <mat-card-header>
+      <mat-card-title>Flat</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <span>Building Status </span>
+          <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput #name placeholder="Name" formControlName="name" required>
+            <mat-hint align="end">{{name.value.length}} / 200</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button mat-raised-button color="accent"  type="button" (click)="onCancel()">Cancel</button>
+
+      </mat-card-actions>
+  </mat-card>
+</form>

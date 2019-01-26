@@ -9,6 +9,7 @@ export let InfoMessages = {
   userUpdationMessage: 'User has been updated successfully',
   societyCreationMessage: 'New society is created successfully',
   buildingCreationMessage: 'New building is created successfully',
+  flatCreationMessage: 'New flat is created successfully',
   applicationRoleDeletionMessage: 'Are you sure you want to delete this application role?',
   confirmCancelMessage: 'If you cancel, the current data will be lost'
 };

@@ -8,6 +8,7 @@ import { BuildingsResolverService } from '../common/backoffice-shared/services/r
 import { BuildingInfoComponent } from './building/building-info/building-info.component';
 import { FlatListComponent } from './flat/flat-list/flat-list.component';
 import { FlatsResolverService } from '../common/backoffice-shared/services/resolver/flats-resolver.service';
+import { FlatInfoComponent } from './flat/flat-info/flat-info.component';
 
 
 export const societyRoutes: Routes = [
@@ -28,6 +29,11 @@ export const societyRoutes: Routes = [
   {
     path: 'society/:societyid/:societyoperation/building/:id/:operation/flats', component: FlatListComponent,
     resolve: {flats: FlatsResolverService}
+  },
+
+  {
+    path: 'society/:societyid/:societyoperation/building/:buildingid/:buildingoperation/flat/:id/:operation',
+     component: FlatInfoComponent
   }
 ];
 

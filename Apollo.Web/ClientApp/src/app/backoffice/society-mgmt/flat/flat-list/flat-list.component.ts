@@ -80,11 +80,15 @@ export class FlatListComponent implements OnInit {
 
   goToFlat(value) {
     const val = value.split(':');
- //   const buildingId = val[0];
+    const flatId = val[0];
     this.operation = val[1];
- //    this.router.navigate(['/auth/bo/societymgmt/society', this.societyId,
- //    this.societyOperation, 'building', buildingId, this.operation], { relativeTo: this.activatedRoute });
+     this.router.navigate(['/auth/bo/societymgmt/society', this.societyId, this.societyOperation,
+      'building', this.buildingId, this.buildingOperation, 'flat', flatId, this.operation ]
+      , { relativeTo: this.activatedRoute });
+  }
 
-
+  createFlat() {
+     this.router.navigate(['../flat', CONSTANTS.create.id, this.create],
+    { relativeTo: this.activatedRoute });
   }
 }

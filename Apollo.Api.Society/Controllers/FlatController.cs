@@ -1,4 +1,5 @@
-﻿using Apollo.Service.SocietyManagement.Interface;
+﻿using Apollo.Domain.DTO.Society;
+using Apollo.Service.SocietyManagement.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Apollo.Api.Society.Controllers
             return BadRequest(response.ErrorMessages);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetFlatInSocietyBuilding")]
         public async Task<IActionResult> GetFlatInSocietyBuilding(Guid societyId, Guid buildingId, Guid id)
         {
             var exists = await this._societyService.IsBuildingExistsAsync(societyId, buildingId);
@@ -48,6 +49,34 @@ namespace Apollo.Api.Society.Controllers
             {
                 return Ok(response.Data);
             }
+            return BadRequest(response.ErrorMessages);
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> Create(Guid societyId, Guid buildingId, [FromBody] FlatCreate flat)
+        {
+            if (flat == null)
+            {
+                return BadRequest();
+            }
+            var exists = await this._societyService.IsBuildingExistsAsync(societyId, buildingId);
+            if (!exists)
+            {
+                return NotFound();
+            }
+            flat.CreatedBy = this.LoggedInUserId;
+            flat.CreatedDate = DateTime.UtcNow;
+            flat.UpdatedBy = this.LoggedInUserId;
+            flat.UpdatedDate = DateTime.UtcNow;
+            var response = await this._flatService.CreateFlat(societyId, buildingId, flat);
+            if (response.Successful)
+            {
+                // return Ok(response.Data);
+                return CreatedAtRoute("GetFlatInSocietyBuilding",
+                new { societyId = societyId, buildingId = buildingId,  id = response.Data.Id },
+                response.Data);
+            }
+
             return BadRequest(response.ErrorMessages);
         }
     }
