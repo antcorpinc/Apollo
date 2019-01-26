@@ -30,4 +30,11 @@ export class FlatDataService {
         `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings/${buildingId}/flats`,
         flat);
     }
+
+    updateFlatInSocietyBuilding(societyId: string, buildingId: string, flatId: string, flat: FlatViewModel) {
+      return this.authenticatedHttpService.put(
+        `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings/${buildingId}/flats/${flatId}`,
+        flat
+      );
+    }
 }

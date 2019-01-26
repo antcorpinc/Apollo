@@ -56,5 +56,29 @@ namespace Apollo.Service.SocietyManagement
             response.Data = flats;
             return response;
         }
+
+        public async Task<bool> IsFlatInSocietyBuildingExistsAsync(Guid societyId, Guid buildingId, Guid flatId)
+        {
+            return await this._flatRepository.IsFlatInInSocietyBuildingExistsAsync(societyId, buildingId, flatId);
+        }
+
+        public async Task<ServiceResponse<Flat>> UpdateFlatAsync(Guid societyId, Guid buildingId, Guid flatId, FlatUpdate flat)
+        {
+            var validator = new FlatUpdateValidator();
+            var results = validator.Validate(flat);
+            var response = new ServiceResponse<Flat>();
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            var updatedEntity = AutoMapper.Mapper.Map<Apollo.Domain.Entity.Society.Flat>(flat);
+            updatedEntity.Id = flatId;
+            updatedEntity.SocietyId = societyId;
+            updatedEntity.BuildingId = buildingId;
+            var result = await this._flatRepository.UpdateAsync(updatedEntity);
+            response.Data = AutoMapper.Mapper.Map<Apollo.Domain.DTO.Society.Flat>(result);
+            return response;
+        }
     }
 }

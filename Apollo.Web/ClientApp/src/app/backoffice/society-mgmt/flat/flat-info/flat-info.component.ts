@@ -103,6 +103,20 @@ export class FlatInfoComponent implements OnInit, OnDestroy {
               console.log('Error' + error);
             });
             this.subscriptions.push(subscription);
+      } else if (this.operation === this.edit) {
+        const subscription = this.flatDataService.updateFlatInSocietyBuilding(this.societyId,
+          this.buildingId, this.flatId , this.flatSaveViewModel).subscribe(data => {
+          this.snackBar.open(InfoMessages.flatUpdateMessage, '', {
+            duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+            politeness: 'polite', panelClass: 'showSnackBar'
+          });
+          this.router.navigate(['/auth/bo/societymgmt/societies'],
+            { relativeTo: this.activatedRoute });
+        },
+          (error) => {
+            console.log('Error' + error);
+          });
+          this.subscriptions.push(subscription);
       }
     }
   }

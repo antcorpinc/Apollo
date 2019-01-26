@@ -83,6 +83,14 @@ namespace Apollo.Api.Society.MappingConfig
                .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
                .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
                .ForMember(des => des.ObjectState, opt => opt.MapFrom(s => s.ObjectState));
+
+            CreateMap<Domain.DTO.Society.FlatUpdate, Domain.Entity.Society.Flat>()
+               .ForMember(des => des.Name, opt => opt.MapFrom(s => s.Name))
+               .ForMember(des => des.IsActive, opt => opt.MapFrom(s => s.IsActive))
+               .ForMember(des => des.ObjectState, opt => opt.MapFrom(s => s.ObjectState))
+               .ForMember(des => des.CreatedBy, opt => opt.MapFrom(s => s.CreatedBy))
+               .ForMember(des => des.CreatedDate, opt => opt.MapFrom(s => s.CreatedDate));
+
         }
     }
 }

@@ -52,6 +52,31 @@ namespace Apollo.Api.Society.Controllers
             return BadRequest(response.ErrorMessages);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid societyId, Guid buildingId, Guid id,
+            [FromBody] FlatUpdate flat)
+        {
+            if (flat == null)
+            {
+                return BadRequest();
+            }
+            
+            var flatExists = await this._flatService.IsFlatInSocietyBuildingExistsAsync(societyId, buildingId, id);
+            if (!flatExists)
+            {
+                return NotFound();
+            }
+            flat.UpdatedBy = this.LoggedInUserId;
+            flat.UpdatedDate = DateTime.UtcNow;
+            var response = await this._flatService.UpdateFlatAsync(societyId, buildingId, id, flat);
+
+            if (response.Successful)
+            {
+                return NoContent();               
+            }
+            return BadRequest(response.ErrorMessages);
+        }
+
         [HttpPost()]
         public async Task<IActionResult> Create(Guid societyId, Guid buildingId, [FromBody] FlatCreate flat)
         {
