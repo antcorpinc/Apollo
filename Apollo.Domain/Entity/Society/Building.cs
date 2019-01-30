@@ -14,6 +14,7 @@ namespace Apollo.Domain.Entity.Society
         public Building()
         {
             Flats = new HashSet<Flat>();
+            SocietyUsers = new HashSet<SocietyUser>();
         }
 
         public Guid Id { get; set; }
@@ -42,6 +43,8 @@ namespace Apollo.Domain.Entity.Society
         public Society Society { get; set; }
 
         public ICollection<Flat> Flats { get; set; }
-        
+
+        public ICollection<SocietyUser> SocietyUsers { get; set; }
+
     }
 }

@@ -39,4 +39,9 @@ export class UserDataService {
     return this.authenticatedHttpService.get(
     `${this.configurationService.config.baseUrls.userMgmtApi}api/supportuser/${userId}`);
   }
+
+  getUsersInSociety(societyId: string) {
+    return this.authenticatedHttpService.get(`${this.configurationService.config.baseUrls.userMgmtApi}
+    api/societyusers/getusersinsociety?societyId=${societyId}`);
+  }
 }

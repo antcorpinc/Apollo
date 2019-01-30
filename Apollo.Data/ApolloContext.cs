@@ -66,7 +66,12 @@ namespace Apollo.Data
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AspNetUserTokens", "Security");
             // ~The below AspIdentity Tables are not used , however they need to be created
 
-            
+            builder.Entity<SocietyUser>().HasOne(su => su.Society).WithMany(s => s.SocietyUsers).OnDelete(DeleteBehavior.Restrict) ;
+            builder.Entity<SocietyUser>().HasOne(su => su.Building).WithMany(b => b.SocietyUsers).OnDelete(DeleteBehavior.Restrict); ;
+            builder.Entity<SocietyUser>().HasOne(su => su.Flat).WithOne(f => f.SocietyUser).OnDelete(DeleteBehavior.Restrict);
+
+
+
         }
     }
 }

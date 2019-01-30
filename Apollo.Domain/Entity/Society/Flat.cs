@@ -48,5 +48,7 @@ namespace Apollo.Domain.Entity.Society
         [ForeignKey("BuildingId")]
         public Building Building { get; set; }
 
+        public SocietyUser SocietyUser { get; set; }
+
     }
 }

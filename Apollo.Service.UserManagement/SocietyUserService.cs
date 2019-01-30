@@ -1,6 +1,7 @@
 ﻿using Apollo.Core.Common;
 using Apollo.Data.Interface;
 using Apollo.Domain.DTO;
+using Apollo.Domain.DTO.User;
 using Apollo.Domain.Entity;
 using Apollo.Service.UserManagement.Interface;
 using FluentValidation.Results;
@@ -16,9 +17,12 @@ namespace Apollo.Service.UserManagement
     public class SocietyUserService: ISocietyUserService
     {
         private IUserRepository _userRepository;
-        public SocietyUserService(IUserRepository userRepository)
+        private ICustomSocietyUserRepository _customSocietyUserRepository;
+        public SocietyUserService(IUserRepository userRepository,
+            ICustomSocietyUserRepository customSocietyUserRepository)
         {
             _userRepository = userRepository;
+            _customSocietyUserRepository = customSocietyUserRepository;
         }
 
         public async Task<ServiceResponse<Apollo.Domain.DTO.SocietyUser>> CreateUserAsync(Domain.DTO.SocietyUserCreate userCreate)
@@ -97,6 +101,19 @@ namespace Apollo.Service.UserManagement
         public List<ApolloUser> GetAllUsers()
         {
             return _userRepository.FindSupportUsers(user => user.UserTypeId == (int)Domain.Enum.UserType.SocietyUser).ToList();
+        }
+
+        public async Task<ServiceResponse<List<SocietyUserListItem>>> GetUsersForSocietyAsync(Guid societyId)
+        {
+            var response = new ServiceResponse<List<SocietyUserListItem>>();
+            var societyUsers = await this._customSocietyUserRepository.GetSocietyUsersAsync(societyId);
+            if (societyUsers == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any results"));
+                return response;
+            }
+            response.Data = societyUsers;
+            return response;
         }
     }
 }

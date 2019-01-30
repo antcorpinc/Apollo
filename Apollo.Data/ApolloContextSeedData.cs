@@ -58,7 +58,7 @@ namespace Apollo.Data
                 _context.Add(userType);
             }
             // Adding Roles 
-            // For now add Apollo role 
+            // BackOffice Roles
 
             if (await _roleManager.FindByNameAsync("SuperAdmin") == null)
             {
@@ -79,7 +79,9 @@ namespace Apollo.Data
 
                 if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
             }
+            // ~BackOffice Roles
 
+            // Society Roles
             if (await _roleManager.FindByNameAsync("SocietyAdmin") == null)
             {
                 var role = new ApolloRole()
@@ -99,8 +101,81 @@ namespace Apollo.Data
 
                 if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
             }
+            if (await _roleManager.FindByNameAsync("Chairman") == null)
+            {
+                var role = new ApolloRole()
+                {
+                    Id = new Guid("BFD644BE-06F3-4BE2-BEEE-65CF076757CE"),
+                    Name = "Chairman",
+                    UserTypeId = (int)Domain.Enum.UserType.SocietyUser,
+                    Description = "This role is for the chairman of the society",
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                var result = await _roleManager.CreateAsync(role);
+                if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+            }
 
+            if (await _roleManager.FindByNameAsync("Secretary") == null)
+            {
+                var role = new ApolloRole()
+                {
+                    Id = new Guid("97759E87-EDC5-4F73-9192-BD4493F6CED2"),
+                    Name = "Secretary",
+                    UserTypeId = (int)Domain.Enum.UserType.SocietyUser,
+                    Description = "This role is for the secretary of the society",
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                var result = await _roleManager.CreateAsync(role);
+                if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+            }
+
+            if (await _roleManager.FindByNameAsync("Treasurer") == null)
+            {
+                var role = new ApolloRole()
+                {
+                    Id = new Guid("BFC9F5CA-AFE7-4679-8000-AD42D5A8F7B6"),
+                    Name = "Treasurer",
+                    UserTypeId = (int)Domain.Enum.UserType.SocietyUser,
+                    Description = "This role is for the treasurer of the society",
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                var result = await _roleManager.CreateAsync(role);
+
+                if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+            }
+
+            if (await _roleManager.FindByNameAsync("CommitteeMember") == null)
+            {
+                var role = new ApolloRole()
+                {
+                    Id = new Guid("324751F9-EF0E-487A-BA85-96A8C5F1531C"),
+                    Name = "CommitteeMember",
+                    UserTypeId = (int)Domain.Enum.UserType.SocietyUser,
+                    Description = "This role is for the Committee members of the society",
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+
+                var result = await _roleManager.CreateAsync(role);
+
+                if (!result.Succeeded) throw new InvalidProgramException("Failed to create seed role");
+            }
+            // ~Society Roles
+
+            // ~ Adding Roles 
             // Add Users 
+            // Add BackOffice Users
             if (await _userManager.FindByNameAsync("ronithomas@gmail.com") == null)
             {
                 var user = new ApolloUser()
@@ -122,6 +197,29 @@ namespace Apollo.Data
                 };
                 await _userManager.CreateAsync(user, "DDdd@1234");
             }
+            //~ Add BackOffice Users
+
+            // Add Society Users
+            if (await _userManager.FindByNameAsync("agarwal@gmail.com") == null)
+            {
+                var user = new ApolloUser()
+                {
+                    Id = new Guid("9223B76F-A670-4E8C-849B-36813A526F1F"),
+                    IsActive = true,
+                    Email = "agarwal@gmail.com",
+                    FirstName = "Bunty",
+                    LastName = "Agarwal",
+                    PhoneNumber = "214-529-2634",
+                    UserName = "agarwal@gmail.com",
+                    UserTypeId = (int)Domain.Enum.UserType.SocietyUser,
+                    CreatedBy = "SystemAdmin",
+                    UpdatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                await _userManager.CreateAsync(user, "DDdd@1234");
+            }
+            // ~Add Society Users
 
             // Add Applications
             if (_context.Application.Find(Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97")) == null)
@@ -960,7 +1058,45 @@ namespace Apollo.Data
             }
 
 
+
             // ~ // Add UserAppRoleMapping
+
+            //  Add UserAppRoleMapping For Society Users
+
+            if (_context.UserAppRoleMapping.Find(Guid.Parse("55F1B9CD-6C1E-46F7-AA14-1DA3640CEA15")) == null)
+            {
+                UserAppRoleMapping usrAppRoleMapping = new UserAppRoleMapping()
+                {
+                    Id = new Guid("55F1B9CD-6C1E-46F7-AA14-1DA3640CEA15"),
+                    RoleId = Guid.Parse("BFD644BE-06F3-4BE2-BEEE-65CF076757CE"),
+                    UserId = Guid.Parse("9223B76F-A670-4E8C-849B-36813A526F1F"),
+                    ApplicationId = Guid.Parse("664EAA01-3C48-42BE-9194-86879AD0A712"),
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(usrAppRoleMapping);
+            }
+
+            //  ~Add UserAppRoleMapping For Society Users
+
+            // Add Society Users
+            if (_context.SocietyUser.Find(Guid.Parse("3F2E119D-8363-41BF-9F55-C961D38C3EE7")) == null)
+            {
+                SocietyUser societyUser = new SocietyUser()
+                {
+                    Id = new Guid("3F2E119D-8363-41BF-9F55-C961D38C3EE7"),
+                    UserId = Guid.Parse("9223B76F-A670-4E8C-849B-36813A526F1F"),
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    BuildingId= Guid.Parse("28C51862-A67B-4AEF-B4ED-0AD66CAECC19"),
+                    FlatId = Guid.Parse("6CEF585D-F024-4201-8E26-4D5B0DA407FF")
+                };
+                _context.Add(societyUser);
+            }
+            // ~Add Society Users
 
             // Add States
 
@@ -1130,6 +1266,73 @@ namespace Apollo.Data
                 _context.Add(flat);
             }
             // ~Add Flat to building Society
+
+            // Add Society Roles
+            if (_context.SocietyRole.Find(Guid.Parse("595748BB-E293-4EB7-B06A-CA195622C91D")) == null)
+            {
+                SocietyRole societyRole = new SocietyRole()
+                {
+                    Id = new Guid("595748BB-E293-4EB7-B06A-CA195622C91D"),
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    RoleId = Guid.Parse("BFD644BE-06F3-4BE2-BEEE-65CF076757CE"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(societyRole);
+            }
+
+            if (_context.SocietyRole.Find(Guid.Parse("BBBF3B6E-17F6-4583-AB7E-1DB25D9885BA")) == null)
+            {
+                SocietyRole societyRole = new SocietyRole()
+                {
+                    Id = new Guid("BBBF3B6E-17F6-4583-AB7E-1DB25D9885BA"),
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    RoleId = Guid.Parse("A5BE6F05-7D89-4532-A275-85F6919A637F"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(societyRole);
+            }
+
+            if (_context.SocietyRole.Find(Guid.Parse("755BBACD-A515-465B-8D5C-612BEBDE1C9A")) == null)
+            {
+                SocietyRole societyRole = new SocietyRole()
+                {
+                    Id = new Guid("755BBACD-A515-465B-8D5C-612BEBDE1C9A"),
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    RoleId = Guid.Parse("BFC9F5CA-AFE7-4679-8000-AD42D5A8F7B6"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(societyRole);
+            }
+
+            if (_context.SocietyRole.Find(Guid.Parse("DF7643EB-4D08-4F5A-A8A8-1C14E37BA8F1")) == null)
+            {
+                SocietyRole societyRole = new SocietyRole()
+                {
+                    Id = new Guid("DF7643EB-4D08-4F5A-A8A8-1C14E37BA8F1"),
+                    SocietyId = Guid.Parse("8CC7051B-3B2B-4685-8B18-B18DE5EE1F82"),
+                    RoleId = Guid.Parse("97759E87-EDC5-4F73-9192-BD4493F6CED2"),
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(societyRole);
+            }
+
+            // ~Add Society Roles
 
             _context.SaveChanges();
         }

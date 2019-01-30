@@ -4,14 +4,16 @@ using Apollo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Apollo.Data.Migrations
 {
     [DbContext(typeof(ApolloContext))]
-    partial class ApolloContextModelSnapshot : ModelSnapshot
+    [Migration("20190127091546_societyuserupdates")]
+    partial class societyuserupdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -573,9 +575,6 @@ namespace Apollo.Data.Migrations
 
                     b.HasIndex("BuildingId");
 
-                    b.HasIndex("FlatId")
-                        .IsUnique();
-
                     b.HasIndex("SocietyId");
 
                     b.HasIndex("UserId")
@@ -875,11 +874,6 @@ namespace Apollo.Data.Migrations
                     b.HasOne("Apollo.Domain.Entity.Society.Building", "Building")
                         .WithMany("SocietyUsers")
                         .HasForeignKey("BuildingId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Apollo.Domain.Entity.Society.Flat", "Flat")
-                        .WithOne("SocietyUser")
-                        .HasForeignKey("Apollo.Domain.Entity.SocietyUser", "FlatId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Apollo.Domain.Entity.Society.Society", "Society")

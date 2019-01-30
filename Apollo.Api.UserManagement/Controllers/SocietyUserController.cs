@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Apollo.Api.UserManagement.Controllers
 {
-    [Route("api/societyuser")]
+    [Route("api/societyusers")]
     public class SocietyUserController: BaseUserController
     {
         private readonly ISocietyUserService _userService;
@@ -33,6 +33,20 @@ namespace Apollo.Api.UserManagement.Controllers
             var password = string.IsNullOrEmpty(user.Password) ? "DDdd@1234" : user.Password;
             user.Password = password;
             return Ok(this._userService.CreateUserAsync(user));
+        }
+
+        [Route("getusersinsociety")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsersInSociety(Guid societyId)
+        {
+            // Todo First check that the logged in user is of support user type if yes then only let him call the below
+            var societyUserList = await this._userService.GetUsersForSocietyAsync(societyId);
+            if (societyUserList == null)
+            {
+                return NotFound();
+            }
+            // return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
+            return Ok(societyUserList);
         }
     }
 }

@@ -32,6 +32,7 @@ export class SocietyUserListComponent implements OnInit {
   search(event, data) {
     if (event.source.selected) {
       // Get the Users for the society -- Do we also need to get the Building for society ??
+      // May be no need since in users list we'll also get the building and flat and can sort by building?
     }
   }
 

@@ -1,4 +1,5 @@
 ﻿using Apollo.Core.Common;
+using Apollo.Domain.DTO.User;
 using Apollo.Domain.Entity;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -13,5 +14,7 @@ namespace Apollo.Service.UserManagement.Interface
         List<ApolloUser> GetAllUsers();
 
         Task<ServiceResponse<Apollo.Domain.DTO.SocietyUser>> CreateUserAsync(Apollo.Domain.DTO.SocietyUserCreate user);
+
+        Task<ServiceResponse<List<SocietyUserListItem>>> GetUsersForSocietyAsync(Guid societyId);
     }
 }
