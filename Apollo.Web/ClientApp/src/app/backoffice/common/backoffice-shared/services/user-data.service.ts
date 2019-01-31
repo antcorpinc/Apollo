@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { SupportUserListViewModel } from '../../../viewmodel/user-mgmt-vm/supportuserlistviewmodel';
 import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
+import { SocietyUserListViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserlistviewmodel';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,8 +41,8 @@ export class UserDataService {
     `${this.configurationService.config.baseUrls.userMgmtApi}api/supportuser/${userId}`);
   }
 
-  getUsersInSociety(societyId: string) {
-    return this.authenticatedHttpService.get(`${this.configurationService.config.baseUrls.userMgmtApi}
-    api/societyusers/getusersinsociety?societyId=${societyId}`);
+  getUsersInSociety(societyId: string): Observable<SocietyUserListViewModel[]> {
+    // tslint:disable-next-line:max-line-length
+    return this.authenticatedHttpService.get(`${this.configurationService.config.baseUrls.userMgmtApi}api/societyusers/getusersinsociety?societyId=${societyId}`);
   }
 }
