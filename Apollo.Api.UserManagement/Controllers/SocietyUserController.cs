@@ -40,13 +40,12 @@ namespace Apollo.Api.UserManagement.Controllers
         public async Task<IActionResult> GetUsersInSociety(Guid societyId)
         {
             // Todo First check that the logged in user is of support user type if yes then only let him call the below
-            var societyUserList = await this._userService.GetUsersForSocietyAsync(societyId);
-            if (societyUserList == null)
+            var response = await this._userService.GetUsersForSocietyAsync(societyId);
+            if (response.Successful)
             {
-                return NotFound();
+                return Ok(response.Data);
             }
-            // return Ok(Mapper.Map<IEnumerable<Apollo.Domain.DTO.SupportUserList>>(supportUserList));
-            return Ok(societyUserList);
+            return BadRequest(response.ErrorMessages);
         }
     }
 }

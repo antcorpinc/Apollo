@@ -1,3 +1,5 @@
+import { ApplicationRoleViewModel } from './applicationroleviewmodel';
+
 export class SocietyUserListViewModel {
   id: string;
   firstName: string;
@@ -8,5 +10,5 @@ export class SocietyUserListViewModel {
   societyName: string;
   buildingName: string;
   flatName: string;
- // userApplicationRole: ApplicationRoleViewModel[]; ?? Do we need this for society user role ?
+  userApplicationRole: ApplicationRoleViewModel[];
 }

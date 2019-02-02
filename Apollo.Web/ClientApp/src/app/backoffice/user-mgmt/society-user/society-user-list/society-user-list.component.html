@@ -20,3 +20,82 @@
     </mat-form-field>
   </div>
 </div>
+
+ <div class="mat-elevation-z8">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+    </ng-container>
+
+
+     <ng-container matColumnDef="userAppRoles">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Role </th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngFor="let c of row.userAppRoles">
+          <div class="d-block">{{c.roleName}}</div>
+        </ng-container>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="societyName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Society Name</th>
+      <td mat-cell *matCellDef="let row">{{row.societyName}}</td>
+    </ng-container>
+
+
+     <ng-container matColumnDef="buildingName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Building Name</th>
+      <td mat-cell *matCellDef="let row">{{row.buildingName}}</td>
+    </ng-container>
+
+
+     <ng-container matColumnDef="flatName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Flat Name</th>
+      <td mat-cell *matCellDef="let row">{{row.flatName}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row.isActive">
+          <span class="fa fa-circle active-status" aria-hidden="true"></span> Active
+        </ng-container>
+      </td>
+    </ng-container>
+
+
+    <!-- <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-select placeholder="Actions" name="Actions">
+          <ng-container *ngIf='readAction'>
+            <mat-option value="{{row.id}}:read" #read (click)="goToUser(read.value)">View</mat-option>
+          </ng-container>
+          <ng-container *ngIf='createAction'>
+            <mat-option value="{{row.id}}:edit" #edit (click)="goToUser(edit.value)">Edit</mat-option>
+          </ng-container>
+        </mat-select>
+      </td>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="totalRecords" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>
+
+
