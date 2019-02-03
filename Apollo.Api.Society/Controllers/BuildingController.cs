@@ -18,21 +18,37 @@ namespace Apollo.Api.Society.Controllers
             _societyService = societyService;
             _buildingService = buildingService;
         }
+        //[HttpGet()]
+        //public async Task<IActionResult> GetBuildingsForSociety(Guid societyId)
+        //{
+        //    var exists = await this._societyService.IsExistsAsync(societyId);
+        //    if (!exists)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var response = await this._societyService.GetBuildingsInSocietyAsync(societyId);
+        //    if(response.Successful)
+        //    {
+        //        return Ok(response.Data);
+        //    }
+        //    return BadRequest(response.ErrorMessages);            
+        //}
         [HttpGet()]
-        public async Task<IActionResult> GetBuildingsForSociety(Guid societyId)
+        public async Task<IActionResult> GetBuildingsInSociety(Guid societyId)
         {
             var exists = await this._societyService.IsExistsAsync(societyId);
             if (!exists)
             {
                 return NotFound();
             }
-            var response = await this._societyService.GetBuildingsInSocietyAsync(societyId);
-            if(response.Successful)
+            var response = await this._buildingService.GetBuildingsInSocietyAsync(societyId);
+            if (response.Successful)
             {
                 return Ok(response.Data);
             }
-            return BadRequest(response.ErrorMessages);            
+            return BadRequest(response.ErrorMessages);
         }
+
         [HttpPost()]
         public async Task<IActionResult> Create(Guid societyId, [FromBody] BuildingCreate building)
         {

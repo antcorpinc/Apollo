@@ -76,19 +76,19 @@ namespace Apollo.Service.SocietyManagement
             return response;
         }
 
-        public async Task<ServiceResponse<List<Building>>> GetBuildingsInSocietyAsync(Guid societyId)
-        {
-            var response = new ServiceResponse<List<Building>>();
-            var buildings = await this._societyRepository.GetBuildingsInSocietyAsync(societyId);
-            if (buildings == null)
-            {
-                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any buildings"));
-                return response;
-            }
-            List<Building> buildigsDto = AutoMapper.Mapper.Map<List<Building>>(buildings);
-            response.Data = buildigsDto;
-            return response;
-        }
+        //public async Task<ServiceResponse<List<Building>>> GetBuildingsInSocietyAsync(Guid societyId)
+        //{
+        //    var response = new ServiceResponse<List<Building>>();
+        //    var buildings = await this._societyRepository.GetBuildingsInSocietyAsync(societyId);
+        //    if (buildings == null)
+        //    {
+        //        response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any buildings"));
+        //        return response;
+        //    }
+        //    List<Building> buildigsDto = AutoMapper.Mapper.Map<List<Building>>(buildings);
+        //    response.Data = buildigsDto;
+        //    return response;
+        //}
 
         public async Task<ServiceResponse<Building>> GetBuildingInSocietyAsync(Guid societyId, Guid buildingId)
         {
