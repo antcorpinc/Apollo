@@ -61,6 +61,7 @@ namespace Apollo.Api.Society
             
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
+            services.AddScoped<ICustomBuildingRepository, CustomBuildingRepository>();
 
             services.AddScoped<IFlatService, FlatService>();
             services.AddScoped<IFlatRepository, FlatRepository>();
