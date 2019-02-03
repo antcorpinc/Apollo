@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ConfigurationService } from 'src/app/common/shared/services/configuration.service';
 import { AuthenticatedHttpService } from 'src/app/common/shared/services/authenticated-http.service';
 import { Utilities } from 'src/app/common/utilities/utilities';
+import { BuildingListViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildinglistviewmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class BuildingDataService {
   constructor(private authenticatedHttpService: AuthenticatedHttpService,
     private configurationService: ConfigurationService) { }
 
-  getBuildingsInSociety(societyId: string): Observable<BuildingViewModel[]> {
+  getBuildingsInSociety(societyId: string): Observable<BuildingListViewModel[]> {
     return this.authenticatedHttpService.get(
       `${this.configurationService.config.baseUrls.societyApi}api/societies/${societyId}/buildings`);
   }

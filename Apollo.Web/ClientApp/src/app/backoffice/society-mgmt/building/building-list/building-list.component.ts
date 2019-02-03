@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BuildingViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildingviewmodel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { CONSTANTS } from 'src/app/common/constants';
 import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/services/society-data.service';
 import { UserProfileService } from 'src/app/common/shared/services/user-profile.service';
+import { BuildingListViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildinglistviewmodel';
 
 @Component({
   selector: 'app-building-list',
@@ -12,11 +12,11 @@ import { UserProfileService } from 'src/app/common/shared/services/user-profile.
   styleUrls: ['./building-list.component.css']
 })
 export class BuildingListComponent implements OnInit {
-  buildings: BuildingViewModel[] = [];
+  buildings: BuildingListViewModel[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: MatTableDataSource<BuildingViewModel>;
+  dataSource: MatTableDataSource<BuildingListViewModel>;
   displayedColumns = ['name', 'isActive', 'actions'];
   totalRecords: number;
 
@@ -46,7 +46,7 @@ export class BuildingListComponent implements OnInit {
 
   getBuildings() {
     this.buildings = this.activatedRoute.snapshot.data['buildings'];
-    this.dataSource = new MatTableDataSource<BuildingViewModel>(this.buildings);
+    this.dataSource = new MatTableDataSource<BuildingListViewModel>(this.buildings);
     this.dataSource.sort = this.sort;
     this.totalRecords = this.buildings.length;
   }
