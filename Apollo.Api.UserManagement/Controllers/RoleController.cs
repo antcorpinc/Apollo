@@ -38,5 +38,19 @@ namespace Apollo.Api.UserManagement.Controllers
            
          
         }
+
+        [Route("getrolesinsociety")]
+        [HttpGet]
+        public async Task<IActionResult> GetRolesInSociety(Guid societyId)
+        {
+            if (societyId == Guid.Empty)
+                return BadRequest();
+            var response = await this._roleService.GetRolesInSocietyAsync(societyId);
+            if (response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+        }
     }
 }

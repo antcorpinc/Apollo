@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { SupportUserInfoComponent } from './support-user/support-user-info/support-user-info.component';
 import { ApplicationResolverService } from '../common/backoffice-shared/services/resolver/application-resolver.service';
 import { SocietyUserListComponent } from './society-user/society-user-list/society-user-list.component';
+import { SocietyUserInfoComponent } from './society-user/society-user-info/society-user-info.component';
 
 export const userRoutes: Routes = [
   { path: 'supportusers', component: SupportUserListComponent },
@@ -13,6 +14,7 @@ export const userRoutes: Routes = [
     }
   },
   { path: 'societyusers', component: SocietyUserListComponent },
+  { path: 'societyuser/:id/:operation', component: SocietyUserInfoComponent}
 ];
 
 @NgModule({

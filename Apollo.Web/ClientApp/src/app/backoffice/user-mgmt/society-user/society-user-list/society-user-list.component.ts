@@ -9,6 +9,7 @@ import { UserDataService } from 'src/app/backoffice/common/backoffice-shared/ser
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SocietyUserListViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserlistviewmodel';
 import { CONSTANTS } from 'src/app/common/constants';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-society-user-list',
@@ -42,7 +43,8 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
   createAction = false;
   readAction = false;
 
-  constructor(private societyDataService: SocietyDataService, private userDataService: UserDataService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+    private societyDataService: SocietyDataService, private userDataService: UserDataService) { }
 // Todo: Add Subscriptions
   ngOnInit() {
     this.societyName.valueChanges.pipe(
@@ -54,6 +56,11 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
     if (!Utilities.isNullOrEmpty(search) && search.length > 2 ) {
      this.societyList$ =  this.societyDataService.getSocietiesByCustomSearch(search);
     }
+  }
+
+  createSocietyUser() {
+     this.router.navigate(['../societyuser', CONSTANTS.create.id, this.create],
+     { relativeTo: this.activatedRoute });
   }
 
   search(event, data) {
