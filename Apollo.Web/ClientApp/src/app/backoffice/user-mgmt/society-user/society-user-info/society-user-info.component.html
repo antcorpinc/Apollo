@@ -1,5 +1,60 @@
-<div>
-  <mat-toolbar color="primary">
-    <span class="title">Society: Create User</span>
-  </mat-toolbar>
-</div>
+<form [formGroup]="societyUserForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="society-user-card">
+    <mat-card-header>
+      <mat-card-title>Society User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <span>User Status </span>
+          <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Society Name" formControlName="societyId"
+            [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete" >
+              <mat-option *ngFor="let society of societyList$ | async"
+              [value]="society.id" >
+               {{society.name}}, {{society.city}} , {{society.area}}
+
+             </mat-option>
+           </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Building Name" formControlName="building" required>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Flat Name" formControlName="flat" required>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First  Name" formControlName="firstName" required>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last Name" formControlName="lastName" required>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email" required>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
