@@ -13,11 +13,11 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Society Name" formControlName="societyId"
+            <input matInput placeholder="Society Name" formControlName="societyName"
             [matAutocomplete]="auto" required>
             <mat-autocomplete #auto="matAutocomplete" >
               <mat-option *ngFor="let society of societyList$ | async"
-              [value]="society.id" >
+              [value]="society.name"  (onSelectionChange)="getBuildingsInSociety($event, society)">
                {{society.name}}, {{society.city}} , {{society.area}}
 
              </mat-option>
@@ -26,7 +26,7 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Building Name" formControlName="building" required>
+            <input matInput placeholder="Building Name" formControlName="buildingId" required>
           </mat-form-field>
         </div>
         <div class="col">

@@ -9,6 +9,8 @@ import { SocietyListViewModel } from 'src/app/backoffice/viewmodel/society-vm/so
 import { debounceTime } from 'rxjs/operators';
 import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/services/society-data.service';
 import { Utilities } from 'src/app/common/utilities/utilities';
+import { BuildingListViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildinglistviewmodel';
+import { BuildingDataService } from 'src/app/backoffice/common/backoffice-shared/services/building-data.service';
 
 @Component({
   selector: 'app-society-user-info',
@@ -21,6 +23,8 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
   societyList$: Observable<SocietyListViewModel[]>;
 
   userId: string;
+  societyId: string;
+  buildings$: Observable<BuildingListViewModel[]>;
 
   edit = CONSTANTS.operation.edit;
   create = CONSTANTS.operation.create;
@@ -35,7 +39,8 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
  subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog,
-     private snackBar: MatSnackBar, private societyDataService: SocietyDataService) { }
+     private snackBar: MatSnackBar, private societyDataService: SocietyDataService,
+     private buildingDataService: BuildingDataService) { }
 
   ngOnInit() {
       // Read Route parameters
@@ -44,15 +49,15 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
       this.createFormModel();
   }
   ngAfterViewInit(): void {
-    this.societyUserForm.get('societyId').valueChanges.pipe(
+    this.societyUserForm.get('societyName').valueChanges.pipe(
       debounceTime(1000)
     ).subscribe(value => this.getSocietyListBasedOnSearch(value));
   }
 
   createFormModel() {
     this.societyUserForm = new FormGroup({
-       societyId: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-       building: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+       societyName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+       buildingId: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       flat: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
@@ -68,6 +73,14 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
     if (!Utilities.isNullOrEmpty(search) && search.length > 2 ) {
       this.societyList$ =  this.societyDataService.getSocietiesByCustomSearch(search);
      }
+  }
+
+  getBuildingsInSociety(event, data) {
+    if (event.source.selected) {
+      console.log('SocietyId -->' + data.id);
+      this.societyId = data.id;
+      this.buildings$ = this.buildingDataService.getBuildingsInSociety(this.societyId);
+    }
   }
   onSubmit() {
 
