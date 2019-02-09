@@ -1,5 +1,4 @@
 ﻿using Apollo.Data.Interface;
-using Apollo.Domain.DTO.Society;
 using Apollo.Domain.DTO.User;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,29 +9,24 @@ using System.Threading.Tasks;
 
 namespace Apollo.Data.DataRepository
 {
-    public class CustomRoleRepository : ICustomRoleRepository, IDisposable
+    public class CustomApplicationRepository : ICustomApplicationRepository , IDisposable
     {
         private ApolloContext _context;
-        public CustomRoleRepository(ApolloContext context)
+        public CustomApplicationRepository(ApolloContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<List<SocietyRoleListItem>> GetRolesInSocietyAsync(Guid societyId)
+        public async Task<ApplicationListItem> GetApplicationDetails(string applicationName)
         {
-            return await _context.SocietyRole.Where(sr => sr.SocietyId == societyId )
-                           .Select(SocietyRoleListItem.Projection).ToListAsync();
+            return await _context.Application.Where(b => b.Name.ToUpper() == applicationName.ToUpper())
+                          .OrderBy(f => f.Name).Select(ApplicationListItem.Projection).SingleOrDefaultAsync();
         }
 
-        public async Task<List<ApplicationRoleListItem>> GetApplicationRolesAsync()
-        {
-            return await _context.ApplicationRole.Select(ApplicationRoleListItem.Projection).ToListAsync();
-        }
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -44,7 +38,5 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
-
-        
     }
 }

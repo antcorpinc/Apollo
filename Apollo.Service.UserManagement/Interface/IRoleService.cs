@@ -1,5 +1,6 @@
 ﻿using Apollo.Core.Common;
 using Apollo.Domain.DTO.Society;
+using Apollo.Domain.DTO.User;
 using Apollo.Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace Apollo.Service.UserManagement.Interface
         List<ApplicationRole> GetRolesForApplicationAndUserType(Guid applicationId,int? userType= 0);
 
         Task<ServiceResponse<List<SocietyRoleListItem>>> GetRolesInSocietyAsync(Guid societyId);
+
+        Task<ServiceResponse<List<ApplicationRoleListItem>>> GetApplicationRolesAsync();
     }
 }

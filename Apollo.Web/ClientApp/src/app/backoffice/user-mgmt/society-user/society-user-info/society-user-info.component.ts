@@ -11,13 +11,17 @@ import { SocietyDataService } from 'src/app/backoffice/common/backoffice-shared/
 import { Utilities } from 'src/app/common/utilities/utilities';
 import { BuildingListViewModel } from 'src/app/backoffice/viewmodel/society-vm/buildinglistviewmodel';
 import { BuildingDataService } from 'src/app/backoffice/common/backoffice-shared/services/building-data.service';
+import { FlatDataService } from 'src/app/backoffice/common/backoffice-shared/services/flat-data.service';
+import { FlatListViewModel } from 'src/app/backoffice/viewmodel/society-vm/flatlistviewmodel';
+import { RoleViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/roleviewmodel';
+import { RoleDataService } from 'src/app/backoffice/common/backoffice-shared/services/role-data.service';
 
 @Component({
   selector: 'app-society-user-info',
   templateUrl: './society-user-info.component.html',
   styleUrls: ['./society-user-info.component.css']
 })
-export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestroy {
+export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   societyUserForm: FormGroup;
   societyList$: Observable<SocietyListViewModel[]>;
@@ -25,6 +29,8 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
   userId: string;
   societyId: string;
   buildings$: Observable<BuildingListViewModel[]>;
+  flats$: Observable<FlatListViewModel[]>;
+  roles$: Observable<RoleViewModel[]>;
 
   edit = CONSTANTS.operation.edit;
   create = CONSTANTS.operation.create;
@@ -32,21 +38,22 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
   operation: string;
 
   // This is one we get initially ,
- //  societyUserViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+  //  societyUserViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
   // This one is when we update in Db
- //  societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+  //  societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
 
- subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog,
-     private snackBar: MatSnackBar, private societyDataService: SocietyDataService,
-     private buildingDataService: BuildingDataService) { }
+    private snackBar: MatSnackBar, private societyDataService: SocietyDataService,
+    private buildingDataService: BuildingDataService, private flatDataService: FlatDataService,
+    private roleDataService: RoleDataService) { }
 
   ngOnInit() {
-      // Read Route parameters
-      this.userId = this.activatedRoute.snapshot.params['id'];
-      this.operation = this.activatedRoute.snapshot.params['operation'];
-      this.createFormModel();
+    // Read Route parameters
+    this.userId = this.activatedRoute.snapshot.params['id'];
+    this.operation = this.activatedRoute.snapshot.params['operation'];
+    this.createFormModel();
   }
   ngAfterViewInit(): void {
     this.societyUserForm.get('societyName').valueChanges.pipe(
@@ -56,23 +63,23 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
 
   createFormModel() {
     this.societyUserForm = new FormGroup({
-       societyName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-       buildingId: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      flat: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      societyName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      buildingId: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      flatId: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.email]),
       phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-      role: new FormControl('', [Validators.required]),
+      roleId: new FormControl('', [Validators.required]),
       isActive: new FormControl(true),
       objectState: new FormControl(ObjectState.Unchanged),
     });
   }
 
   getSocietyListBasedOnSearch(search: string) {
-    if (!Utilities.isNullOrEmpty(search) && search.length > 2 ) {
-      this.societyList$ =  this.societyDataService.getSocietiesByCustomSearch(search);
-     }
+    if (!Utilities.isNullOrEmpty(search) && search.length > 2) {
+      this.societyList$ = this.societyDataService.getSocietiesByCustomSearch(search);
+    }
   }
 
   getBuildingsInSociety(event, data) {
@@ -80,8 +87,16 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit , OnDestr
       console.log('SocietyId -->' + data.id);
       this.societyId = data.id;
       this.buildings$ = this.buildingDataService.getBuildingsInSociety(this.societyId);
+      this.roles$ = this.roleDataService.getRolesInSociety(this.societyId);
     }
   }
+  getFlatsInSocietyBuilding(event, data) {
+    if (event.source.selected) {
+      console.log('Building -->' + data.id);
+      this.flats$ = this.flatDataService.getFlatsInSocietyBuilding(this.societyId, data.id);
+    }
+  }
+
   onSubmit() {
 
   }

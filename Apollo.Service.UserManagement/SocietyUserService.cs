@@ -18,11 +18,14 @@ namespace Apollo.Service.UserManagement
     {
         private IUserRepository _userRepository;
         private ICustomSocietyUserRepository _customSocietyUserRepository;
+        private ICustomApplicationRepository _customApplicationRepository;
         public SocietyUserService(IUserRepository userRepository,
-            ICustomSocietyUserRepository customSocietyUserRepository)
+            ICustomSocietyUserRepository customSocietyUserRepository,
+            ICustomApplicationRepository customApplicationRepository)
         {
             _userRepository = userRepository;
             _customSocietyUserRepository = customSocietyUserRepository;
+            _customApplicationRepository = customApplicationRepository;
         }
 
         public async Task<ServiceResponse<Apollo.Domain.DTO.SocietyUser>> CreateUserAsync(Domain.DTO.SocietyUserCreate userCreate)
@@ -35,7 +38,12 @@ namespace Apollo.Service.UserManagement
             {
                 return response;
             }
-
+            var applicationDetails = await this._customApplicationRepository.GetApplicationDetails(Constants.SOCIETYAPPLICATION);
+            if (applicationDetails == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Could not find application"));
+                return response;
+            }
             var result = await this._userRepository.Add(MapToCreateEntity(userCreate), userCreate.Password);
             if(!result.Succeeded)
             {
@@ -49,7 +57,7 @@ namespace Apollo.Service.UserManagement
 
         // Complex Mapping add here
 
-        ApolloUser MapToCreateEntity(SocietyUserCreate user)
+        ApolloUser MapToCreateEntity(Domain.DTO.SocietyUserCreate user)
         {
             var apolloUser = new ApolloUser();
             apolloUser.FirstName = user.FirstName;
@@ -68,33 +76,47 @@ namespace Apollo.Service.UserManagement
 
 
             apolloUser.UserAppRoleMappings.Clear();
-
-            foreach (var item in user.UserApplicationRole)
+            apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
             {
-                apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
-                {
-                    Id = Guid.NewGuid(),
-                    ApplicationId = item.ApplicationId,
-                    RoleId = item.RoleId,
+             //   Id = Guid.NewGuid(),
+             //   ApplicationId = item.ApplicationId,
+                //        RoleId = item.RoleId,
+
+                //        IsActive = true,
+                //        ObjectState = item.ObjectState,
+                //        CreatedBy = user.CreatedBy,
+                //        CreatedDate = DateTime.UtcNow,
+                //        UpdatedBy = user.UpdatedBy,
+                //        UpdatedDate = DateTime.UtcNow
+
+            });
+
+            //foreach (var item in user.UserApplicationRole)
+            //{
+            //    apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        ApplicationId = item.ApplicationId,
+            //        RoleId = item.RoleId,
                    
-                    IsActive = true,
-                    ObjectState = item.ObjectState,
-                    CreatedBy = user.CreatedBy,
-                    CreatedDate = DateTime.UtcNow,
-                    UpdatedBy = user.UpdatedBy,
-                    UpdatedDate = DateTime.UtcNow
+            //        IsActive = true,
+            //        ObjectState = item.ObjectState,
+            //        CreatedBy = user.CreatedBy,
+            //        CreatedDate = DateTime.UtcNow,
+            //        UpdatedBy = user.UpdatedBy,
+            //        UpdatedDate = DateTime.UtcNow
 
-                });
-            }
+            //    });
+            //}
 
-            apolloUser.SocietyUser = new Domain.Entity.SocietyUser
-                {
-                    Id = Guid.NewGuid(),
-                    SocietyId = user.SocietyUser.SocietyId,
-                    BuildingId = user.SocietyUser.BuildingId,
-                    FlatId = user.SocietyUser.FlatId,
-                    UserId = user.SocietyUser.UserId,
-                };
+            //apolloUser.SocietyUser = new Domain.Entity.SocietyUser
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        SocietyId = user.SocietyUser.SocietyId,
+            //        BuildingId = user.SocietyUser.BuildingId,
+            //        FlatId = user.SocietyUser.FlatId,
+            //        UserId = user.SocietyUser.UserId,
+            //    };
             return apolloUser;
         }
 

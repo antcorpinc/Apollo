@@ -13,25 +13,33 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Society Name" formControlName="societyName"
-            [matAutocomplete]="auto" required>
-            <mat-autocomplete #auto="matAutocomplete" >
-              <mat-option *ngFor="let society of societyList$ | async"
-              [value]="society.name"  (onSelectionChange)="getBuildingsInSociety($event, society)">
-               {{society.name}}, {{society.city}} , {{society.area}}
+            <input matInput placeholder="Society Name" formControlName="societyName" [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let society of societyList$ | async" [value]="society.name" (onSelectionChange)="getBuildingsInSociety($event, society)">
+                {{society.name}}, {{society.city}} , {{society.area}}
 
-             </mat-option>
-           </mat-autocomplete>
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Building Name" formControlName="buildingId" required>
+            <mat-select placeholder="Building" formControlName="buildingId" required>
+              <mat-option [value]="null">Select</mat-option>
+              <ng-container *ngFor="let building of buildings$ | async">
+                <mat-option [value]="building.id" (onSelectionChange)="getFlatsInSocietyBuilding($event, building)">{{building.name}}</mat-option>
+              </ng-container>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Flat Name" formControlName="flat" required>
+            <mat-select placeholder="Flat" formControlName="flatId" required>
+              <mat-option [value]="null">Select</mat-option>
+              <ng-container *ngFor="let flat of flats$ | async">
+                <mat-option [value]="flat.id">{{flat.name}}</mat-option>
+              </ng-container>
+            </mat-select>
           </mat-form-field>
         </div>
 
@@ -55,6 +63,25 @@
         </div>
 
       </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Role" formControlName="roleId" required>
+              <mat-option [value]="null">Select</mat-option>
+              <ng-container *ngFor="let role of roles$ | async">
+                <mat-option [value]="role.id">{{role.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Phone Number(mobile)" formControlName="phoneNumber" required>
+            </mat-form-field>
+          </div>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </form>
