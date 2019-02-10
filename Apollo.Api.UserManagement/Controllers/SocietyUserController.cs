@@ -21,7 +21,7 @@ namespace Apollo.Api.UserManagement.Controllers
         }
 
         [HttpPost()]
-        public  IActionResult Create([FromBody]SocietyUserCreate user)
+        public  IActionResult Create([FromBody]Domain.DTO.User.SocietyUserCreate user)
         {
             if (user == null)
             {
@@ -30,9 +30,15 @@ namespace Apollo.Api.UserManagement.Controllers
             // Todo: Check if there is already active user in the Soc/Build/Flat
             // Todo : Change thiis later - Use some logic like Ew
 
-            var password = string.IsNullOrEmpty(user.Password) ? "DDdd@1234" : user.Password;
-            user.Password = password;
-            return Ok(this._userService.CreateUserAsync(user));
+             var password = string.IsNullOrEmpty(user.Password) ? "DDdd@1234" : user.Password;
+             user.Password = password;
+            user.CreatedBy = this.LoggedInUserId;
+            user.CreatedDate = DateTime.UtcNow;
+            user.UpdatedBy = this.LoggedInUserId;
+            user.UpdatedDate = DateTime.UtcNow;
+            
+             return Ok(this._userService.CreateUserAsync(user));
+            //return Ok();
         }
 
         [Route("getusersinsociety")]

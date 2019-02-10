@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CONSTANTS } from 'src/app/common/constants';
 import { Subscription, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ObjectState } from 'src/app/common/enums';
 import { SocietyListViewModel } from 'src/app/backoffice/viewmodel/society-vm/societylistviewmodel';
@@ -15,6 +15,10 @@ import { FlatDataService } from 'src/app/backoffice/common/backoffice-shared/ser
 import { FlatListViewModel } from 'src/app/backoffice/viewmodel/society-vm/flatlistviewmodel';
 import { RoleViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/roleviewmodel';
 import { RoleDataService } from 'src/app/backoffice/common/backoffice-shared/services/role-data.service';
+import { SocietyUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserviewmodel';
+import { SocietyUser } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuser';
+import { UserDataService } from 'src/app/backoffice/common/backoffice-shared/services/user-data.service';
+import { InfoMessages } from 'src/app/common/messages';
 
 @Component({
   selector: 'app-society-user-info',
@@ -40,14 +44,15 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
   // This is one we get initially ,
   //  societyUserViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
   // This one is when we update in Db
-  //  societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+    societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
 
   subscriptions: Subscription[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog,
     private snackBar: MatSnackBar, private societyDataService: SocietyDataService,
     private buildingDataService: BuildingDataService, private flatDataService: FlatDataService,
-    private roleDataService: RoleDataService) { }
+    private roleDataService: RoleDataService, private userDataService: UserDataService,
+    private router: Router) { }
 
   ngOnInit() {
     // Read Route parameters
@@ -98,9 +103,47 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   onSubmit() {
-
+    if (this.societyUserForm.valid) {
+      this.updateSaveObjectState();
+      if (this.operation === this.create) {
+        console.log('SocietyUser -->' + JSON.stringify(this.societyUserSaveViewModel));
+         const subscription = this.userDataService.createSocietyUser(this.societyUserSaveViewModel)
+          .subscribe(data => {
+            this.snackBar.open(InfoMessages.userCreationMessage, '', {
+              duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+              politeness: 'polite', panelClass: 'showSnackBar'
+            });
+            this.router.navigate(['/auth/bo/usermgmt/societyusers'],
+              { relativeTo: this.activatedRoute });
+          },
+            (error) => {
+              console.log('Error' + error);
+            });
+        this.subscriptions.push(subscription);
+      }
+    }
   }
 
+  updateSaveObjectState() {
+    this.societyUserSaveViewModel = new SocietyUserViewModel();
+    this.societyUserSaveViewModel.firstName = this.societyUserForm.get('firstName').value;
+    this.societyUserSaveViewModel.lastName = this.societyUserForm.get('lastName').value;
+    this.societyUserSaveViewModel.email = this.societyUserForm.get('email').value;
+    this.societyUserSaveViewModel.userName = this.societyUserSaveViewModel.email;
+    this.societyUserSaveViewModel.phoneNumber = this.societyUserForm.get('phoneNumber').value;
+    this.societyUserSaveViewModel.isActive = this.societyUserForm.get('isActive').value;
+    this.societyUserSaveViewModel.userType = CONSTANTS.userTypeId.societyUser;
+
+    this.societyUserSaveViewModel.societyUser = new SocietyUser();
+    this.societyUserSaveViewModel.societyUser.societyId = this.societyId;
+    this.societyUserSaveViewModel.societyUser.buildingId = this.societyUserForm.get('buildingId').value;
+    this.societyUserSaveViewModel.societyUser.flatId = this.societyUserForm.get('flatId').value;
+    this.societyUserSaveViewModel.societyUser.roleId = this.societyUserForm.get('roleId').value;
+    if (this.operation === this.create) {
+      this.societyUserSaveViewModel.objectState = ObjectState.Added;
+      this.societyUserSaveViewModel.societyUser.objectState = ObjectState.Added;
+    }
+  }
   ngOnDestroy(): void {
 
   }

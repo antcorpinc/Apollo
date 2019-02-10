@@ -26,38 +26,11 @@ namespace Apollo.Service.UserManagement
             _userRepository = userRepository;
             _customSocietyUserRepository = customSocietyUserRepository;
             _customApplicationRepository = customApplicationRepository;
-        }
-
-        public async Task<ServiceResponse<Apollo.Domain.DTO.SocietyUser>> CreateUserAsync(Domain.DTO.SocietyUserCreate userCreate)
-        {
-            var validator = new SocietyUserCreateValidator();
-            var results = validator.Validate(userCreate);
-            var response = new ServiceResponse<Domain.DTO.SocietyUser>();
-            response.ErrorMessages = results.Errors.ToList();
-            if (!response.Successful)
-            {
-                return response;
-            }
-            var applicationDetails = await this._customApplicationRepository.GetApplicationDetails(Constants.SOCIETYAPPLICATION);
-            if (applicationDetails == null)
-            {
-                response.ErrorMessages.Add(new ValidationFailure("", "Could not find application"));
-                return response;
-            }
-            var result = await this._userRepository.Add(MapToCreateEntity(userCreate), userCreate.Password);
-            if(!result.Succeeded)
-            {
-                // Todo: Throw Exception or Valication Msg
-                response.ErrorMessages.Add(new ValidationFailure("", "Failed to Create User"));
-                return response;
-            }
-            // Todo: Map to SocietyUser Dto from ApolloUser
-            return response;
-        }
+        }       
 
         // Complex Mapping add here
 
-        ApolloUser MapToCreateEntity(Domain.DTO.SocietyUserCreate user)
+        ApolloUser MapToCreateEntity(Domain.DTO.User.SocietyUserCreate user)
         {
             var apolloUser = new ApolloUser();
             apolloUser.FirstName = user.FirstName;
@@ -69,54 +42,32 @@ namespace Apollo.Service.UserManagement
             apolloUser.IsActive = user.IsActive;
 
             apolloUser.CreatedBy = user.CreatedBy;
-            apolloUser.CreatedDate = DateTime.UtcNow;
+            apolloUser.CreatedDate = user.CreatedDate;
             apolloUser.UpdatedBy = user.UpdatedBy;
-            apolloUser.UpdatedDate = DateTime.UtcNow;
+            apolloUser.UpdatedDate = user.UpdatedDate;
             apolloUser.ObjectState = user.ObjectState;
 
 
             apolloUser.UserAppRoleMappings.Clear();
             apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
             {
-             //   Id = Guid.NewGuid(),
-             //   ApplicationId = item.ApplicationId,
-                //        RoleId = item.RoleId,
-
-                //        IsActive = true,
-                //        ObjectState = item.ObjectState,
-                //        CreatedBy = user.CreatedBy,
-                //        CreatedDate = DateTime.UtcNow,
-                //        UpdatedBy = user.UpdatedBy,
-                //        UpdatedDate = DateTime.UtcNow
-
+                Id = Guid.NewGuid(),
+                ApplicationId = user.SocietyUser.ApplicationId.Value,
+                RoleId = user.SocietyUser.RoleId.Value,
+                IsActive = user.IsActive,
+                ObjectState = user.ObjectState,
+                CreatedBy = user.CreatedBy,
+                CreatedDate = user.CreatedDate,
+                UpdatedBy = user.UpdatedBy,
+                UpdatedDate = user.UpdatedDate
             });
-
-            //foreach (var item in user.UserApplicationRole)
-            //{
-            //    apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        ApplicationId = item.ApplicationId,
-            //        RoleId = item.RoleId,
-                   
-            //        IsActive = true,
-            //        ObjectState = item.ObjectState,
-            //        CreatedBy = user.CreatedBy,
-            //        CreatedDate = DateTime.UtcNow,
-            //        UpdatedBy = user.UpdatedBy,
-            //        UpdatedDate = DateTime.UtcNow
-
-            //    });
-            //}
-
-            //apolloUser.SocietyUser = new Domain.Entity.SocietyUser
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        SocietyId = user.SocietyUser.SocietyId,
-            //        BuildingId = user.SocietyUser.BuildingId,
-            //        FlatId = user.SocietyUser.FlatId,
-            //        UserId = user.SocietyUser.UserId,
-            //    };
+            apolloUser.SocietyUser = new Domain.Entity.SocietyUser
+                {
+                    Id = Guid.NewGuid(),
+                    SocietyId = user.SocietyUser.SocietyId,
+                    BuildingId = user.SocietyUser.BuildingId,
+                    FlatId = user.SocietyUser.FlatId            
+                };
             return apolloUser;
         }
 
@@ -135,6 +86,32 @@ namespace Apollo.Service.UserManagement
                 return response;
             }
             response.Data = societyUsers;
+            return response;
+        }
+
+        public async Task<ServiceResponse<Domain.DTO.User.SocietyUser>> CreateUserAsync(Domain.DTO.User.SocietyUserCreate user)
+        {
+            var validator = new Domain.DTO.User.SocietyUserCreateValidator();
+            var results = validator.Validate(user);
+            var response = new ServiceResponse<Apollo.Domain.DTO.User.SocietyUser>();
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            var applicationDetails = await this._customApplicationRepository.GetApplicationDetails(Constants.SOCIETYAPPLICATION);
+            if (applicationDetails == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Could not find application"));
+                return response;
+            }
+            user.SocietyUser.ApplicationId = applicationDetails.Id;
+            var result = await this._userRepository.Add(MapToCreateEntity(user), user.Password);
+            if (!result.Succeeded)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Failed to Create User"));
+                return response;
+            }            
             return response;
         }
     }

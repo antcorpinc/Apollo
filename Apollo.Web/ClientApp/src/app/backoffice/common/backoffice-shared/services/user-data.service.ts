@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { SupportUserListViewModel } from '../../../viewmodel/user-mgmt-vm/supportuserlistviewmodel';
 import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
 import { SocietyUserListViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserlistviewmodel';
+import { SocietyUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserviewmodel';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,11 @@ export class UserDataService {
   createSupportUser(user: SupportUserViewModel) {
     return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.userMgmtApi
       + 'api/supportuser/create/', user);
+  }
+
+  createSocietyUser(user: SocietyUserViewModel) {
+    return this.authenticatedHttpService.post(
+      `${this.configurationService.config.baseUrls.userMgmtApi}api/societyusers`, user);
   }
 
   updateSupportUser(user: SupportUserViewModel) {

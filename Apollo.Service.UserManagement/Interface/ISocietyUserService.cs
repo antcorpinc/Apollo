@@ -13,7 +13,7 @@ namespace Apollo.Service.UserManagement.Interface
     {
         List<ApolloUser> GetAllUsers();
 
-        Task<ServiceResponse<Apollo.Domain.DTO.SocietyUser>> CreateUserAsync(Apollo.Domain.DTO.SocietyUserCreate user);
+        Task<ServiceResponse<Apollo.Domain.DTO.User.SocietyUser>> CreateUserAsync(Apollo.Domain.DTO.User.SocietyUserCreate user);
 
         Task<ServiceResponse<List<SocietyUserListItem>>> GetUsersForSocietyAsync(Guid societyId);
     }

@@ -2,6 +2,7 @@
 import {ApplicationRoleIdViewModel} from './applicationroleidviewmodel';
 import { IObjectWithState } from '../../../common/iobjectwithstate';
 import { ObjectState } from '../../../common/enums';
+import { SocietyUser } from './societyuser';
 
 export class SocietyUserViewModel implements IObjectWithState {
   objectState: ObjectState;
@@ -18,4 +19,6 @@ export class SocietyUserViewModel implements IObjectWithState {
   flatId: string;
   createdBy: string;
   updatedBy: string;
+  societyUser: SocietyUser;
+
 }

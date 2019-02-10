@@ -64,6 +64,7 @@ namespace Apollo.Api.UserManagement
             services.AddScoped<IUserAppRoleMappingRepository, UserAppRoleMappingRepository>();
             services.AddScoped<ICustomSocietyUserRepository, CustomSocietyUserRepository>();
             services.AddScoped<ICustomRoleRepository, CustomRoleRepository>();
+            services.AddScoped<ICustomApplicationRepository, CustomApplicationRepository>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISupportUserService, SupportUserService>();
