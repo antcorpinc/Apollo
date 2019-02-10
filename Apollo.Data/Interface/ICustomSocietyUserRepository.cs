@@ -9,5 +9,6 @@ namespace Apollo.Data.Interface
     public interface ICustomSocietyUserRepository
     {
         Task<List<SocietyUserListItem>> GetSocietyUsersAsync(Guid societyId);
+        Task<SocietyUserListItem> GetSocietyUserAsync(Guid userId);
     }
 }

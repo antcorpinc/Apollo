@@ -114,5 +114,18 @@ namespace Apollo.Service.UserManagement
             }            
             return response;
         }
+
+        public async Task<ServiceResponse<SocietyUserListItem>> GetSocietyUserAsync(Guid userId)
+        {
+            var response = new ServiceResponse<SocietyUserListItem>();
+            var societyUser = await this._customSocietyUserRepository.GetSocietyUserAsync(userId);
+            if (societyUser == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any results"));
+                return response;
+            }
+            response.Data = societyUser;
+            return response;
+        }
     }
 }

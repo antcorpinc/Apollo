@@ -36,9 +36,8 @@ namespace Apollo.Api.UserManagement.Controllers
             user.CreatedDate = DateTime.UtcNow;
             user.UpdatedBy = this.LoggedInUserId;
             user.UpdatedDate = DateTime.UtcNow;
-            
-             return Ok(this._userService.CreateUserAsync(user));
-            //return Ok();
+            return Ok(this._userService.CreateUserAsync(user));
+           
         }
 
         [Route("getusersinsociety")]

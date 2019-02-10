@@ -22,7 +22,10 @@ namespace Apollo.Data.DataRepository
                 (su => su.SocietyId == societyId).Select(SocietyUserListItem.Projection).ToListAsync();
 
         }
-
+        public async Task<SocietyUserListItem> GetSocietyUserAsync(Guid userId)
+        {
+            return await _context.SocietyUser.Where(su => su.UserId == userId).Select(SocietyUserListItem.Projection).FirstOrDefaultAsync();
+        }
         public void Dispose()
         {
             Dispose(true);
@@ -40,5 +43,7 @@ namespace Apollo.Data.DataRepository
                 }
             }
         }
+
+        
     }
 }
