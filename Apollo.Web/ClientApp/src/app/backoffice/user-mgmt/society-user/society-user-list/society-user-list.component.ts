@@ -10,6 +10,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SocietyUserListViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserlistviewmodel';
 import { CONSTANTS } from 'src/app/common/constants';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserProfileService } from 'src/app/common/shared/services/user-profile.service';
 
 @Component({
   selector: 'app-society-user-list',
@@ -23,11 +24,8 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<SocietyUserListViewModel>;
-  displayedColumns = ['firstName', 'lastName',  'userAppRoles',
-   'societyName',
-  'buildingName', 'flatName', 'isActive'
-//  , 'actions'
-];
+  displayedColumns = ['firstName', 'lastName',  'userAppRoles', 'societyName', 'buildingName',
+   'flatName', 'isActive', 'actions'];
   totalRecords: number;
 
   subscriptions: Subscription[] = [];
@@ -44,9 +42,11 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
   readAction = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-    private societyDataService: SocietyDataService, private userDataService: UserDataService) { }
+    private societyDataService: SocietyDataService, private userDataService: UserDataService,
+    private userProfileService: UserProfileService) { }
 // Todo: Add Subscriptions
   ngOnInit() {
+    this.getPrivileges();
     this.societyName.valueChanges.pipe(
       debounceTime(1000)
     ).subscribe(value => this.getSocietyListBasedOnSearch(value));
@@ -69,7 +69,7 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
       // May be no need since in users list we'll also get the building and flat and can sort by building?
       const subscription = this.userDataService.getUsersInSociety(data.id)
           .subscribe((resp) => {
-           // console.log(resp)
+            console.log('Society User List -->' + JSON.stringify(resp));
            this.userList = resp;
         this.dataSource = new MatTableDataSource<SocietyUserListViewModel>(this.userList);
         this.dataSource.sort = this.sort;
@@ -90,9 +90,27 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
     const val = value.split(':');
     const userId = val[0];
     this.operation = val[1];
-   // this.router.navigate(['../supportuser', userId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../societyuser', userId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
   }
 
+  getPrivileges() {
+    this.privileges = this.userProfileService.getUserPermissionsForFeature(
+      CONSTANTS.application.backoffice,
+      CONSTANTS.featuretypeid.Society
+    );
+    if (this.privileges !== null) {
+      for (const privilege of this.privileges) {
+        if (privilege === 'VW') {
+          this.readAction = true;
+        } else if (privilege === 'CR') {
+          this.createAction = true;
+          this.readAction = true;
+        } else if (privilege === 'DE') {
+          this.deleteAction = true;
+        }
+      }
+    }
+  }
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

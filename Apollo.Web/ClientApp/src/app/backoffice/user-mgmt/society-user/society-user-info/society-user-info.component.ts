@@ -79,6 +79,15 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
       isActive: new FormControl(true),
       objectState: new FormControl(ObjectState.Unchanged),
     });
+
+    if (this.operation.toLowerCase().trim() === this.edit) {
+      this.getSocietyUser(this.userId);
+    }
+  }
+
+  getSocietyUser(userId: string) {
+    const subscription = this.userDataService.getSocietyUserById(userId)
+      .subscribe(data =>  console.log('Society User -->' + JSON.stringify(data)));
   }
 
   getSocietyListBasedOnSearch(search: string) {

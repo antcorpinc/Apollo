@@ -40,6 +40,17 @@ namespace Apollo.Api.UserManagement.Controllers
            
         }
 
+        [HttpGet("{id}", Name = "GetSocietyUser")]
+        public async Task<IActionResult> GetSocietyUser(Guid id)
+        {
+            var response = await this._userService.GetSocietyUserAsync(id);
+            if (response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+        }
+
         [Route("getusersinsociety")]
         [HttpGet]
         public async Task<IActionResult> GetUsersInSociety(Guid societyId)

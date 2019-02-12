@@ -83,19 +83,19 @@
     </ng-container>
 
 
-    <!-- <ng-container matColumnDef="actions">
+     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let row">
         <mat-select placeholder="Actions" name="Actions">
           <ng-container *ngIf='readAction'>
-            <mat-option value="{{row.id}}:read" #read (click)="goToUser(read.value)">View</mat-option>
+            <mat-option value="{{row.userId}}:read" #read (click)="goToUser(read.value)">View</mat-option>
           </ng-container>
           <ng-container *ngIf='createAction'>
-            <mat-option value="{{row.id}}:edit" #edit (click)="goToUser(edit.value)">Edit</mat-option>
+            <mat-option value="{{row.userId}}:edit" #edit (click)="goToUser(edit.value)">Edit</mat-option>
           </ng-container>
         </mat-select>
       </td>
-    </ng-container> -->
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

@@ -47,6 +47,11 @@ export class UserDataService {
     `${this.configurationService.config.baseUrls.userMgmtApi}api/supportuser/${userId}`);
   }
 
+  getSocietyUserById(userId: string): Observable<SocietyUserViewModel> {
+    return this.authenticatedHttpService.get(
+    `${this.configurationService.config.baseUrls.userMgmtApi}api/societyusers/${userId}`);
+  }
+
   getUsersInSociety(societyId: string): Observable<SocietyUserListViewModel[]> {
     // tslint:disable-next-line:max-line-length
     return this.authenticatedHttpService.get(`${this.configurationService.config.baseUrls.userMgmtApi}api/societyusers/getusersinsociety?societyId=${societyId}`);
