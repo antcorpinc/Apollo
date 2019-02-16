@@ -8,20 +8,22 @@ import { SocietyUserInfoComponent } from './society-user/society-user-info/socie
 
 export const userRoutes: Routes = [
   { path: 'supportusers', component: SupportUserListComponent },
-  { path: 'supportuser/:id/:operation', component: SupportUserInfoComponent ,
+  {
+    path: 'supportuser/:id/:operation', component: SupportUserInfoComponent,
     resolve: {
       applications: ApplicationResolverService
     }
   },
   { path: 'societyusers', component: SocietyUserListComponent },
-  { path: 'societyuser/:id/:operation', component: SocietyUserInfoComponent}
+  // { path: 'societyuser/:id/:operation', component: SocietyUserInfoComponent}
+  { path: 'societyuser/society/:societyid/building/:buildingid/flat/:flatid/user/:id/:operation', component: SocietyUserInfoComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(userRoutes)],
   exports: [RouterModule]
 })
-export class UserMgmtRoutingModule {}
+export class UserMgmtRoutingModule { }
 
 export const routedUserComponents = [
   SupportUserListComponent,

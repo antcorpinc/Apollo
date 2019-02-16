@@ -90,7 +90,11 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
     const val = value.split(':');
     const userId = val[0];
     this.operation = val[1];
-    this.router.navigate(['../societyuser', userId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
+    const selectedUser = this.userList.filter(u => u.userId === userId)[0];
+    console.log('Selected User -->' + JSON.stringify(selectedUser));
+   // this.router.navigate(['../societyuser', userId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
+   this.router.navigate(['../societyuser/society', selectedUser.societyId, 'building', selectedUser.buildingId,
+   'flat', selectedUser.flatId, 'user', userId, this.operation.trim().toLowerCase()], { relativeTo: this.activatedRoute });
   }
 
   getPrivileges() {

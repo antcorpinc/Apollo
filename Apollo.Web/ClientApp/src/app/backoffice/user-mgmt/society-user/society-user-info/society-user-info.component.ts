@@ -42,7 +42,7 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
   operation: string;
 
   // This is one we get initially ,
-  //  societyUserViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+    societyUserViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
   // This one is when we update in Db
     societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
 
@@ -87,7 +87,15 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
 
   getSocietyUser(userId: string) {
     const subscription = this.userDataService.getSocietyUserById(userId)
-      .subscribe(data =>  console.log('Society User -->' + JSON.stringify(data)));
+      .subscribe(data =>  {
+        console.log('Society User -->' + JSON.stringify(data));
+        this.societyUserViewModel = data;
+        this.societyUserForm.get('firstName').setValue(this.societyUserViewModel.firstName);
+        this.societyUserForm.get('lastName').setValue(this.societyUserViewModel.lastName);
+        this.societyUserForm.get('email').setValue(this.societyUserViewModel.email);
+        this.societyUserForm.get('phoneNumber').setValue(this.societyUserViewModel.phoneNumber);
+       // this.societyUserForm.get('societyName').setValue(this.societyUserViewModel.so);
+      });
   }
 
   getSocietyListBasedOnSearch(search: string) {
