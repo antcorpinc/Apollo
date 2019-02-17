@@ -19,6 +19,7 @@ import { SocietyUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/
 import { SocietyUser } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuser';
 import { UserDataService } from 'src/app/backoffice/common/backoffice-shared/services/user-data.service';
 import { InfoMessages } from 'src/app/common/messages';
+import { SocietyUserGetViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyusergetviewmodel';
 
 @Component({
   selector: 'app-society-user-info',
@@ -32,6 +33,7 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
 
   userId: string;
   societyId: string;
+  buildingId: string;
   buildings$: Observable<BuildingListViewModel[]>;
   flats$: Observable<FlatListViewModel[]>;
   roles$: Observable<RoleViewModel[]>;
@@ -42,7 +44,7 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
   operation: string;
 
   // This is one we get initially ,
-    societyUserViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+    societyUserViewModel: SocietyUserGetViewModel = <SocietyUserGetViewModel>{};
   // This one is when we update in Db
     societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
 
@@ -81,6 +83,11 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
     });
 
     if (this.operation.toLowerCase().trim() === this.edit) {
+      // Get all the data for the drop downs
+      this.societyId = this.activatedRoute.snapshot.params['societyid'];
+
+      this.buildings$ = this.buildingDataService.getBuildingsInSociety(this.societyId);
+      this.roles$ = this.roleDataService.getRolesInSociety(this.societyId);
       this.getSocietyUser(this.userId);
     }
   }
@@ -94,7 +101,16 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
         this.societyUserForm.get('lastName').setValue(this.societyUserViewModel.lastName);
         this.societyUserForm.get('email').setValue(this.societyUserViewModel.email);
         this.societyUserForm.get('phoneNumber').setValue(this.societyUserViewModel.phoneNumber);
-       // this.societyUserForm.get('societyName').setValue(this.societyUserViewModel.so);
+        this.societyUserForm.get('societyName').setValue(this.societyUserViewModel.societyName);
+        this.societyUserForm.get('societyName').disable({ emitEvent: false });
+       this.societyUserForm.get('buildingId').setValue(this.societyUserViewModel.buildingId);
+       this.societyUserForm.get('buildingId').disable({ emitEvent: false });
+       this.societyUserForm.get('flatId').setValue(this.societyUserViewModel.flatId);
+       this.societyUserForm.get('flatId').disable({ emitEvent: false });
+        if (!Utilities.isNullOrEmpty(this.societyUserViewModel.userAppRoles) &&
+        this.societyUserViewModel.userAppRoles.length ) {
+          this.societyUserForm.get('roleId').setValue(this.societyUserViewModel.userAppRoles[0].roleId);
+        }
       });
   }
 

@@ -8,6 +8,7 @@ import { SupportUserListViewModel } from '../../../viewmodel/user-mgmt-vm/suppor
 import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/supportuserviewmodel';
 import { SocietyUserListViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserlistviewmodel';
 import { SocietyUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserviewmodel';
+import { SocietyUserGetViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyusergetviewmodel';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +48,7 @@ export class UserDataService {
     `${this.configurationService.config.baseUrls.userMgmtApi}api/supportuser/${userId}`);
   }
 
-  getSocietyUserById(userId: string): Observable<SocietyUserViewModel> {
+  getSocietyUserById(userId: string): Observable<SocietyUserGetViewModel> {
     return this.authenticatedHttpService.get(
     `${this.configurationService.config.baseUrls.userMgmtApi}api/societyusers/${userId}`);
   }
