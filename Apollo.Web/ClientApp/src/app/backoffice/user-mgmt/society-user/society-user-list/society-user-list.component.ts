@@ -59,7 +59,8 @@ export class SocietyUserListComponent implements OnInit, OnDestroy {
   }
 
   createSocietyUser() {
-     this.router.navigate(['../societyuser', CONSTANTS.create.id, this.create],
+     this.router.navigate(['../societyuser/society', CONSTANTS.create.id,'building', CONSTANTS.create.id,
+     'flat', CONSTANTS.create.id, 'user', CONSTANTS.create.id, this.create],
      { relativeTo: this.activatedRoute });
   }
 
