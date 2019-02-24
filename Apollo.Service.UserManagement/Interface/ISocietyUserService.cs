@@ -18,5 +18,6 @@ namespace Apollo.Service.UserManagement.Interface
         Task<ServiceResponse<List<SocietyUserListItem>>> GetUsersForSocietyAsync(Guid societyId);
 
         Task<ServiceResponse<SocietyUserListItem>> GetSocietyUserAsync(Guid userId);
+        Task<ServiceResponse<Domain.DTO.User.SocietyUser>> UpdateUserAsync(Guid userId, SocietyUserUpdate user);
     }
 }

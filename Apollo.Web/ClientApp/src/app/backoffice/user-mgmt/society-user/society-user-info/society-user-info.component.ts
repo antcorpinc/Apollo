@@ -20,7 +20,8 @@ import { SocietyUser } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyus
 import { UserDataService } from 'src/app/backoffice/common/backoffice-shared/services/user-data.service';
 import { InfoMessages } from 'src/app/common/messages';
 import { SocietyUserGetViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyusergetviewmodel';
-
+import { SocietyUserUpdateViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserupdateviewmodel';
+import { UserApplicationRoleViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/userapplicationroleviewmodel';
 @Component({
   selector: 'app-society-user-info',
   templateUrl: './society-user-info.component.html',
@@ -44,9 +45,12 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
   operation: string;
 
   // This is one we get initially ,
-    societyUserViewModel: SocietyUserGetViewModel = <SocietyUserGetViewModel>{};
+  societyUserViewModel: SocietyUserGetViewModel = <SocietyUserGetViewModel>{};
+  // This one is when we create in Db
+  societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+
   // This one is when we update in Db
-    societyUserSaveViewModel: SocietyUserViewModel = <SocietyUserViewModel>{};
+  societyUserUpdateViewModel: SocietyUserUpdateViewModel = <SocietyUserUpdateViewModel>{};
 
   subscriptions: Subscription[] = [];
 
@@ -94,7 +98,7 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
 
   getSocietyUser(userId: string) {
     const subscription = this.userDataService.getSocietyUserById(userId)
-      .subscribe(data =>  {
+      .subscribe(data => {
         console.log('Society User -->' + JSON.stringify(data));
         this.societyUserViewModel = data;
         this.societyUserForm.get('firstName').setValue(this.societyUserViewModel.firstName);
@@ -103,12 +107,12 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
         this.societyUserForm.get('phoneNumber').setValue(this.societyUserViewModel.phoneNumber);
         this.societyUserForm.get('societyName').setValue(this.societyUserViewModel.societyName);
         this.societyUserForm.get('societyName').disable({ emitEvent: false });
-       this.societyUserForm.get('buildingId').setValue(this.societyUserViewModel.buildingId);
-       this.societyUserForm.get('buildingId').disable({ emitEvent: false });
-       this.societyUserForm.get('flatId').setValue(this.societyUserViewModel.flatId);
-       this.societyUserForm.get('flatId').disable({ emitEvent: false });
+        this.societyUserForm.get('buildingId').setValue(this.societyUserViewModel.buildingId);
+        this.societyUserForm.get('buildingId').disable({ emitEvent: false });
+        this.societyUserForm.get('flatId').setValue(this.societyUserViewModel.flatId);
+        this.societyUserForm.get('flatId').disable({ emitEvent: false });
         if (!Utilities.isNullOrEmpty(this.societyUserViewModel.userAppRoles) &&
-        this.societyUserViewModel.userAppRoles.length ) {
+          this.societyUserViewModel.userAppRoles.length) {
           this.societyUserForm.get('roleId').setValue(this.societyUserViewModel.userAppRoles[0].roleId);
         }
       });
@@ -140,7 +144,7 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
       this.updateSaveObjectState();
       if (this.operation === this.create) {
         console.log('SocietyUser -->' + JSON.stringify(this.societyUserSaveViewModel));
-         const subscription = this.userDataService.createSocietyUser(this.societyUserSaveViewModel)
+        const subscription = this.userDataService.createSocietyUser(this.societyUserSaveViewModel)
           .subscribe(data => {
             this.snackBar.open(InfoMessages.userCreationMessage, '', {
               duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
@@ -153,28 +157,77 @@ export class SocietyUserInfoComponent implements OnInit, AfterViewInit, OnDestro
               console.log('Error' + error);
             });
         this.subscriptions.push(subscription);
+      } else if (this.operation === this.edit) {
+        console.log('edit user model = ' + JSON.stringify(this.societyUserUpdateViewModel));
+          const subscription = this.userDataService.updateSocietyUser(this.userId,
+            this.societyUserUpdateViewModel)
+            .subscribe(data => {
+
+              this.snackBar.open(InfoMessages.userUpdationMessage, '', {
+                duration: CONSTANTS.snackbar.timeout, verticalPosition: 'top',
+                politeness: 'polite', panelClass: 'showSnackBar'
+              });
+              this.router.navigate(['/auth/bo/usermgmt/supportusers'],
+                { relativeTo: this.activatedRoute });
+            },
+              (error) => {
+                console.log('Error' + error);
+              });
+          this.subscriptions.push(subscription);
       }
     }
   }
 
   updateSaveObjectState() {
-    this.societyUserSaveViewModel = new SocietyUserViewModel();
-    this.societyUserSaveViewModel.firstName = this.societyUserForm.get('firstName').value;
-    this.societyUserSaveViewModel.lastName = this.societyUserForm.get('lastName').value;
-    this.societyUserSaveViewModel.email = this.societyUserForm.get('email').value;
-    this.societyUserSaveViewModel.userName = this.societyUserSaveViewModel.email;
-    this.societyUserSaveViewModel.phoneNumber = this.societyUserForm.get('phoneNumber').value;
-    this.societyUserSaveViewModel.isActive = this.societyUserForm.get('isActive').value;
-    this.societyUserSaveViewModel.userType = CONSTANTS.userTypeId.societyUser;
-
-    this.societyUserSaveViewModel.societyUser = new SocietyUser();
-    this.societyUserSaveViewModel.societyUser.societyId = this.societyId;
-    this.societyUserSaveViewModel.societyUser.buildingId = this.societyUserForm.get('buildingId').value;
-    this.societyUserSaveViewModel.societyUser.flatId = this.societyUserForm.get('flatId').value;
-    this.societyUserSaveViewModel.societyUser.roleId = this.societyUserForm.get('roleId').value;
     if (this.operation === this.create) {
+      this.societyUserSaveViewModel = new SocietyUserViewModel();
+      this.societyUserSaveViewModel.firstName = this.societyUserForm.get('firstName').value;
+      this.societyUserSaveViewModel.lastName = this.societyUserForm.get('lastName').value;
+      this.societyUserSaveViewModel.email = this.societyUserForm.get('email').value;
+      this.societyUserSaveViewModel.userName = this.societyUserSaveViewModel.email;
+      this.societyUserSaveViewModel.phoneNumber = this.societyUserForm.get('phoneNumber').value;
+      this.societyUserSaveViewModel.isActive = this.societyUserForm.get('isActive').value;
+      this.societyUserSaveViewModel.userType = CONSTANTS.userTypeId.societyUser;
+
+      this.societyUserSaveViewModel.societyUser = new SocietyUser();
+      this.societyUserSaveViewModel.societyUser.societyId = this.societyId;
+      this.societyUserSaveViewModel.societyUser.buildingId = this.societyUserForm.get('buildingId').value;
+      this.societyUserSaveViewModel.societyUser.flatId = this.societyUserForm.get('flatId').value;
+      this.societyUserSaveViewModel.societyUser.roleId = this.societyUserForm.get('roleId').value;
+
       this.societyUserSaveViewModel.objectState = ObjectState.Added;
       this.societyUserSaveViewModel.societyUser.objectState = ObjectState.Added;
+    } else if (this.operation === this.edit) {
+      this.societyUserUpdateViewModel = new SocietyUserUpdateViewModel();
+      this.societyUserUpdateViewModel.id = this.societyUserViewModel.id;
+      this.societyUserUpdateViewModel.firstName = this.societyUserForm.get('firstName').value;
+      this.societyUserUpdateViewModel.lastName = this.societyUserForm.get('lastName').value;
+      this.societyUserUpdateViewModel.email = this.societyUserForm.get('email').value;
+      this.societyUserUpdateViewModel.userName = this.societyUserSaveViewModel.email;
+      this.societyUserUpdateViewModel.phoneNumber = this.societyUserForm.get('phoneNumber').value;
+      this.societyUserUpdateViewModel.isActive = this.societyUserForm.get('isActive').value;
+      this.societyUserUpdateViewModel.userType = CONSTANTS.userTypeId.societyUser;
+
+      if (this.societyUserUpdateViewModel.firstName !== this.societyUserViewModel.firstName ||
+        this.societyUserUpdateViewModel.lastName !== this.societyUserViewModel.lastName ||
+        this.societyUserUpdateViewModel.email !== this.societyUserViewModel.email ||
+        this.societyUserUpdateViewModel.phoneNumber !== this.societyUserViewModel.phoneNumber ||
+        this.societyUserUpdateViewModel.isActive !== this.societyUserViewModel.isActive) {
+        this.societyUserUpdateViewModel.objectState = ObjectState.Modified;
+      } else {
+        this.societyUserUpdateViewModel.objectState = ObjectState.Unchanged;
+      }
+      this.societyUserUpdateViewModel.userApplicationRole = new UserApplicationRoleViewModel();
+      this.societyUserUpdateViewModel.userApplicationRole.id = this.societyUserViewModel.userAppRoles[0].id;
+      this.societyUserUpdateViewModel.userApplicationRole.applicationId = this.societyUserViewModel.userAppRoles[0].applicationId;
+      this.societyUserUpdateViewModel.userApplicationRole.userId = this.societyUserViewModel.id;
+      this.societyUserUpdateViewModel.userApplicationRole.roleId = this.societyUserForm.get('roleId').value;
+      if (this.societyUserUpdateViewModel.userApplicationRole.roleId !==
+        this.societyUserViewModel.userAppRoles[0].roleId) {
+        this.societyUserUpdateViewModel.objectState = ObjectState.Modified;
+      } else {
+        this.societyUserUpdateViewModel.objectState = ObjectState.Unchanged;
+      }
     }
   }
   ngOnDestroy(): void {

@@ -19,6 +19,8 @@ public static Expression<Func<Domain.Entity.UserAppRoleMapping, UserApplicationR
             {
                 return x => new UserApplicationRole()
                 {
+                    Id = x.Id,
+                    UserId = x.UserId,
                     ApplicationId = x.Application.Id,
                     ApplicationName = x.Application.Name,
                     RoleId = x.Role.Id,

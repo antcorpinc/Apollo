@@ -19,17 +19,80 @@ namespace Apollo.Service.UserManagement
         private IUserRepository _userRepository;
         private ICustomSocietyUserRepository _customSocietyUserRepository;
         private ICustomApplicationRepository _customApplicationRepository;
+        private IUserAppRoleMappingRepository _userAppRoleMappingRepository;
         public SocietyUserService(IUserRepository userRepository,
             ICustomSocietyUserRepository customSocietyUserRepository,
-            ICustomApplicationRepository customApplicationRepository)
+            ICustomApplicationRepository customApplicationRepository,
+            IUserAppRoleMappingRepository userAppRoleMappingRepository)
         {
             _userRepository = userRepository;
             _customSocietyUserRepository = customSocietyUserRepository;
             _customApplicationRepository = customApplicationRepository;
-        }       
+            _userAppRoleMappingRepository = userAppRoleMappingRepository;
+        }
 
         // Complex Mapping add here
+        ApolloUser MapToUpdateEntity(SocietyUserUpdate user, Guid userId)
+        {
+            var apolloUser = this._userRepository.Get(userId);
+            apolloUser.FirstName = user.FirstName;
+            apolloUser.LastName = user.LastName;
+            // Todo why is username null?? For now workaround
+            // apolloUser.UserName = user.UserName;
+            apolloUser.UserName = user.Email;
+            apolloUser.Email = user.Email;
+            apolloUser.PhoneNumber = user.PhoneNumber;
+            apolloUser.UserTypeId = user.UserType;
+            apolloUser.IsActive = user.IsActive;
 
+         //   apolloUser.CreatedBy = user.CreatedBy;
+        // Todo : NOte this is workaround - Fix why the created date is not added when creating
+            apolloUser.CreatedDate = user.UpdatedDate;
+            apolloUser.CreatedBy = user.UpdatedBy;
+            // Todo : NOte this is workaround - Fix why the created date is not added when creating
+            apolloUser.UpdatedBy = user.UpdatedBy;
+            apolloUser.UpdatedDate = user.UpdatedDate;
+            apolloUser.ObjectState = user.ObjectState;
+
+            this._userAppRoleMappingRepository.RemoveAll(apolloUser.UserAppRoleMappings.ToArray());
+            apolloUser.UserAppRoleMappings.Clear();
+
+            var usrAppRoleMap = new Apollo.Domain.Entity.UserAppRoleMapping();
+            usrAppRoleMap.Id = Guid.NewGuid();
+            usrAppRoleMap.UserId = userId;
+            usrAppRoleMap.ApplicationId = user.UserApplicationRole.ApplicationId;
+            usrAppRoleMap.RoleId = user.UserApplicationRole.RoleId;
+            usrAppRoleMap.SocietyId = user.UserApplicationRole.SocietyId;
+            usrAppRoleMap.IsActive = user.IsActive;
+            usrAppRoleMap.ObjectState = user.ObjectState;
+            usrAppRoleMap.CreatedBy = apolloUser.CreatedBy;
+            usrAppRoleMap.CreatedDate = apolloUser.CreatedDate.Value;
+            usrAppRoleMap.UpdatedBy = user.UpdatedBy;
+            usrAppRoleMap.UpdatedDate = user.UpdatedDate;
+
+            apolloUser.UserAppRoleMappings.Add(usrAppRoleMap);
+            //apolloUser.UserAppRoleMappings.Add(new Apollo.Domain.Entity.UserAppRoleMapping
+            //{
+            //    Id = Guid.NewGuid(),
+            //    ApplicationId = user.UserApplicationRole.ApplicationId,
+            //    RoleId = user.UserApplicationRole.RoleId,
+            //    SocietyId = user.UserApplicationRole?.SocietyId.Value,
+            //    IsActive = user.IsActive,
+            //    ObjectState = user.ObjectState,
+            //    CreatedBy = apolloUser.CreatedBy,
+            //    CreatedDate = apolloUser.CreatedDate.Value,
+            //    UpdatedBy = user.UpdatedBy,
+            //    UpdatedDate = user.UpdatedDate
+            //});
+            //apolloUser.SocietyUser = new Domain.Entity.SocietyUser
+            //{
+            //    Id = Guid.NewGuid(),
+            //    SocietyId = user.SocietyUser.SocietyId,
+            //    BuildingId = user.SocietyUser.BuildingId,
+            //    FlatId = user.SocietyUser.FlatId
+            //};
+            return apolloUser;
+        }
         ApolloUser MapToCreateEntity(Domain.DTO.User.SocietyUserCreate user)
         {
             var apolloUser = new ApolloUser();
@@ -89,6 +152,27 @@ namespace Apollo.Service.UserManagement
             return response;
         }
 
+        public async Task<ServiceResponse<Domain.DTO.User.SocietyUser>> UpdateUserAsync(Guid userId,
+            SocietyUserUpdate user)
+        {
+            var validator = new Domain.DTO.User.SocietyUserUpdateValidator();
+            var results = validator.Validate(user);
+            var response = new ServiceResponse<Apollo.Domain.DTO.User.SocietyUser>();
+            response.ErrorMessages = results.Errors.ToList();
+            if (!response.Successful)
+            {
+                return response;
+            }
+            var appUser = MapToUpdateEntity(user, userId);
+            var result = await this._userRepository.Update(appUser);
+            if (!result.Succeeded)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Failed to Update User"));
+                return response;
+            }
+            return response;
+        }
+
         public async Task<ServiceResponse<Domain.DTO.User.SocietyUser>> CreateUserAsync(Domain.DTO.User.SocietyUserCreate user)
         {
             var validator = new Domain.DTO.User.SocietyUserCreateValidator();
@@ -127,5 +211,7 @@ namespace Apollo.Service.UserManagement
             response.Data = societyUser;
             return response;
         }
+
+        
     }
 }

@@ -9,6 +9,7 @@ import { SupportUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/
 import { SocietyUserListViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserlistviewmodel';
 import { SocietyUserViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserviewmodel';
 import { SocietyUserGetViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyusergetviewmodel';
+import { SocietyUserUpdateViewModel } from 'src/app/backoffice/viewmodel/user-mgmt-vm/societyuserupdateviewmodel';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +36,10 @@ export class UserDataService {
   updateSupportUser(user: SupportUserViewModel) {
     return this.authenticatedHttpService.post(this.configurationService.config.baseUrls.userMgmtApi
       + 'api/supportuser/update/', user);
+  }
+  updateSocietyUser(userId: string , user: SocietyUserUpdateViewModel) {
+    return this.authenticatedHttpService.put(
+      `${this.configurationService.config.baseUrls.userMgmtApi}api/societyusers/${userId}`, user);
   }
 
   /* getSupportUserById(userId: string): Observable<SupportUserViewModel> {

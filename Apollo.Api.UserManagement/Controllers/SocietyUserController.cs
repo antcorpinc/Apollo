@@ -1,4 +1,5 @@
 ﻿using Apollo.Domain.DTO;
+using Apollo.Domain.DTO.User;
 using Apollo.Service.UserManagement.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -50,7 +51,18 @@ namespace Apollo.Api.UserManagement.Controllers
             }
             return BadRequest(response.ErrorMessages);
         }
-
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] SocietyUserUpdate user)
+        {
+            user.UpdatedBy = this.LoggedInUserId;
+            user.UpdatedDate = DateTime.UtcNow;
+            var response = await this._userService.UpdateUserAsync(id, user);
+            if (response.Successful)
+            {
+                return NoContent();
+            }
+            return BadRequest(response.ErrorMessages);
+        }
         [Route("getusersinsociety")]
         [HttpGet]
         public async Task<IActionResult> GetUsersInSociety(Guid societyId)
