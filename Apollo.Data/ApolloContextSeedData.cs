@@ -537,6 +537,41 @@ namespace Apollo.Data
                 };
                 _context.Add(feature);
             }
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeSupportRoleManagement) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.BackOfficeFeature.BackOfficeSupportRoleManagement,
+                    Name = "BackOfficeSupportRoleMgmt", // Need to be < 30 characters
+                    Description = "Roles(Support)",
+                    Order = 3,
+                    ParentFeatureId = 1004,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+
+                };
+                _context.Add(feature);
+            }
+            if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyRoleManagement) == null)
+            {
+                Feature feature = new Feature()
+                {
+                    Id = (int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyRoleManagement,
+                    Name = "BackOfficeSocietyRoleMgmt",
+                    Description = "Roles(Society)",
+                    Order = 4,
+                    ParentFeatureId = 1004,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(feature);
+            }
 
             if (_context.Feature.Find((int)FeatureTypes.BackOfficeFeature.BackOfficeSocietyDashboard) == null)
             {
@@ -686,6 +721,30 @@ namespace Apollo.Data
                     Id = new Guid("62C0D0BD-E4E9-4DD7-AF9F-25C52554A272"),
                     ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
                     FeatureId = 1042,
+                    IsActive = true
+                };
+                _context.Add(boFeature);
+            }
+
+            if (_context.ApplicationFeature.Find(Guid.Parse("211512D7-4D3C-4DCD-9199-F65EBA310A4E")) == null)
+            {
+                ApplicationFeature boFeature = new ApplicationFeature()
+                {
+                    Id = new Guid("211512D7-4D3C-4DCD-9199-F65EBA310A4E"),
+                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
+                    FeatureId = 1043,
+                    IsActive = true
+                };
+                _context.Add(boFeature);
+            }
+
+            if (_context.ApplicationFeature.Find(Guid.Parse("1726FCB4-3F7C-4BD0-A531-69E652554B72")) == null)
+            {
+                ApplicationFeature boFeature = new ApplicationFeature()
+                {
+                    Id = new Guid("1726FCB4-3F7C-4BD0-A531-69E652554B72"),
+                    ApplicationId = Guid.Parse("C2FA60FF-4B56-42B5-B6D3-08BA2AFA7D97"),
+                    FeatureId = 1044,
                     IsActive = true
                 };
                 _context.Add(boFeature);
@@ -963,13 +1022,48 @@ namespace Apollo.Data
                 _context.Add(boFeaturePriv);
             }
 
-
-            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("6DA14B0F-ABED-43C6-ACF8-2261E9F8DFCE")) == null)
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("1FC2CEA4-4F1B-4D70-A68D-69E2085EDE5A")) == null)
             {
                 FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
                 {
-                    Id = new Guid("6DA14B0F-ABED-43C6-ACF8-2261E9F8DFCE"),
-                    FeatureId = 1021,
+                    Id = new Guid("1FC2CEA4-4F1B-4D70-A68D-69E2085EDE5A"),
+                    FeatureId = 1043,
+                    Privileges = "VW|CR|DE|AP",
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    SocietyId = null,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(boFeaturePriv);
+            }
+
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("E10C00B9-7C0A-404D-B595-7341F0E91771")) == null)
+            {
+                FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
+                {
+                    Id = new Guid("E10C00B9-7C0A-404D-B595-7341F0E91771"),
+                    FeatureId = 1042,
+                    Privileges = "VW|CR|DE|AP",
+                    RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
+                    SocietyId = null,
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow,
+                };
+                _context.Add(boFeaturePriv);
+            }
+
+            if (_context.FeatureTypeRolePrivilege.Find(Guid.Parse("9BA08779-0DDC-4DE1-91BC-6273ACF46E65")) == null)
+            {
+                FeatureTypeRolePrivilege boFeaturePriv = new FeatureTypeRolePrivilege()
+                {
+                    Id = new Guid("9BA08779-0DDC-4DE1-91BC-6273ACF46E65"),
+                    FeatureId = 1044,
                     Privileges = "VW|CR|DE|AP",
                     RoleId = Guid.Parse("B3411B31-45E8-44F6-BAFB-B65AE7948187"),
                     SocietyId = null,

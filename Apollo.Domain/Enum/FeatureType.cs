@@ -77,10 +77,11 @@ namespace Apollo.Domain.Enum
             // Child Level menus for FinanceManagement -- 1031 - 1040
 
             // Child Level menus for UserManagement -- 1041 - 1050 (Parent - 1004)
-            SupportUser = 1041,
-            SocietyUser,
-            RolesPermissions
-                
+            SupportUser = 1041, // Todo: Change to BackOfficeSupportUserManagement
+            SocietyUser, // Todo: Change to BackOfficeSocietyUserManagement
+            BackOfficeSupportRoleManagement,
+            BackOfficeSocietyRoleManagement
+
             // Child Level Menus For Reports -- Add more for this may be 20 ??
             // 1051 - 1070
 
