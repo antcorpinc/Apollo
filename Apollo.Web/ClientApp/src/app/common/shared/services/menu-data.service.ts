@@ -115,6 +115,8 @@ export class MenuDataService {
       return 'auth/bo/societymgmt/societies';
     } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.societyUser.toUpperCase()) {
       return 'auth/bo/usermgmt/societyusers';
+    } else if (feature.toUpperCase() === CONSTANTS.feature.backoffice.backOfficeSupportRoleMgmt.toUpperCase()) {
+      return 'auth/bo/usermgmt/backofficesupportroles';
     } else {
       return null;
     }

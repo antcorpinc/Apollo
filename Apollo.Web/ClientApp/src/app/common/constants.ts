@@ -18,6 +18,7 @@ export let CONSTANTS = {
           societydashboard: 'BackOfficeSocietyDashboard',
           societyprofile: 'BackOfficeSocietyProfile',
           societyUser: 'SocietyUser',
+          backOfficeSupportRoleMgmt: 'BackOfficeSupportRoleMgmt'
         },
         society: {
 

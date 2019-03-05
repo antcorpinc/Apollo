@@ -27,6 +27,15 @@ namespace Apollo.Data.DataRepository
         {
             return await _context.ApplicationRole.Select(ApplicationRoleListItem.Projection).ToListAsync();
         }
+
+        public async Task<List<ApplicationRoleListItem>> GetApplicationRolesForSupportUsersAsync()
+        {
+            //  return await _context.ApplicationRole.Where(ar  => ar.Role.UserTypeId==1).Select(ApplicationRoleListItem.Projection).ToListAsync();
+            return await _context.ApplicationRole.Where(ar => 
+            ar.Role.UserTypeId == (int)Domain.Enum.UserType.SupportUser)
+            .Select(ApplicationRoleListItem.Projection).ToListAsync();
+
+        }
         public void Dispose()
         {
             Dispose(true);

@@ -64,5 +64,17 @@ namespace Apollo.Api.UserManagement.Controllers
             }
             return BadRequest(response.ErrorMessages);
         }
+
+        [Route("getapplicationrolesforsupportusers")]
+        [HttpGet]
+        public async Task<IActionResult> GetApplicationRolesForSupportUsers()
+        {
+            var response = await this._roleService.GetApplicationRolesForSupportUsersAsync();
+            if (response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
+        }
     }
 }
