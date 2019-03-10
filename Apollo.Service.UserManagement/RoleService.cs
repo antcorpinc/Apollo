@@ -68,5 +68,19 @@ namespace Apollo.Service.UserManagement
             response.Data = roles;
             return response;
         }
+
+        public async Task<ServiceResponse<List<ApplicationRoleListItem>>> GetRolesByApplicationIdAndUserType(Guid applicationId,
+            int userType)
+        {
+            var response = new ServiceResponse<List<ApplicationRoleListItem>>();
+            var roles = await this._customRoleRepository.GetRolesByApplicationIdAndUserType(applicationId, userType);
+            if (roles == null)
+            {
+                response.ErrorMessages.Add(new ValidationFailure("", "Search did not yield any results"));
+                return response;
+            }
+            response.Data = roles;
+            return response;
+        }
     }
 }

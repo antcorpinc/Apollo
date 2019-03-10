@@ -12,5 +12,7 @@ namespace Apollo.Data.Interface
         Task<List<SocietyRoleListItem>> GetRolesInSocietyAsync(Guid societyId);
         Task<List<ApplicationRoleListItem>> GetApplicationRolesAsync();
         Task<List<ApplicationRoleListItem>> GetApplicationRolesForSupportUsersAsync();
+
+        Task<List<ApplicationRoleListItem>> GetRolesByApplicationIdAndUserType(Guid applicationId, int userType);
     }
 }

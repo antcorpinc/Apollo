@@ -4,6 +4,7 @@ import { ApplicationRoleViewModel } from 'src/app/backoffice/viewmodel/user-mgmt
 import { Subscription } from 'rxjs';
 import { CONSTANTS } from 'src/app/common/constants';
 import { RoleDataService } from 'src/app/backoffice/common/backoffice-shared/services/role-data.service';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-support-role-list',
   templateUrl: './support-role-list.component.html',
@@ -28,7 +29,8 @@ export class SupportRoleListComponent implements OnInit, OnDestroy {
   createAction = false;
   readAction = false;
 
-  constructor(private roleDataService: RoleDataService) { }
+  constructor(private roleDataService: RoleDataService, private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.getApplicationRolesForSupportUsers();
@@ -47,6 +49,11 @@ export class SupportRoleListComponent implements OnInit, OnDestroy {
           console.log('Error' + error);
         });
     this.subscriptions.push(subscription);
+  }
+
+  setNewPermissions() {
+    this.router.navigate(['../backofficesupportrole', CONSTANTS.create.id,
+     CONSTANTS.create.id, this.create], { relativeTo: this.activatedRoute });
   }
 
   ngOnDestroy(): void {

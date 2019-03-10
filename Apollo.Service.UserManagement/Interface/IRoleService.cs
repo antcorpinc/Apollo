@@ -18,5 +18,6 @@ namespace Apollo.Service.UserManagement.Interface
         Task<ServiceResponse<List<ApplicationRoleListItem>>> GetApplicationRolesAsync();
 
         Task<ServiceResponse<List<ApplicationRoleListItem>>> GetApplicationRolesForSupportUsersAsync();
+        Task<ServiceResponse<List<ApplicationRoleListItem>>> GetRolesByApplicationIdAndUserType(Guid applicationId, int userType);
     }
 }

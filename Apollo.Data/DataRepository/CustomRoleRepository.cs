@@ -36,6 +36,14 @@ namespace Apollo.Data.DataRepository
             .Select(ApplicationRoleListItem.Projection).ToListAsync();
 
         }
+
+        public async  Task<List<ApplicationRoleListItem>> GetRolesByApplicationIdAndUserType(Guid applicationId, 
+            int userType)
+        {
+            return await _context.ApplicationRole.Where(ar =>
+            ar.ApplicationId == applicationId && ar.Role.UserTypeId == userType)
+            .Select(ApplicationRoleListItem.Projection).ToListAsync();
+        }
         public void Dispose()
         {
             Dispose(true);

@@ -7,6 +7,7 @@ import { BackofficeSharedModule } from '../common/backoffice-shared/backoffice-s
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { SocietyUserListComponent } from './society-user/society-user-list/society-user-list.component';
 import { SocietyUserInfoComponent } from './society-user/society-user-info/society-user-info.component';
+import { SupportRoleInfoComponent } from './support-role/support-role-info/support-role-info.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { SocietyUserInfoComponent } from './society-user/society-user-info/socie
     BackofficeSharedModule,
 
   ],
-  declarations: [ routedUserComponents, ConfirmDialogComponent, SocietyUserListComponent, SocietyUserInfoComponent],
+  declarations: [ routedUserComponents, ConfirmDialogComponent, SocietyUserListComponent, SocietyUserInfoComponent, SupportRoleInfoComponent],
   entryComponents: [ConfirmDialogComponent]
 })
 export class UserMgmtModule { }
