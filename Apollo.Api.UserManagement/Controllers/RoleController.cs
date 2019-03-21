@@ -79,9 +79,14 @@ namespace Apollo.Api.UserManagement.Controllers
 
         [Route("getrolesbyapplicationidandusertype")]
         [HttpGet]
-        public async Task<IActionResult> GetRolesByApplicationIdAndUserType(Guid applicationId, int UserType = 0)
+        public async Task<IActionResult> GetRolesByApplicationIdAndUserType(Guid applicationId, int userType = 0)
         {
-            return Ok();
+            var response = await this._roleService.GetRolesByApplicationIdAndUserType(applicationId, userType);
+            if (response.Successful)
+            {
+                return Ok(response.Data);
+            }
+            return BadRequest(response.ErrorMessages);
         }
     }
 }

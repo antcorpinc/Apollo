@@ -22,4 +22,11 @@ export class RoleDataService {
       return this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi +
         'api/role/getapplicationrolesforsupportusers');
     }
+
+    getRolesByApplicationIdAndUserType(applicationId, userType): Observable<ApplicationRoleViewModel[]> {
+      return this.authenticatedHttpService.get(this.configurationService.config.baseUrls.userMgmtApi +
+        'api/role/getrolesbyapplicationidandusertype?applicationId=' + applicationId
+        + '&userType=' + userType);
+    }
+
 }
