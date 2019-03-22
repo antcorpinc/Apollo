@@ -19,5 +19,45 @@
         </mat-form-field>
       </div>
     </div>
+
+    <h6 class="blackText pt-4 pb-2">
+        Set Permissions
+    </h6>
+    <div class="form-group mb-0">
+        <table class="table profileList genericTable mb-0">
+            <thead>
+                <tr class="title-Bar">
+                  <th class="iconTH"></th>
+                  <th class="moduleTH">Modules</th>
+                  <th class="subModuleTH">Sub-Modules</th>
+                  <th class="subSubModuleTH">Sub Sub-Modules</th>
+                  <th class="readAccessTH">Read-Only</th>
+                  <th class="fullAccessTH">Full Access</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <ng-container formArrayName="featureDetails" *ngFor="let feature of featureDetails.controls; let i =index">
+                      <ng-container [formGroupName]="i">
+                          <tr class="featureName">
+                              <td class="moduleTH">
+                                  <!-- {{featureDetails.controls[i].get("description").value}} -->
+                                  {{feature.get('description').value}}
+                                </td>
+                            </tr>
+
+                            <ng-container formArrayName="subFeature" *ngFor="let firstLevelSubfeature of getFirstLevelSubFeatureDetails(i).controls; let j =index">
+                               <ng-container [formGroupName]="j">
+                                    <tr class="subFeatureName" *ngIf="getFirstLevelSubFeatureDetails(i).controls.length > 0 ">
+                                        <td class="moduleTH">
+                                            {{firstLevelSubfeature.get('description').value}}
+                                          </td>
+                                      </tr>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                  </ng-container>
+              </tbody>
+          </table>
+    </div>
   </form>
 </div>

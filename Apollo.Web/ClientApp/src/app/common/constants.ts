@@ -44,6 +44,11 @@ export let CONSTANTS = {
 
   snackbar: {
     timeout: 1500
-  }
+  },
+
+  privilegeType: {
+    readOnly: 'VW',
+    fullAccess: 'VW|CR|DE|AP'
+  },
 
 };
