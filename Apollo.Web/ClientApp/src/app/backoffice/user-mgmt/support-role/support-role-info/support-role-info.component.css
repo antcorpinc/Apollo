@@ -1,0 +1,119 @@
+ .iconTH {
+  width:3%;
+}
+
+.moduleTH{
+  width:17%;
+}
+
+.subModuleTH {
+  width:25%;
+}
+
+.readAccessTH{
+  width:15%;
+}
+
+.fullAccessTH {
+  width: 15%;
+}
+
+.subSubModuleTH{
+  width:25%
+}
+
+.controlButtons {
+  padding-top: 30px;
+  padding-bottom: 13px;
+}
+
+.profileList td,
+.profileList th {
+  vertical-align: middle !important;
+}
+
+.profileList td {
+  border-bottom: 1px solid #e9ecef;
+  border-top: none;
+}
+
+.title-Bar {
+  background-color: #ebebeb;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.transparent-circle {
+  border: 1px solid #29aae2;
+  height: 30px;
+  width: 30px;
+  border-radius: 1.25rem;
+  position: relative;
+  background: white;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.transparent-circle .fa-minus:before {
+  content: "\F068";
+  position: absolute;
+  color: #29aae2;
+  top: 26%;
+  left: 30%;
+}
+
+.transparent-circle .fa-plus:before {
+  content: "\F067";
+  position: absolute;
+  top: 26%;
+  left: 30%;
+  color: #29aae2;
+}
+
+.transparent-circle .plusIcon, .transparent-circle .minusIcon {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  color: #29aae2;
+}
+
+.featureName {
+  background: #f3f8ff;
+  color: #666;
+}
+
+.subFeatureName {
+  color: #666 !important;
+  background:#fff !important;
+}
+
+.transparent-circle.subPart {
+  background: #29aae2;
+  left: 227px;
+  height: 23px;
+  width: 23px;
+}
+
+.subPart .material-icons.plusIcon, .subPart .material-icons.minusIcon {
+  color: #fff !important;
+  font-size: 18px;
+  left:1.5px;
+  top: 1.4px;
+}
+
+.expandSubFeature .iconTH, .expandSubFeature .moduleTH {
+  border-bottom: 1px solid #fff !important;
+}
+
+.expandSubFeature .iconTH, .subFeatureName .moduleTH,
+.expandSubFeature .subModuleTH,
+ .expandSubFeature .subSubModuleTH,
+  .expandSubFeature .readAccessTH,
+   .expandSubFeature .fullAccessTH {
+  padding: 6px 10px;
+}
+
+.expandSubFeature .checkAll {
+  vertical-align: top;
+}
+
