@@ -39,12 +39,10 @@
           <ng-container formArrayName="featureDetails" *ngFor="let feature of featureDetails.controls; let i =index">
             <ng-container [formGroupName]="i">
               <tr class="featureName">
-                <td class="iconTH">
+                <td class="iconTH" (click)="featureDetails.controls[i].get('isExpanded').value = !featureDetails.controls[i].get('isExpanded').value">
                   <div class="ml-1 transparent-circle" *ngIf="getFirstLevelSubFeatureDetails(i).controls.length > 0">
-                    <div class="material-icons plusIcon" aria-hidden="true"
-                      *ngIf="featureDetails.controls[i].get('isExpanded').value === false">add</div>
-                    <div class="material-icons minusIcon" aria-hidden="true"
-                      *ngIf="featureDetails.controls[i].get('isExpanded').value === true">remove</div>
+                    <div class="material-icons plusIcon" aria-hidden="true" *ngIf="featureDetails.controls[i].get('isExpanded').value === false">add</div>
+                    <div class="material-icons minusIcon" aria-hidden="true" *ngIf="featureDetails.controls[i].get('isExpanded').value === true">remove</div>
                   </div>
                 </td>
                 <td class="moduleTH">
@@ -54,15 +52,16 @@
                 <td class="subModuleTH">&nbsp;</td>
                 <td class="subSubModuleTH">&nbsp;</td>
                 <td class="readAccessTH">
-                    <mat-checkbox class="checkAll" formControlName="isModuleReadOnly"></mat-checkbox>
+                    <mat-checkbox class="checkAll" formControlName="isModuleReadOnly"
+                    (change)="selectAllReadOnly($event, i)">
+                    </mat-checkbox>
                   </td>
                   <td class="fullAccessTH">
                     <mat-checkbox class="checkAll" formControlName="isModuleFullAccess"></mat-checkbox>
                   </td>
               </tr>
 
-              <ng-container formArrayName="subFeature"
-                *ngFor="let firstLevelSubfeature of getFirstLevelSubFeatureDetails(i).controls; let j =index">
+              <ng-container formArrayName="subFeature" *ngFor="let firstLevelSubfeature of getFirstLevelSubFeatureDetails(i).controls; let j =index">
                 <ng-container [formGroupName]="j">
                   <tr class="subFeatureName" *ngIf="getFirstLevelSubFeatureDetails(i).controls.length > 0 ">
                       <td class="iconTH" >
@@ -70,16 +69,15 @@
                                <span class="material-icons minusIcon" aria-hidden="true" >remove</span>
                             </div>
                       </td>
-                    <td class="moduleTH">
-                      {{firstLevelSubfeature.get('description').value}}
-                    </td>
+                    <td class="moduleTH"> </td>
+                    <td class="subModuleTH">  {{firstLevelSubfeature.get('description').value}} </td>
                     <td class="subSubModuleTH">&nbsp;</td>
                     <td class="readAccessTH">
-                      <mat-checkbox class="checkAll" formControlName="isReadOnly" >
+                      <mat-checkbox class="checkAll" formControlName="isModuleReadOnly" >
                       </mat-checkbox>
                     </td>
                     <td class="fullAccessTH">
-                      <mat-checkbox class="checkAll" formControlName="isFullAccess" >
+                      <mat-checkbox class="checkAll" formControlName="isModuleFullAccess" >
                       </mat-checkbox>
                     </td>
                   </tr>

@@ -110,6 +110,19 @@ export class SupportRoleInfoComponent implements OnInit, AfterViewInit {
     return <FormArray>this.featureDetails.controls[featureGroupIndex].get('subFeature');
   }
 
+  selectAllReadOnly(event, featureIndex) {
+    this.getFirstLevelSubFeatureDetails(featureIndex).controls.forEach(
+      (feature, i) => {
+        feature.patchValue({
+          isModuleReadOnly: event.checked
+        });
+        if (feature.value.isFullAccess) {
+          feature.patchValue({
+            isModuleFullAccess: false
+          });
+        }
+      });
+  }
 
   buildFeatureDetails(feature: FeatureViewModel): FormGroup {
     let featureDetailGroup: FormGroup;
