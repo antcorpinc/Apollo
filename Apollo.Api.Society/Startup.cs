@@ -48,11 +48,11 @@ namespace Apollo.Api.Society
                         Configuration.GetConnectionString("ApolloContextConnection"));
                 });
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                  .AddIdentityServerAuthentication(options =>
+                  .AddJwtBearer(options =>
                   {
                       options.Authority = Configuration["BaseUrls:Sts"];
                       options.RequireHttpsMetadata = false;
-                      options.ApiName = "apollo.api.society";
+                      options.Audience = "apollo.api.society";
                   });
 
             services.AddScoped<ISocietyService, SocietyService>();

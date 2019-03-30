@@ -51,7 +51,7 @@ namespace Apollo.Sts.Configuration
                         "apollo.api.backoffice"
                     }, 
                     //IdentityTokenLifetime = 120,
-                    //AccessTokenLifetime = 120                   
+                    // AccessTokenLifetime = 120                   
             };
         }      
     }

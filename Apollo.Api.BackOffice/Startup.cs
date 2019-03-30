@@ -45,11 +45,11 @@ namespace Apollo.Api.BackOffice
                         Configuration.GetConnectionString("ApolloContextConnection"));
                 });
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                  .AddIdentityServerAuthentication(options =>
+                  .AddJwtBearer(options =>
                   {
                       options.Authority = Configuration["BaseUrls:Sts"];
                       options.RequireHttpsMetadata = false;
-                      options.ApiName = "apollo.api.backoffice";
+                      options.Audience = "apollo.api.backoffice";
                   });
             services.AddScoped<IStateRepository, StateRepository>();
 

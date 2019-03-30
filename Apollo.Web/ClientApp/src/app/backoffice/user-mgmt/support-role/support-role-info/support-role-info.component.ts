@@ -105,7 +105,7 @@ export class SupportRoleInfoComponent implements OnInit, AfterViewInit {
     return <FormArray>this.permissionForm.get('featureDetails');
   }
 
-  getFirstLevelSubFeatureDetails(featureGroupIndex: number) : FormArray{
+  getFirstLevelSubFeatureDetails(featureGroupIndex: number): FormArray{
     const tempArray = <FormArray>this.featureDetails.controls[featureGroupIndex].get('subFeature');
     return <FormArray>this.featureDetails.controls[featureGroupIndex].get('subFeature');
   }
@@ -116,9 +116,16 @@ export class SupportRoleInfoComponent implements OnInit, AfterViewInit {
         feature.patchValue({
           isModuleReadOnly: event.checked
         });
-        if (feature.value.isFullAccess) {
+        if (feature.value.isModuleFullAccess) {
           feature.patchValue({
             isModuleFullAccess: false
+          });
+        }
+      });
+      this.featureDetails.controls.forEach((feature, i) =>{
+        if (i === featureIndex) {
+          feature.patchValue({
+            isModuleFullAccess : false
           });
         }
       });

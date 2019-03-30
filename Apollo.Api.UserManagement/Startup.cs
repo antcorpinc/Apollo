@@ -51,11 +51,11 @@ namespace Apollo.Api.UserManagement
                     .AddEntityFrameworkStores<ApolloContext>();
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                   .AddIdentityServerAuthentication(options =>
+                   .AddJwtBearer(options =>
                    {
                        options.Authority = Configuration["BaseUrls:Sts"];
                        options.RequireHttpsMetadata = false;
-                       options.ApiName = "apollo.api.usermanagement";
+                       options.Audience = "apollo.api.usermanagement";
                    });
 
             services.AddScoped<IUserRepository, UserRepository>();

@@ -11,6 +11,7 @@ namespace Apollo.Sts.Settings
     }
 
     public class BaseUrls {
-        public string Web { get; set; }            
+        public string Web { get; set; }   
+        public string Sts { get; set; }
     }
 }

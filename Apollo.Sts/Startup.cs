@@ -12,6 +12,7 @@ using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -47,8 +48,9 @@ namespace Apollo.Sts
             services.Configure<AppSettings>(Configuration);
 
             services.AddMvc();
-
-            services.AddIdentityServer()
+            // The below are load balancing scenarios
+            services.AddIdentityServer(options =>
+                    options.PublicOrigin = Configuration["BaseUrls:Sts"])
                     .AddDeveloperSigningCredential() // Todo Change to PROD certificate
                     .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
                     .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
@@ -60,7 +62,15 @@ namespace Apollo.Sts
             services.AddSingleton<IClientStore, ApolloClientStore>();
 
             services.AddCors();
-
+            // The below are load balancing scenarios
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.RequireHeaderSymmetry = false;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
