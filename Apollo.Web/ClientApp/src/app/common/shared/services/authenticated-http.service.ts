@@ -4,13 +4,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import {AuthService} from './auth.service';
 import { ApolloError } from '../../apolloerror';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticatedHttpService {
     constructor(private authService: AuthService,
-    private _http: HttpClient
+      private _http: HttpClient, private router: Router
   ) { }
 
       get(url): Observable<any> {
@@ -47,7 +48,15 @@ export class AuthenticatedHttpService {
        const dataError = new ApolloError();
       dataError.errorNumber = error.status;
       dataError.message = error.message;
-      dataError.friendlyMessage = 'Please contact support @ Mg';
-      return throwError(dataError);
+      dataError.friendlyMessage = 'Please try again .If the problem persists ,Kindly contact support';
+
+      if (error.status === 401) {
+        this.authService.logout();
+        dataError.friendlyMessage = 'Could not refresh Auth Token . Logging Off';
+        this.router.navigate(['/home']);
+        // Should we navigate to home page ?? and not throw error?
+      } else {
+        return throwError(dataError);
+      }
  }
 }
