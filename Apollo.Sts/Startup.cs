@@ -46,18 +46,28 @@ namespace Apollo.Sts
                 .AddDefaultTokenProviders();
             services.AddOptions();
             services.Configure<AppSettings>(Configuration);
-
+            var defaultSigning = Configuration["SigningCertificate:Default"];
             services.AddMvc();
-            // The below are load balancing scenarios
-            services.AddIdentityServer(options =>
-                    options.PublicOrigin = Configuration["BaseUrls:Sts"])
+            if(defaultSigning == null || defaultSigning == "true")
+            {
+            services.AddIdentityServer(options => options.PublicOrigin = Configuration["BaseUrls:Sts"])  // For  load balancing scenarios
                     .AddDeveloperSigningCredential() // Todo Change to PROD certificate
                     .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
                     .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
                     .AddAspNetIdentity<ApolloUser>()
                     .AddProfileService<ApolloProfileService>()
                     .AddClientStore<ApolloClientStore>();
-
+            }
+            else 
+            {
+                services.AddIdentityServer(options => options.PublicOrigin = Configuration["BaseUrls:Sts"])  // For  load balancing scenarios
+                    .AddSigningCredential(IdentityServerConfig.GetSigningCertificate(Configuration["SigningCertificate:Name"], Configuration["SigningCertificate:Password"]))
+                    .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+                    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+                    .AddAspNetIdentity<ApolloUser>()
+                    .AddProfileService<ApolloProfileService>()
+                    .AddClientStore<ApolloClientStore>();
+            }
             services.AddScoped<IProfileService, ApolloProfileService>();
             services.AddSingleton<IClientStore, ApolloClientStore>();
 

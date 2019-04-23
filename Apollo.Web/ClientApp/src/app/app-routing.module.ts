@@ -9,6 +9,7 @@ import { UnauthorizedComponent } from './framework/fw/unauthorized/unauthorized.
 import { AuthenticatedUserComponent } from './common/default/authenticated-user/authenticated-user.component';
 import { BackofficeDashboardComponent } from './backoffice/common/backoffice-shared/backoffice-dashboard/backoffice-dashboard.component';
 import { SocietyDashboardComponent } from './society/common/society-shared/society-dashboard/society-dashboard.component';
+import { ErrorComponent } from './framework/fw/error/error.component';
 
 export const routes: Routes = [
   // { path: 'dashboard', component: DashboardComponent},
@@ -16,7 +17,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'test', component: TestComponent }, // Todo - Need to remove this
   { path: 'unauthorized', component: UnauthorizedComponent },
-
+  { path: 'error', component: ErrorComponent},
   // Authenticated Routes
   {
     path: 'auth', component: AuthenticatedUserComponent,

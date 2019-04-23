@@ -4,8 +4,10 @@ using IdentityServer4.Test;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Apollo.Sts.Configuration
@@ -52,6 +54,19 @@ namespace Apollo.Sts.Configuration
                        }
                    },                 
                 };
+        }
+
+        public static X509Certificate2 GetSigningCertificate(string certName, string certPassword)
+        {
+            var fileName = Path.Combine(Directory.GetCurrentDirectory(), "Certificates", certName);
+            var certDirectory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "Certificates"));
+            var info = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "Certificates")).GetFiles();
+            if (!File.Exists(fileName))
+            {
+                throw new FileNotFoundException("Signing Certificate is missing!");
+            }
+            var cert = new X509Certificate2(fileName, certPassword);
+            return cert;
         }
     }   
 

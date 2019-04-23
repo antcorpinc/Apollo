@@ -14,6 +14,7 @@ import { SideNavComponent } from './menus/side-nav/side-nav.component';
 import { SideNavItemComponent } from './menus/side-nav-item/side-nav-item.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   declarations: [FrameworkBodyComponent, ContentComponent, TitleBarComponent,
     TopBarComponent, StatusBarComponent, MenuComponent, MenuItemComponent,
-    SideNavComponent, SideNavItemComponent, UnauthorizedComponent],
+    SideNavComponent, SideNavItemComponent, UnauthorizedComponent, ErrorComponent],
   exports: [
     FrameworkBodyComponent
   ]
