@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Certificates\" />
     <Folder Include="Settings\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -18,6 +19,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Apollo.Data\Apollo.Data.csproj" />
     <ProjectReference Include="..\Apollo.Domain\Apollo.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Certificates\apollostsdevelopment.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tempkey.rsa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
