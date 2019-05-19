@@ -1428,6 +1428,39 @@ namespace Apollo.Data
 
             // ~Add Society Roles
 
+            // Add Form 
+            if (_context.FormType.Find((int)FormTypes.Complaint) == null)
+            {
+                Domain.Entity.Form.FormType formType= new Domain.Entity.Form.FormType()
+                {
+                    Id = (int)FormTypes.Complaint,
+                    Name = "Complaint",
+                    Description = "This Form is for raising complaints by residents",
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(formType);
+            }
+
+            if (_context.FormType.Find((int)FormTypes.MovingOut) == null)
+            {
+                Domain.Entity.Form.FormType formType = new Domain.Entity.Form.FormType()
+                {
+                    Id = (int)FormTypes.MovingOut,
+                    Name = "MovingOut",
+                    Description = "This Form is when resident is moving out of the society",
+                    IsActive = true,
+                    CreatedBy = "SystemAdmin",
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedBy = "SystemAdmin",
+                    UpdatedDate = DateTime.UtcNow
+                };
+                _context.Add(formType);
+            }
+            //~ Add Form
             _context.SaveChanges();
         }
     }

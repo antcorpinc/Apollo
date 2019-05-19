@@ -1,4 +1,5 @@
 ﻿using Apollo.Domain.Entity;
+using Apollo.Domain.Entity.Form;
 using Apollo.Domain.Entity.MasterData;
 using Apollo.Domain.Entity.Society;
 using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,9 @@ namespace Apollo.Data
 
         //~ Society Schema Tables 
 
+        // Forms Schema Tables
+        public virtual DbSet<FormType> FormType { get; set; }
+        //~ Forms Schema Tables
 
         public ApolloContext(DbContextOptions<ApolloContext> options) : base(options)
         {
