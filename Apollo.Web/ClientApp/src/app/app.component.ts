@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     private _router: Router,
     private errorService: ErrorService
   ) {
-    this.initialize();
+   // this.initialize();
   }
 
   ngOnInit(): void {
@@ -36,7 +36,25 @@ export class AppComponent implements OnInit {
           this._router.navigateByUrl(url);
         });
       }
-      this.initialize();
+      if (window.location.href.indexOf('/error') > 0) {
+        //Todo: Handle special condition of time zone out of sync
+        // Note this messages needs to be checked if oidc library is upgraded and see messages 
+        // are same
+        // This error occurs when the server side where STS is running time and the client browser
+        // time is out of sync i.e. In most cases it is client browser out of sync so tell 
+        // --> the users to set their browser clock time to the correct one.
+        // --> In rare cases the STS server time could be out of sync , then the server time needs
+        // to set correctly
+        // Another error occurs when the STS server time and the API server time is out of sync
+        // --> In that case the access tokens get expired so make sure also all servers are also in sync  
+        // Add in the error service the messages to set the time in sync
+        localStorage.removeItem('oidc-error');
+      } else {
+        this.initialize();
+      }
+          
+
+      
     } else {
       let cookieEnableLink = '';
       const userAgent = window.navigator.userAgent;

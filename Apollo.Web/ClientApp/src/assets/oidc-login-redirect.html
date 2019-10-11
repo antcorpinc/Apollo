@@ -8,10 +8,12 @@
   mgr.signinRedirectCallback().then(() => {
         window.history.replaceState({},
             window.document.title,
-            window.location.origin);
+            window.location.origin);      
         window.location = "/";
     }, error => {
+        localStorage.setItem('oidc-error' , error);
         console.error(error);
+        window.location = "/error";
     });
 
 </script>
