@@ -33,6 +33,14 @@ namespace Apollo.Domain.Entity
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; }
 
+        public bool? IsMenuRequired { get; set; }
+        public bool? ViewAccess { get; set; }
+        public bool? AddAccess { get; set; }
+        public bool? EditAccess { get; set; }
+        public bool? DeleteAccess { get; set; }
+        public bool? ApproveAccess { get; set; }
+        public bool? IsRequired { get; set; }
+
         [ForeignKey("ParentFeatureId")]
  
         public Feature ParentFeature { get; set; }

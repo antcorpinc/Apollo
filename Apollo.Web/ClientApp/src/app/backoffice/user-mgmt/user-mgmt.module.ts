@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
 import { SocietyUserListComponent } from './society-user/society-user-list/society-user-list.component';
 import { SocietyUserInfoComponent } from './society-user/society-user-info/society-user-info.component';
 import { SupportRoleInfoComponent } from './support-role/support-role-info/support-role-info.component';
+import { SupportRolesPermissionComponent } from './support-role/support-roles-permission/support-roles-permission.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { SupportRoleInfoComponent } from './support-role/support-role-info/suppo
     BackofficeSharedModule,
 
   ],
-  declarations: [ routedUserComponents, ConfirmDialogComponent, SocietyUserListComponent, SocietyUserInfoComponent, SupportRoleInfoComponent],
+  declarations: [ routedUserComponents, ConfirmDialogComponent, SocietyUserListComponent, SocietyUserInfoComponent, SupportRoleInfoComponent, SupportRolesPermissionComponent],
   entryComponents: [ConfirmDialogComponent]
 })
 export class UserMgmtModule { }
